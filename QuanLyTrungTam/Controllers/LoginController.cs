@@ -2,6 +2,7 @@
 using QuanLyTrungTam.Code;
 using QuanLyTrungTam.Models;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace QuanLyTrungTam.Controllers
 {
@@ -19,10 +20,11 @@ namespace QuanLyTrungTam.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Index(LoginModel model)
         {
-            var result = new TaiKhoanModel().Login(model.TaiKhoan, model.MatKhau);
-            if(result && ModelState.IsValid)
-            {   
-                SessionHelper.SetSession(new UserSession() { TaiKhoan = model.TaiKhoan });
+            //var result = new TaiKhoanModel().Login(model.TaiKhoan, model.MatKhau);
+            if(Membership.ValidateUser(model.TaiKhoan,model.MatKhau) && ModelState.IsValid)
+            {
+                //SessionHelper.SetSession(new UserSession() { TaiKhoan = model.TaiKhoan });
+                FormsAuthentication.SetAuthCookie(model.TaiKhoan,model.TinhTrang);
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -31,6 +33,12 @@ namespace QuanLyTrungTam.Controllers
             }
 
             return View(model);
+        }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Login");
         }
     }
 }
