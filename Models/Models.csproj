@@ -53,8 +53,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Framework\BangDiem.cs" />
+    <Compile Include="Framework\CTKhoaHoc.cs" />
     <Compile Include="Framework\DangNhap.cs" />
     <Compile Include="Framework\eCenterDbContext.cs" />
+    <Compile Include="Framework\GiaoVien.cs" />
+    <Compile Include="Framework\HocVien.cs" />
+    <Compile Include="Framework\KhoaHoc.cs" />
+    <Compile Include="Framework\PhuHuynh.cs" />
+    <Compile Include="Framework\ThoiKhoaBieu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TaiKhoanModel.cs" />
   </ItemGroup>
