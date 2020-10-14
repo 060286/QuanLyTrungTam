@@ -106,7 +106,7 @@ namespace QuanLyTrungTam.Code
 
         public override bool ValidateUser(string username, string password)
         {
-            return new TaiKhoanModel().Login(username, password);
+            return new TaiKhoanDao().Login(username, password);
         }
     }
 }

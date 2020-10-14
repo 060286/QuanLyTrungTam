@@ -222,12 +222,12 @@ pre {
 }
 
 .page-content {
-  position: relative;
-  background: #22252a;
-  min-height: 100vh;
-  width: calc(100% - 280px);
-  padding: 0;
-  padding-bottom: 70px;
+    position: relative;
+    background: #22252a;
+    min-height: 100vh;
+    width: calc(100%);
+    padding: 0;
+    padding-bottom: 70px;
 }
 
 .page-content.active {

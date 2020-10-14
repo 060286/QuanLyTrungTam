@@ -225,7 +225,7 @@ pre {
   position: relative;
   background: #22252a;
   min-height: 100vh;
-  width: calc(100% - 280px);
+  width: calc(100%);
   padding: 0;
   padding-bottom: 70px;
 }
@@ -239,6 +239,7 @@ pre {
   background: #2d3035;
   color: #8a8d93;
   margin-bottom: 30px;
+  width: 100%;
 }
 
 .footer {
