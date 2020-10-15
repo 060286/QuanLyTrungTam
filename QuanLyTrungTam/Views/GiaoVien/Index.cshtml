@@ -1,4 +1,5 @@
-﻿@model List<Models.Framework.GiaoVien>
+﻿@model PagedList.IPagedList <Models.Framework.GiaoVien>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
@@ -37,6 +38,7 @@
                                         <th>Email</th>
                                         <th>SĐT</th>
                                         <th>Trạng thái</th>
+                                        <th>Chức năng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -50,10 +52,15 @@
                                         <td>@item.Email</td>
                                         <td>@item.SDT</td>
                                         <td>@(item.TrangThai.GetValueOrDefault(false)? "Hoạt động" : "Khóa")</td>
+                                        <td href="/GiaoVien/Edit/@item.MaGiaoVien">Sửa</td>
+                                        <td href="/GiaoVien/Details/@item.MaGiaoVien">Chi tiết</td>
+                                        <td href="/GiaoVien/Delete/@item.MaGiaoVien">Xóa</td>
                                     </tr>
                                     }
                                 </tbody>
                             </table>
+                            <br />
+                            @Html.PagedListPager(Model,page => Url.Action("Index",new { page}))
                         </div>
                     </div>
                 </div>

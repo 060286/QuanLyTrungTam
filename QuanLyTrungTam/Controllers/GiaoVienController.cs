@@ -1,16 +1,17 @@
 ﻿using System.Web.Mvc;
 using Models;
 using Models.Framework;
+using PagedList;
 
 namespace QuanLyTrungTam.Controllers
 {
     public class GiaoVienController : Controller
     {
         // GET: GiaoVien
-        public ActionResult Index()
+        public ActionResult Index(int page = 1,int pageSize = 1)
         {
-            var iplGv = new GiaoVienDao();
-            var model = iplGv.listAll();
+            var dao = new GiaoVienDao();
+            var model = dao.ListAllPaging(page, pageSize);
 
             return View(model);
         }
