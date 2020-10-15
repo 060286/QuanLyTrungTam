@@ -51,9 +51,9 @@
                     <button class="sidebar-toggle"><i class="fa fa-long-arrow-left"></i></button>
                 </div>
                 <div class="right-menu list-inline no-margin-bottom">
-                    
+
                     <!-- Log out -->
-                    <div class="list-inline-item logout"> 
+                    <div class="list-inline-item logout">
                         @*@Html.ActionLink("", "Logout", "Login");*@
                         <a id="logout" class="nav-link" href="@Url.Action("Logout", "Login")"><span class="d-none d-sm-inline">Logout </span><i class="icon-logout"></i></a>
                     </div>
@@ -107,7 +107,9 @@
     <script src="/Assets/Admin/vendor/chart.js/Chart.min.js"></script>
     <script src="/Assets/Admin/vendor/jquery-validation/jquery.validate.min.js"></script>
     <script src="/Assets/Admin/js/charts-home.js"></script>
+    <script src="~/Assets/Admin/js/jquery.validate.unobtrusive.min.js"></script>
     <script src="/Assets/Admin/js/front.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <!--Trang KH chạy thì báo lỗi-->
     @RenderSection("ClientScript", false)
 </body>
