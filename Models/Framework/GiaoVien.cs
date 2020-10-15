@@ -29,7 +29,7 @@
         public string GioiTinh { get; set; }
 
         [DisplayName("Ngày sinh")]
-        [Column(TypeName = "date")]
+        //[Column(TypeName = "date")]
         public DateTime? NgaySinh { get; set; }
 
         [DisplayName("Ngày đăng ký")]

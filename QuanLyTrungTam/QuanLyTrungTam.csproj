@@ -695,6 +695,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\GiaoVien\Index.cshtml" />
     <Content Include="Views\GiaoVien\Create.cshtml" />
+    <Content Include="Views\GiaoVien\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
