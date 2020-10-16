@@ -2,18 +2,17 @@
 using Models;
 using Models.Framework;
 using PagedList;
-
 namespace QuanLyTrungTam.Controllers
 {
     public class GiaoVienController : Controller
     {
         // GET: GiaoVien
-        public ActionResult Index(int page = 1,int pageSize = 1)
+        public ActionResult Index(int page = 1, int pageSize = 1)
         {
-            var dao = new GiaoVienDao();
-            var model = dao.ListAllPaging(page, pageSize);
+            var daoGiaoVien = new GiaoVienDao();
+            var modelGiaoVien = daoGiaoVien.ListAllPaging(page, pageSize);
 
-            return View(model);
+            return View(modelGiaoVien);
         }
 
         // GET: GiaoVien/Details/5
@@ -33,16 +32,17 @@ namespace QuanLyTrungTam.Controllers
 
         // POST: GiaoVien/Create
         [HttpPost]
-        public ActionResult Create(GiaoVien gv)
+        public ActionResult Create(GiaoVien giaoVien)
         {
             try
             {
                 // TODO: Add insert logic here
                 if (ModelState.IsValid)
                 {
-                    var dao = new GiaoVienDao();
-                    int id = dao.Insert(gv);
-                    if(id>0)
+                    var daoGiaoVien = new GiaoVienDao();
+                    int layMaGiaoVien = daoGiaoVien.Insert(giaoVien);
+
+                    if (layMaGiaoVien > 0)
                     {
                         return RedirectToAction("Index", "GiaoVien");
                     }
@@ -51,7 +51,7 @@ namespace QuanLyTrungTam.Controllers
                         ModelState.AddModelError("", "Thêm thất bại");
                     }
                 }
-                return View(gv);
+                return View(giaoVien);
             }
             catch
             {
@@ -60,40 +60,57 @@ namespace QuanLyTrungTam.Controllers
         }
 
         // GET: GiaoVien/Edit/5
+        [HttpGet]
         public ActionResult Edit(int id)
         {
-            return View();
+            var _giaoVien = new GiaoVienDao().ViewDetail(id);
+
+            return View(_giaoVien);
         }
 
         // POST: GiaoVien/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(GiaoVien giaoVien)
         {
             try
             {
-                // TODO: Add update logic here
+                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    var daoGiaoVien = new GiaoVienDao();
 
-                return RedirectToAction("Index");
+                    var res = daoGiaoVien.Update(giaoVien);
+                    if (res)
+                    {
+                        return RedirectToAction("Index", "GiaoVien");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Thêm thất bại");
+                    }
+                }
+                return View(giaoVien);
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index", "Home");
             }
         }
 
         // GET: GiaoVien/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete()
         {
             return View();
         }
 
         // POST: GiaoVien/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpDelete]
+        public ActionResult Delete(int id)
         {
             try
             {
                 // TODO: Add delete logic here
+                new GiaoVienDao().Delete(id);
 
                 return RedirectToAction("Index");
             }
