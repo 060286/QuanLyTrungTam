@@ -12,7 +12,8 @@ namespace Models.Framework
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public HocVien()
         {
-            KhoaHocs = new HashSet<KhoaHoc>();
+            BangDiems = new HashSet<BangDiem>();
+            HoaDons = new HashSet<HoaDon>();
             PhuHuynhs = new HashSet<PhuHuynh>();
         }
 
@@ -47,7 +48,10 @@ namespace Models.Framework
         public string Nguon { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KhoaHoc> KhoaHocs { get; set; }
+        public virtual ICollection<BangDiem> BangDiems { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HoaDon> HoaDons { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhuHuynh> PhuHuynhs { get; set; }

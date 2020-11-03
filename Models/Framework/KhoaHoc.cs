@@ -12,8 +12,8 @@ namespace Models.Framework
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public KhoaHoc()
         {
-            BangDiems = new HashSet<BangDiem>();
-            CTKhoaHocs = new HashSet<CTKhoaHoc>();
+            ChiTietHoaDons = new HashSet<ChiTietHoaDon>();
+            ChiTietKhoaHocs = new HashSet<ChiTietKhoaHoc>();
         }
 
         [Key]
@@ -33,13 +33,11 @@ namespace Models.Framework
         public decimal? HocPhi { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BangDiem> BangDiems { get; set; }
+        public virtual ICollection<ChiTietHoaDon> ChiTietHoaDons { get; set; }
 
         public virtual GiaoVien GiaoVien { get; set; }
 
-        public virtual HocVien HocVien { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CTKhoaHoc> CTKhoaHocs { get; set; }
+        public virtual ICollection<ChiTietKhoaHoc> ChiTietKhoaHocs { get; set; }
     }
 }

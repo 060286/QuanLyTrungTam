@@ -59,16 +59,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\GiaoVienDao.cs" />
+    <Compile Include="DAO\HocVienDao.cs" />
+    <Compile Include="DAO\KhoaHocDao.cs" />
+    <Compile Include="DAO\PhuHuynhDao.cs" />
     <Compile Include="Framework\BangDiem.cs" />
-    <Compile Include="Framework\CTKhoaHoc.cs" />
+    <Compile Include="Framework\ChiTietHoaDon.cs" />
+    <Compile Include="Framework\ChiTietKhoaHoc.cs" />
     <Compile Include="Framework\DangNhap.cs" />
     <Compile Include="Framework\eCenterDbContext.cs" />
     <Compile Include="Framework\GiaoVien.cs" />
+    <Compile Include="Framework\HoaDon.cs" />
     <Compile Include="Framework\HocVien.cs" />
     <Compile Include="Framework\KhoaHoc.cs" />
     <Compile Include="Framework\PhuHuynh.cs" />
     <Compile Include="Framework\ThoiKhoaBieu.cs" />
-    <Compile Include="DAO\GiaoVienDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DAO\TaiKhoanDao.cs" />
   </ItemGroup>
@@ -79,6 +84,7 @@
   <ItemGroup>
     <Content Include="Content\PagedList.css" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

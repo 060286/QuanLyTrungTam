@@ -6,7 +6,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <div class="page-content">
     <!-- Page Header-->
     <div class="page-header no-margin-bottom">
@@ -21,6 +20,19 @@
             <li class="breadcrumb-item active">Giáo viên</li>
         </ul>
     </div>
+    @using (Html.BeginForm("Index", "GiaoVien", FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-md-4">
+                    <input type="text" value="@ViewBag.SearchString" name="searchString"/>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit">Tìm kiếm</button>
+                </div>
+            </div>
+        </div>
+    }
     <section class="no-padding-top">
         <div class="container-fluid">
             <div class="row">
@@ -44,30 +56,30 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                    <tr id="row_@item.MaGiaoVien">
-                                        <td>@item.MaGiaoVien</td>
-                                        <td>@item.TenGiaoVien</td>
-                                        <td>@item.GioiTinh</td>
-                                        <td>@item.NgaySinh</td>
-                                        <td>@item.Email</td>
-                                        <td>@item.SDT</td>
-                                        <td>@(item.TrangThai.GetValueOrDefault(false)? "Hoạt động" : "Khóa")</td>
-                                        <td>
-                                            <a href="/GiaoVien/Edit/@item.MaGiaoVien">Sửa</a>
-                                            <a href="/GiaoVien/Details/@item.MaGiaoVien">Chi tiết</a>
-                                            @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaGiaoVien }, new AjaxOptions
-                                       {
-                                           Confirm = "Bạn có muốn xóa giáo viên này",
-                                           OnComplete = "$('#row_"+item.MaGiaoVien+"').remove()",
-                                           HttpMethod = "Delete"
-                                       });
-                                        </td>
-                                    </tr>
+                                        <tr id="row_@item.MaGiaoVien">
+                                            <td>@item.MaGiaoVien</td>
+                                            <td>@item.TenGiaoVien</td>
+                                            <td>@item.GioiTinh</td>
+                                            <td>@item.NgaySinh</td>
+                                            <td>@item.Email</td>
+                                            <td>@item.SDT</td>
+                                            <td>@(item.TrangThai.GetValueOrDefault(false)? "Hoạt động" : "Khóa")</td>
+                                            <td>
+                                                <a href="/GiaoVien/Edit/@item.MaGiaoVien">Sửa</a>
+                                                <a href="/GiaoVien/Details/@item.MaGiaoVien">Chi tiết</a>
+                                                @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaGiaoVien }, new AjaxOptions
+                                                {
+                                                    Confirm = "Bạn có muốn xóa giáo viên này",
+                                                    OnComplete = "$('#row_" + item.MaGiaoVien + "').remove()",
+                                                    HttpMethod = "Delete"
+                                                });
+                                            </td>
+                                        </tr>
                                     }
                                 </tbody>
                             </table>
                             <br />
-                            @Html.PagedListPager(Model,page => Url.Action("Index",new { page}))
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page,@searchString = @ViewBag.SearchString }))
                         </div>
                     </div>
                 </div>

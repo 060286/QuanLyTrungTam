@@ -7,12 +7,12 @@ namespace QuanLyTrungTam.Controllers
     public class GiaoVienController : Controller
     {
         // GET: GiaoVien
-        public ActionResult Index(int page = 1, int pageSize = 1)
+        public ActionResult Index(string searchString,int page = 1, int pageSize = 1)
         {
-            var daoGiaoVien = new GiaoVienDao();
-            var modelGiaoVien = daoGiaoVien.ListAllPaging(page, pageSize);
-
-            return View(modelGiaoVien);
+            var _daoGiaoVien = new GiaoVienDao();
+            var _modelGiaoVien = _daoGiaoVien.ListAllPaging(searchString,page, pageSize) ;
+            ViewBag.SearchString = searchString; 
+            return View(_modelGiaoVien);
         }
 
         // GET: GiaoVien/Details/5
@@ -39,10 +39,10 @@ namespace QuanLyTrungTam.Controllers
                 // TODO: Add insert logic here
                 if (ModelState.IsValid)
                 {
-                    var daoGiaoVien = new GiaoVienDao();
-                    int layMaGiaoVien = daoGiaoVien.Insert(giaoVien);
+                    var _daoGiaoVien = new GiaoVienDao();
+                    int _maGiaoVien = _daoGiaoVien.Insert(giaoVien);
 
-                    if (layMaGiaoVien > 0)
+                    if (_maGiaoVien > 0)
                     {
                         return RedirectToAction("Index", "GiaoVien");
                     }
@@ -59,7 +59,7 @@ namespace QuanLyTrungTam.Controllers
             }
         }
 
-        // GET: GiaoVien/Edit/5
+        // GET: GiaoVien/Edit/5  
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -77,9 +77,9 @@ namespace QuanLyTrungTam.Controllers
                 // TODO: Add insert logic here
                 if (ModelState.IsValid)
                 {
-                    var daoGiaoVien = new GiaoVienDao();
+                    var _daoGiaoVien = new GiaoVienDao();
 
-                    var res = daoGiaoVien.Update(giaoVien);
+                    var res = _daoGiaoVien.Update(giaoVien);
                     if (res)
                     {
                         return RedirectToAction("Index", "GiaoVien");

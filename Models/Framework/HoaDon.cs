@@ -6,21 +6,21 @@ namespace Models.Framework
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("BangDiem")]
-    public partial class BangDiem
+    [Table("HoaDon")]
+    public partial class HoaDon
     {
         [Key]
-        public int MaBangDiem { get; set; }
+        public int MaHoaDon { get; set; }
 
-        public double? KT1 { get; set; }
+        [Column(TypeName = "money")]
+        public decimal? TongTien { get; set; }
 
-        public double? KT2 { get; set; }
-
-        public double? THIL1 { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime? NgayLap { get; set; }
 
         public int? MaHocVien { get; set; }
 
-        public double? KetQua { get; set; }
+        public virtual ChiTietHoaDon ChiTietHoaDon { get; set; }
 
         public virtual HocVien HocVien { get; set; }
     }

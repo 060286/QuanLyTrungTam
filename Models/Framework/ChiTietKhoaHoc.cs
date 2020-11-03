@@ -1,4 +1,4 @@
-namespace Models.Framework
+﻿namespace Models.Framework
 {
     using System;
     using System.Collections.Generic;
@@ -6,8 +6,8 @@ namespace Models.Framework
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("CTKhoaHoc")]
-    public partial class CTKhoaHoc
+    [Table("ChiTietKhoaHoc")]
+    public partial class ChiTietKhoaHoc
     {
         [Key]
         [Column(Order = 0)]
@@ -20,6 +20,8 @@ namespace Models.Framework
         public int MaTKB { get; set; }
 
         public DateTime? GioBatDau { get; set; }
+
+        // Thêm Thời lượng, Ngày Bắt Đầu, Ngày kết thúc
 
         [StringLength(50)]
         public string Phong { get; set; }

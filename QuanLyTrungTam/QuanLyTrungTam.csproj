@@ -143,6 +143,7 @@
     <Compile Include="Code\SessionHelper.cs" />
     <Compile Include="Code\UserSession.cs" />
     <Compile Include="Controllers\GiaoVienController.cs" />
+    <Compile Include="Controllers\HocVienController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
@@ -710,6 +711,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Assets\Admin\vendor\font-awesome\less\" />
     <Folder Include="Assets\Admin\vendor\font-awesome\scss\" />
+    <Folder Include="Views\HocVien\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
