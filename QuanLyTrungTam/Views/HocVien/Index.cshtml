@@ -1,0 +1,99 @@
+﻿@model  PagedList.IPagedList<Models.Framework.HocVien>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page-content">
+    <!-- Page Header-->
+    <div class="page-header no-margin-bottom">
+        <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">Danh Sách Giáo Viên</h2>
+        </div>
+    </div>
+    <!-- Breadcrumb-->
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Giáo viên</li>
+        </ul>
+    </div>
+    @using (Html.BeginForm("Index", "HocVien", FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-md-4">
+                    <input type="text" value="@ViewBag.SearchString" name="searchString" />
+                </div>
+                <div class="col-md-4">
+                    <button type="submit">Tìm kiếm </button>
+                </div>
+            </div>
+        </div>
+    }
+    <section class="no-padding-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="block margin-bottom-sm">
+                        <div class="title"><strong>Basic Table</strong></div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Tên Học Viên</th>
+                                        <th>Giới Tính</th>
+                                        <th>Ngày sinh</th>
+                                        <th>Email</th>
+                                        <th>SĐT</th>
+                                        <th>Trạng thái</th>
+                                        <th>Chức năng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr id="row_@item.MaHocVien">
+                                            <td>@item.MaHocVien</td>
+                                            <td>@item.TenHocVien</td>
+                                            <td>@item.GioiTinh</td>
+                                            <td>@item.NgaySinh</td>
+                                            <td>@item.Email</td>
+                                            <td>@item.SDT</td>
+                                            <td>@item.TrangThai</td>
+                                            <td>@(item.TrangThai.GetValueOrDefault(false)? "Hoạt động" : "Khóa")</td>
+                                            <td>
+                                                <a href="/GiaoVien/Edit/@item.MaHocVien">Sửa</a>
+                                                <a href="/GiaoVien/Details/@item.MaHocVien">Chi tiết</a>
+                                                @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaHocVien }, new AjaxOptions
+                                                {
+                                                    Confirm = "Bạn có muốn xóa giáo viên này",
+                                                    OnComplete = "$('#row_" + item.MaHocVien + "').remove()",
+                                                    HttpMethod = "Delete"
+                                                });
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <br />
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="footer__block block no-margin-bottom">
+            <div class="container-fluid text-center">
+                <!-- Please do not remove the backlink to us unless you support us at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+                <p class="no-margin-bottom">2020 &copy; Your company. Design by <a href="https://bootstrapious.com/p/bootstrap-4-dark-admin">Bootstrapious</a>.</p>
+            </div>
+        </div>
+    </footer>
+</div>

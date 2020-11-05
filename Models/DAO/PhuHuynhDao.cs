@@ -33,7 +33,6 @@ namespace Models.DAO
                 _entity.GioiTinh = entity.GioiTinh;
                 _entity.DiaChi = entity.DiaChi;
                 _entity.Email = entity.Email;
-                _entity.TinhTrang = entity.TinhTrang;
                 _context.SaveChanges();
 
                 return true;

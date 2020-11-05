@@ -26,8 +26,6 @@ namespace Models.Framework
         [StringLength(200)]
         public string Email { get; set; }
 
-        public bool? TinhTrang { get; set; }
-
         public int? MaHocVien { get; set; }
 
         public virtual HocVien HocVien { get; set; }

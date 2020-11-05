@@ -49,7 +49,6 @@ namespace Models.DAO
             {
                 var _khoaHoc = _context.KhoaHocs.Find(entity.MaKhoaHoc);
                 _khoaHoc.TenKhoaHoc = entity.TenKhoaHoc;
-                _khoaHoc.HocPhi = entity.HocPhi;
                 _context.SaveChanges();
                 return true;
             }

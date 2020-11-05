@@ -12,7 +12,7 @@ namespace Models.Framework
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public GiaoVien()
         {
-            KhoaHocs = new HashSet<KhoaHoc>();
+            LopHocs = new HashSet<LopHoc>();
         }
 
         [Key]
@@ -25,6 +25,8 @@ namespace Models.Framework
         public string GioiTinh { get; set; }
 
         [Column(TypeName = "date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? NgaySinh { get; set; }
 
         [Column(TypeName = "date")]
@@ -47,6 +49,6 @@ namespace Models.Framework
         public bool? TrangThai { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KhoaHoc> KhoaHocs { get; set; }
+        public virtual ICollection<LopHoc> LopHocs { get; set; }
     }
 }

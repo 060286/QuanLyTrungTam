@@ -12,8 +12,7 @@ namespace Models.Framework
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public KhoaHoc()
         {
-            ChiTietHoaDons = new HashSet<ChiTietHoaDon>();
-            ChiTietKhoaHocs = new HashSet<ChiTietKhoaHoc>();
+            LopHocs = new HashSet<LopHoc>();
         }
 
         [Key]
@@ -22,6 +21,8 @@ namespace Models.Framework
         [StringLength(100)]
         public string TenKhoaHoc { get; set; }
 
+        public int? TinhTrang { get; set; }
+
         [StringLength(100)]
         public string MoTa { get; set; }
 
@@ -29,15 +30,15 @@ namespace Models.Framework
 
         public int? MaGiaoVien { get; set; }
 
-        [Column(TypeName = "money")]
-        public decimal? HocPhi { get; set; }
+        public int? SoTuan { get; set; }
+
+        public int? MaDanhMuc { get; set; }
+
+        public int? LuaTuoiPhuHop { get; set; }
+
+        public virtual DanhMucKhoaHoc DanhMucKhoaHoc { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietHoaDon> ChiTietHoaDons { get; set; }
-
-        public virtual GiaoVien GiaoVien { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietKhoaHoc> ChiTietKhoaHocs { get; set; }
+        public virtual ICollection<LopHoc> LopHocs { get; set; }
     }
 }

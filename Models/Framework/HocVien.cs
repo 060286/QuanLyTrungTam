@@ -38,6 +38,8 @@ namespace Models.Framework
         public DateTime? NgayDangKy { get; set; }
 
         [Column(TypeName = "date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? NgaySinh { get; set; }
 
         public string GhiChu { get; set; }
