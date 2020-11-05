@@ -60,40 +60,57 @@ namespace QuanLyTrungTam.Controllers
         }
 
         // GET: HocVien/Edit/5
+        [HttpGet]
         public ActionResult Edit(int id)
         {
-            return View();
+            var _hocVien = new HocVienDao().ViewDetails(id);
+
+            return View(_hocVien);
         }
 
         // POST: HocVien/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(HocVien hocVien)
         {
             try
             {
-                // TODO: Add update logic here
+                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    var _daoGiaoVien = new HocVienDao();
 
-                return RedirectToAction("Index");
+                    var res = _daoGiaoVien.Update(hocVien);
+                    if (res)
+                    {
+                        return RedirectToAction("Index", "GiaoVien");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Thêm thất bại");
+                    }
+                }
+                return View(hocVien);
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index", "Home");
             }
         }
 
         // GET: HocVien/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete()
         {
             return View();
         }
 
         // POST: HocVien/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpDelete]
+        public ActionResult Delete(int id)
         {
             try
             {
                 // TODO: Add delete logic here
+                new HocVienDao().Delete(id);
 
                 return RedirectToAction("Index");
             }
@@ -104,3 +121,5 @@ namespace QuanLyTrungTam.Controllers
         }
     }
 }
+
+
