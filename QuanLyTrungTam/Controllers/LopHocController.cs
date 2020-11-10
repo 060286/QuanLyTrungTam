@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Models.DAO;
+using Models.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +11,12 @@ namespace QuanLyTrungTam.Controllers
     public class LopHocController : Controller
     {
         // GET: LopHoc
-        public ActionResult Index()
+        public ActionResult Index(string searchString, int page = 1, int pageSize = 1)
         {
-            return View();
+            var _lopHocDao = new LopHocDao();
+            var _modelLopHoc = _lopHocDao.ListAllPaging(searchString, page, pageSize);
+            ViewBag.SearchString = searchString;
+            return View(_modelLopHoc);
         }
 
         // GET: LopHoc/Details/5
@@ -28,13 +33,27 @@ namespace QuanLyTrungTam.Controllers
 
         // POST: LopHoc/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(LopHoc lopHoc)
         {
             try
             {
                 // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    var _lopHocDao = new LopHocDao();
 
-                return RedirectToAction("Index");
+                    int _maLopHoc = _lopHocDao.Insert(lopHoc);
+
+                    if (_maLopHoc > 0)
+                    {
+                        return RedirectToAction("Index", "LopHoc");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Thêm thất bại");
+                    }
+                }
+                return View(lopHoc);
             }
             catch
             {
@@ -45,43 +64,60 @@ namespace QuanLyTrungTam.Controllers
         // GET: LopHoc/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var _lopHoc = new LopHocDao().ViewDetail(id);
+
+            return View(_lopHoc);
         }
 
         // POST: LopHoc/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(LopHoc lopHoc)
         {
             try
             {
-                // TODO: Add update logic here
+                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    var _lopHocDao = new LopHocDao();
 
-                return RedirectToAction("Index");
+                    var res = _lopHocDao.Update(lopHoc);
+                    if (res)
+                    {
+                        return RedirectToAction("Index", "LopHoc");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Cập nhật lỗi");
+                    }
+                }
+                return View(lopHoc);
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index", "Home");
             }
         }
 
         // GET: LopHoc/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete()
         {
             return View();
         }
 
         // POST: LopHoc/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
                 // TODO: Add delete logic here
+                new LopHocDao().Delete(id);
 
                 return RedirectToAction("Index");
             }
             catch
             {
+
                 return View();
             }
         }

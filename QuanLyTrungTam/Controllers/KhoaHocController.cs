@@ -84,7 +84,7 @@ namespace QuanLyTrungTam.Controllers
                     var res = _daoKhoaHoc.Update(khoaHoc);
                     if (res)
                     {
-                        return RedirectToAction("Index", "GiaoVien");
+                        return RedirectToAction("Index", "KhoaHoc");
                     }
                     else
                     {
