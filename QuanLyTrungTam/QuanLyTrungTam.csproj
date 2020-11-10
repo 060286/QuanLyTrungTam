@@ -143,9 +143,12 @@
     <Compile Include="Code\SessionHelper.cs" />
     <Compile Include="Code\UserSession.cs" />
     <Compile Include="Controllers\GiaoVienController.cs" />
+    <Compile Include="Controllers\HoaDonController.cs" />
     <Compile Include="Controllers\HocVienController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KhoaHocController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\LopHocController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -706,12 +709,16 @@
     <Content Include="Views\GiaoVien\Index.cshtml" />
     <Content Include="Views\GiaoVien\Create.cshtml" />
     <Content Include="Views\GiaoVien\Edit.cshtml" />
+    <Content Include="Views\HocVien\Create.cshtml" />
+    <Content Include="Views\HocVien\Edit.cshtml" />
+    <Content Include="Views\HocVien\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Assets\Admin\vendor\font-awesome\less\" />
     <Folder Include="Assets\Admin\vendor\font-awesome\scss\" />
-    <Folder Include="Views\HocVien\" />
+    <Folder Include="Views\HoaDon\" />
+    <Folder Include="Views\LopHoc\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

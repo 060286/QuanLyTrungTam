@@ -62,6 +62,7 @@
     <Compile Include="DAO\GiaoVienDao.cs" />
     <Compile Include="DAO\HocVienDao.cs" />
     <Compile Include="DAO\KhoaHocDao.cs" />
+    <Compile Include="DAO\LopHocDao.cs" />
     <Compile Include="DAO\PhuHuynhDao.cs" />
     <Compile Include="Framework\BangDiem.cs" />
     <Compile Include="Framework\DangNhap.cs" />

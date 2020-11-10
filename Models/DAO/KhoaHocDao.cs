@@ -20,12 +20,12 @@ namespace Models.DAO
 
         // Khởi tạo thêm mới Giáo viên 
         // Tham số truyền vào : thực thể kiểu GiaoVien
-        public int Insert(GiaoVien entity)
+        public int Insert(KhoaHoc entity)
         {
-            entity.NgayDangKy = DateTime.Now;   // Gán ngày đăng ký bằng thời điểm đăng ký hiện tại
-            _context.GiaoViens.Add(entity);     // Gọi method add
+            /*entity.NgayDangKy = DateTime.Now;*/   // Gán ngày đăng ký bằng thời điểm đăng ký hiện tại
+            _context.KhoaHocs.Add(entity);     // Gọi method add
             _context.SaveChanges();
-            return entity.MaGiaoVien;
+            return entity.MaKhoaHoc;
         }
 
         public KhoaHoc GetById(string tenKhoaHoc)
@@ -58,9 +58,24 @@ namespace Models.DAO
             }
         }
         
-        public KhoaHoc ViewDetails(int id)
+        public KhoaHoc ViewDetail(int id)
         {
             return _context.KhoaHocs.Find(id);
+        }
+
+        public bool Delete(int id)
+        {
+            try
+            {
+                var _khoaHoc = _context.KhoaHocs.Find(id);
+                _context.KhoaHocs.Remove(_khoaHoc);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

@@ -25,6 +25,7 @@ namespace QuanLyTrungTam.Controllers
         }
 
         // GET: HocVien/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -39,8 +40,9 @@ namespace QuanLyTrungTam.Controllers
                 if(ModelState.IsValid)
                 {
                     var _daoHocVien = new HocVienDao();
+                    hocVien.NgayDangKy = DateTime.Now;
                     int _maGiaoVien = _daoHocVien.Insert(hocVien);
-
+                    
                     if(_maGiaoVien > 0)
                     {
                         return RedirectToAction("Index", "HocVien");
@@ -86,7 +88,7 @@ namespace QuanLyTrungTam.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Thêm thất bại");
+                        ModelState.AddModelError("", "Cập nhật thất bại");
                     }
                 }
                 return View(hocVien);
@@ -104,7 +106,7 @@ namespace QuanLyTrungTam.Controllers
         }
 
         // POST: HocVien/Delete/5
-        [HttpDelete]
+        [HttpPost]
         public ActionResult Delete(int id)
         {
             try

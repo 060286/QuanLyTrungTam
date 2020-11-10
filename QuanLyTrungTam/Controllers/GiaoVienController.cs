@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using Models;
 using Models.Framework;
 using PagedList;
@@ -41,6 +42,8 @@ namespace QuanLyTrungTam.Controllers
                 if (ModelState.IsValid)
                 {
                     var _daoGiaoVien = new GiaoVienDao();
+                    giaoVien.NgayDangKy = DateTime.Now;
+                    giaoVien.QuocTich = "Việt Nam";
                     int _maGiaoVien = _daoGiaoVien.Insert(giaoVien);
 
                     if (_maGiaoVien > 0)
@@ -87,14 +90,14 @@ namespace QuanLyTrungTam.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Thêm thất bại");
+                        ModelState.AddModelError("", "Cập nhật lỗi");
                     }
                 }
                 return View(giaoVien);
             }
             catch
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "GiaoVien");
             }
         }
 
