@@ -16,9 +16,6 @@ namespace QuanLyTrungTam.Controllers
 
         public string hello()
         {
-
-
-
             return "HelloWorld";
         }
     }
