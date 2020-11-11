@@ -712,6 +712,8 @@
     <Content Include="Views\HocVien\Create.cshtml" />
     <Content Include="Views\HocVien\Edit.cshtml" />
     <Content Include="Views\HocVien\Index.cshtml" />
+    <Content Include="Views\KhoaHoc\Index.cshtml" />
+    <Content Include="Views\KhoaHoc\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
