@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Http.ModelBinding;
 using System.Web.Mvc;
 using Models;
 using Models.Framework;
@@ -9,7 +10,7 @@ namespace QuanLyTrungTam.Controllers
     public class GiaoVienController : Controller
     {
         // GET: GiaoVien
-        public ActionResult Index(string searchString,int page = 1, int pageSize = 1)
+        public ActionResult Index(string searchString,int page = 1, int pageSize = 10)
         {
             var _daoGiaoVien = new GiaoVienDao();
             var _modelGiaoVien = _daoGiaoVien.ListAllPaging(searchString,page, pageSize) ;
