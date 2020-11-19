@@ -11,7 +11,7 @@ namespace QuanLyTrungTam.Models
         [Required]
         public string TaiKhoan { set; get; }
 
-       
+        [Required]
         public string MatKhau { set; get; }
         
         

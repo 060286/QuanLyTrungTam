@@ -19,18 +19,44 @@ namespace Models
             context = new eCenterDbContext();
         }
 
+        //public bool Login(string taiKhoan, string matKhau)
+        //{
+        //    // Khởi tạo đối tượng tham số truyền vào bao gồm tài khoản + mật khẩu
+        //    object[] sqlParams =
+        //    {
+        //    new SqlParameter("@TaiKhoan",taiKhoan),
+        //    new SqlParameter("@MatKhau",matKhau),
+        //};
+
+        //    var res = context.Database.SqlQuery<bool>("Sp_TaiKhoan_DangNhap @TaiKhoan ,@MatKhau", sqlParams).SingleOrDefault();
+
+        //    return res;
+        //}
+
+
         public bool Login(string taiKhoan, string matKhau)
         {
-            // Khởi tạo đối tượng tham số truyền vào bao gồm tài khoản + mật khẩu
-            object[] sqlParams =
+            var result = context.DangNhaps.Count(x => x.TaiKhoan == taiKhoan && x.MatKhau == matKhau);
+
+            if (result > 0)
             {
-            new SqlParameter("@TaiKhoan",taiKhoan),
-            new SqlParameter("@MatKhau",matKhau),
-        };
+                return true;
+            }
+            else
+                return false;
+        }
 
-            var res = context.Database.SqlQuery<bool>("Sp_TaiKhoan_DangNhap @TaiKhoan ,@MatKhau", sqlParams).SingleOrDefault();
 
-            return res;
+        public int Insert(DangNhap entity)
+        {
+            context.DangNhaps.Add(entity);
+            context.SaveChanges();
+            return entity.MaTaiKhoan;
+        }
+
+        public DangNhap GetById(string taiKhoan)
+        {
+            return context.DangNhaps.SingleOrDefault(x => x.TaiKhoan == taiKhoan);
         }
     }
     
