@@ -11,7 +11,7 @@ namespace QuanLyTrungTam.Controllers
     public class KhoaHocController : Controller
     {
         // GET: KhoaHoc
-        public ActionResult Index(string searchString,int page = 1 ,int pageSize = 1)
+        public ActionResult Index(string searchString,int page = 1 ,int pageSize = 10)
         {
             var _khoaHocDao = new KhoaHocDao();
             var _modelKhoaHoc = _khoaHocDao.ListAllPaging(searchString, page, pageSize);

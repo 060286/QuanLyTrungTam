@@ -1,4 +1,5 @@
 ﻿using Models.Framework;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace Models.DAO
             {
                 model = model.Where(x => x.TenKhoaHoc.Contains(searchString) || x.TenKhoaHoc.Contains(searchString));
             }
-            return model;
+            return model.OrderBy(x => x.MaKhoaHoc).ToPagedList(page, pageSize);
         }
 
         public bool Update(KhoaHoc entity)

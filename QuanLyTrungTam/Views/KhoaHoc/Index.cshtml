@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<Models.Framework.KhoaHoc>
+﻿@model  PagedList.IPagedList<Models.Framework.KhoaHoc>
 @using PagedList.Mvc;
 
 
@@ -44,14 +44,11 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Tên Giáo Viên</th>
-                                        <th>Giới Tính</th>
-                                        <th>Ngày sinh</th>
-                                        <th>Email</th>
-                                        <th>SĐT</th>
-                                        <th>Trạng thái</th>
-                                        <th>Chức năng</th>
+                                        <th>STT </th>
+                                        <th>Tên Khóa Học th>
+                                        <th>Số Tuần </th>
+                                        <th>Đối tượng </th>
+                                        <th>Mô Tả</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -69,7 +66,7 @@
                                                 <a href="/GiaoVien/Details/@item.MaKhoaHoc">Chi tiết</a>
                                                 @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaKhoaHoc }, new AjaxOptions
                                                 {
-                                                    Confirm = "Bạn có muốn xóa giáo viên này",
+                                                    Confirm = "Bạn có muốn xóa khóa học này",
                                                     OnComplete = "$('#row_" + item.MaKhoaHoc + "').remove()",
                                                     HttpMethod = "Delete"
                                                 });
@@ -86,12 +83,4 @@
             </div>
         </div>
     </section>
-    <footer class="footer">
-        <div class="footer__block block no-margin-bottom">
-            <div class="container-fluid text-center">
-                <!-- Please do not remove the backlink to us unless you support us at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
-                <p class="no-margin-bottom">2020 &copy; Your company. Design by <a href="https://bootstrapious.com/p/bootstrap-4-dark-admin">Bootstrapious</a>.</p>
-            </div>
-        </div>
-    </footer>
 </div>
