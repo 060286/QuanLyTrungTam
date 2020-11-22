@@ -53,7 +53,7 @@
                         @using (Html.BeginForm("Login", "Login", FormMethod.Post))
                         { 
                             @Html.AntiForgeryToken()
-                            @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+                            @Html.ValidationSummary(false, "", new { @class = "alert alert-danger" })
                             <div class="form d-flex align-items-center">
                                 <div class="content">
                                     <form method="get" class="form-validate mb-4">

@@ -8,7 +8,7 @@ namespace QuanLyTrungTam.Common
     [Serializable]
     public class UserLogin
     {
-        public int UserId {get; set;}
-        public string TaiKhoan { get; set; }
+        public int UserId {set; get;}
+        public string TaiKhoan { set; get; }
     }
 }

@@ -24,20 +24,32 @@ namespace QuanLyTrungTam.Controllers
             if(ModelState.IsValid)
             {
                 var dao = new TaiKhoanDao();
-                var result = dao.Login(model.TaiKhoan, model.MatKhau);
-                if(result)
+                var result = dao.Login(model.TaiKhoan, Encryptor.MD5Hash(model.MatKhau));
+                if(result == 1)
                 {
                     var user = dao.GetById(model.TaiKhoan);
                     var userSession = new UserLogin();
-                    userSession.TaiKhoan = user.TaiKhoan;
                     userSession.UserId = user.MaTaiKhoan;
+                    userSession.TaiKhoan = user.TaiKhoan;
 
                     Session.Add(CommonConstants.USER_SESSION, userSession);
-                    return RedirectToAction("Index", "GiaoVien");
+                    return RedirectToAction("Index", "Home");
+                }
+                else if(result == -1)
+                {
+                    ModelState.AddModelError("", "Tài khoản hiện đang bị khóa");
+                }
+                else if (result == -2)
+                { 
+                    ModelState.AddModelError("", "Vui lòng nhập lại mật khẩu");
+                }
+                else if (result == 0)
+                {
+                    ModelState.AddModelError("", "Tài khoản không tồn tại");
                 }
                 else
                 {
-                    ModelState.AddModelError("","Tài khoản không tồn tại, vui lòng nhập lại mật khẩu");
+                    ModelState.AddModelError("","Đăng nhập thất bại, vui lòng liên hệ Admin");
                 }
             }    
             return View("Index");

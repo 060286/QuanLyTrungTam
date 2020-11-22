@@ -1,14 +1,10 @@
 ﻿using Models.DAO;
 using Models.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace QuanLyTrungTam.Controllers
 {
-    public class LopHocController : Controller
+    public class LopHocController : BaseController
     {
         // GET: LopHoc
         public ActionResult Index(string searchString, int page = 1, int pageSize = 1)

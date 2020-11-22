@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace QuanLyTrungTam.Controllers
 {
-    public class HocVienController : Controller
+    public class HocVienController : BaseController
     {
         // GET: HocVien
         public ActionResult Index(int page = 1, int pageSize = 10)

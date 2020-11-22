@@ -6,12 +6,17 @@ using System.Web.Mvc;
 
 namespace QuanLyTrungTam.Controllers
 {
-    //[Authorize] // => Bắt buộc đăng nhập
-    public class HomeController : BaseController
+    public class TestController : Controller
     {
+        // GET: Test
         public ActionResult Index()
         {
             return View();
+        }
+
+        public string Hello()
+        {
+            return "Hello";
         }
     }
 }

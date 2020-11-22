@@ -34,16 +34,27 @@ namespace Models
         //}
 
 
-        public bool Login(string taiKhoan, string matKhau)
+        public int Login(string taiKhoan, string matKhau)
         {
-            var result = context.DangNhaps.Count(x => x.TaiKhoan == taiKhoan && x.MatKhau == matKhau);
+            var result = context.DangNhaps.SingleOrDefault(x => x.TaiKhoan == taiKhoan);
 
-            if (result > 0)
+            if (result == null)
             {
-                return true;
+                return 0;
             }
-            else
-                return false;
+            else 
+            {
+                if(result.TrangThai == false)
+                {
+                    return -1;
+                }    
+                else
+                {
+                    if (result.MatKhau == matKhau) return 1;
+                    else return -2;
+                }
+                
+            }   
         }
 
 

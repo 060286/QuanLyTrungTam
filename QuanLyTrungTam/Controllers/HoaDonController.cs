@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace QuanLyTrungTam.Controllers
 {
-    public class HoaDonController : Controller
+    public class HoaDonController : BaseController
     {
         // GET: HoaDon
         public ActionResult Index()

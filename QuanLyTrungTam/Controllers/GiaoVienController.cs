@@ -7,7 +7,7 @@ using PagedList;
 
 namespace QuanLyTrungTam.Controllers
 {
-    public class GiaoVienController : Controller
+    public class GiaoVienController : BaseController
     {
         // GET: GiaoVien
         public ActionResult Index(string searchString,int page = 1, int pageSize = 10)
