@@ -1,4 +1,5 @@
-﻿@model  PagedList.IPagedList<Models.Framework.KhoaHoc>
+﻿@*@model PagedList.IPagedList<Models.Framework.KhoaHoc>*@
+@model PagedList.IPagedList<Models.Framework.KhoaHoc>
 @using PagedList.Mvc;
 
 
@@ -17,7 +18,7 @@
     <!-- Breadcrumb-->
     <div class="container-fluid">
         <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item"><a href="~/Home/Index">Home</a></li>
             <li class="breadcrumb-item active">Khóa học</li>
         </ul>
     </div>
@@ -34,53 +35,58 @@
             </div>
         </div>
     }
-    <section class="no-padding-top">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="block margin-bottom-sm">
-                        <div class="title"><strong>Basic Table</strong></div>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>STT </th>
-                                        <th>Tên Khóa Học th>
-                                        <th>Số Tuần </th>
-                                        <th>Đối tượng </th>
-                                        <th>Mô Tả</th>
+
+
+
+<section class="no-padding-top">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="block margin-bottom-sm">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Mã Khóa Học</th>
+                                    <th>Tên Khóa Học</th>
+
+                                    <th>Số Tuần</th>
+                                    <th>Lứa tuổi</th>
+                                    <th>Mô tả</th>
+                                    <th>Chức năng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr id="row_@item.MaKhoaHoc">
+                                        <td>@item.MaKhoaHoc</td>
+                                        <td>@item.TenKhoaHoc</td>
+                                        <td>@item.SoTuan</td>
+                                        <td>@item.LuaTuoiPhuHop</td>
+                                        <td>@item.MoTa</td>
+                                        <td>
+                                            <a href="/KhoaHoc/Edit/@item.MaKhoaHoc" @*data-toggle="modal" data-target="#modal-update-@item.MaGiaoVien" data-backdrop="static" data-keyboard="false"*@>Sửa</a>
+
+                                            &nbsp;<a href="/KhoaHoc/Details/@item.MaKhoaHoc" @*data-toggle="modal" data-target="#modal-details-@item.MaGiaoVien" data-backdrop="static" data-keyboard="false"*@>Chi tiết &nbsp;</a>@Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaKhoaHoc }, new AjaxOptions
+                                            {
+                                            Confirm = "Bạn có muốn xóa khóa học này",
+                                            OnComplete = "$('#row_" + item.MaKhoaHoc + "').remove()",
+                                            HttpMethod = "Delete"
+                                            })
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        <tr id="row_@item.MaKhoaHoc">
-                                            <td>@item.MaKhoaHoc</td>
-                                            <td>@item.TenKhoaHoc</td>
-                                            <td>@item.SoTuan</td>
-                                            <td>@item.LuaTuoiPhuHop</td>
-                                            <td>@item.MoTa</td>
-                                            @*<td>@(item.TrangThai.GetValueOrDefault(false)? "Hoạt động" : "Khóa")</td>*@
-                                            <td>
-                                                <a href="/GiaoVien/Edit/@item.MaKhoaHoc">Sửa</a>
-                                                <a href="/GiaoVien/Details/@item.MaKhoaHoc">Chi tiết</a>
-                                                @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaKhoaHoc }, new AjaxOptions
-                                                {
-                                                    Confirm = "Bạn có muốn xóa khóa học này",
-                                                    OnComplete = "$('#row_" + item.MaKhoaHoc + "').remove()",
-                                                    HttpMethod = "Delete"
-                                                });
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                            <br />
-                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
-                        </div>
+                                }
+                            </tbody>
+                        </table>
+                        <br />
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 </div>
+
+

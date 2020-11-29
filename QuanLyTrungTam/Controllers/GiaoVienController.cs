@@ -19,9 +19,11 @@ namespace QuanLyTrungTam.Controllers
         }
 
         // GET: GiaoVien/Details/5
+        [HttpGet]
         public ActionResult Details(int id)
         {
-            return View();
+            var detailGiaoVien = new GiaoVienDao().ViewDetail(id);
+            return PartialView(detailGiaoVien);
         }
 
         // GET: GiaoVien/Create

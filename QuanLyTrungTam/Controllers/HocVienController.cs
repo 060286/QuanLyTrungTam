@@ -11,10 +11,10 @@ namespace QuanLyTrungTam.Controllers
     public class HocVienController : BaseController
     {
         // GET: HocVien
-        public ActionResult Index(int page = 1, int pageSize = 10)
+        public ActionResult Index(string searchString,int page = 1, int pageSize = 10)
         {
             var _daoHocVien = new HocVienDao();
-            var _modelHocVien = _daoHocVien.ListAllPaging(page, pageSize);
+            var _modelHocVien = _daoHocVien.ListAllPaging(searchString,page, pageSize);
             return View(_modelHocVien);
         }
 

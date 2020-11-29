@@ -1,0 +1,65 @@
+﻿@model Models.Framework.GiaoVien
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<div class="modal-header bg-purple">
+    <h4 class="modal-title">Thông tin giáo viên</h4>
+</div>
+
+
+<div class="modal-body dl-horizontal">
+    <table class="table table-striped table-bordered ">
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.TenGiaoVien)</td>
+            <td align="left">@Html.DisplayFor(model => model.TenGiaoVien)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.GioiTinh)</td>
+            <td align="left">@Html.DisplayFor(model => model.GioiTinh)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.NgaySinh)</td>
+            <td align="left">@Html.DisplayFor(model => model.NgaySinh)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.NgayDangKy)</td>
+            <td align="left">@Html.DisplayFor(model => model.NgayDangKy)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Email)</td>
+            <td align="left">@Html.DisplayFor(model => model.Email)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.SDT)</td>
+            <td align="left">@Html.DisplayFor(model => model.SDT)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.GhiChu)</td>
+            <td align="left">@Html.DisplayFor(model => model.GhiChu)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.DiaChi)</td>
+            <td align="left">@Html.DisplayFor(model => model.DiaChi)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.QuocTich)</td>
+            <td align="left">@Html.DisplayFor(model => model.QuocTich)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.TrangThai)</td>
+            <td align="left">@Html.DisplayFor(model => model.TrangThai)</td>
+        </tr>
+
+    </table>
+</div>
+
+
+<div class="modal-footer">
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.MaGiaoVien }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</div>

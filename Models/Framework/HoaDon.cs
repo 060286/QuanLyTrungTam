@@ -1,10 +1,9 @@
-namespace Models.Framework
+﻿namespace Models.Framework
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+    using System.ComponentModel;
 
     [Table("HoaDon")]
     public partial class HoaDon
@@ -13,11 +12,13 @@ namespace Models.Framework
         public int MaHoaDon { get; set; }
 
         [Column(TypeName = "money")]
+        [DisplayName("Tổng tiền")]
         public decimal? TongTien { get; set; }
-
+        [DisplayName("Trạng thái")]
         public bool? TinhTrang { get; set; }
 
         [Column(TypeName = "date")]
+        [DisplayName("Ngày lập hóa đơn")]
         public DateTime? NgayLap { get; set; }
 
         public int? MaLopHoc { get; set; }

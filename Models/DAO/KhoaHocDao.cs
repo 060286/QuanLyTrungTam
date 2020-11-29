@@ -37,10 +37,11 @@ namespace Models.DAO
         public IEnumerable<KhoaHoc> ListAllPaging(string searchString,int page,int pageSize)
         {
             IQueryable<KhoaHoc> model = _context.KhoaHocs;
-            if(string.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(searchString))
             {
                 model = model.Where(x => x.TenKhoaHoc.Contains(searchString) || x.TenKhoaHoc.Contains(searchString));
             }
+
             return model.OrderBy(x => x.MaKhoaHoc).ToPagedList(page, pageSize);
         }
 

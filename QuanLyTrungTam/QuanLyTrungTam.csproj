@@ -148,6 +148,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Clients\ClientsAreaRegistration.cs" />
     <Compile Include="Code\SessionHelper.cs" />
     <Compile Include="Code\UserSession.cs" />
     <Compile Include="Common\CommonConstants.cs" />
@@ -229,6 +230,7 @@
     <Content Include="Assets\Admin\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Assets\Admin\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Assets\Admin\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Areas\Clients\Views\web.config" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -267,9 +269,14 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_NavbarTop.cshtml" />
+    <Content Include="Views\GiaoVien\Details.cshtml" />
+    <Content Include="Views\KhoaHoc\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Clients\Controllers\" />
+    <Folder Include="Areas\Clients\Data\" />
+    <Folder Include="Areas\Clients\Views\Shared\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\HoaDon\" />
     <Folder Include="Views\LopHoc\" />

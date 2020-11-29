@@ -50,8 +50,10 @@ namespace Models
                 }    
                 else
                 {
-                    if (result.MatKhau == matKhau) return 1;
-                    else return -2;
+                    if (result.MatKhau == matKhau) 
+                        return 1;
+                    else 
+                        return -2;
                 }
                 
             }   

@@ -1,10 +1,11 @@
-namespace Models.Framework
+﻿namespace Models.Framework
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.ComponentModel;
 
     [Table("Tuan")]
     public partial class Tuan
@@ -20,6 +21,7 @@ namespace Models.Framework
         public int MaTuan { get; set; }
 
         [StringLength(50)]
+        [DisplayName("Tên tuần")]
         public string TenTuan { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

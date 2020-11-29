@@ -7,10 +7,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script>
-
-</script>
-
 <div class="page-content">
     <!-- Page Header-->
     <div class="page-header no-margin-bottom">
@@ -21,7 +17,7 @@
     <!-- Breadcrumb-->
     <div class="container-fluid">
         <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item"><a href="~/Home/Index">Home</a></li>
             <li class="breadcrumb-item active">Giáo viên</li>
         </ul>
     </div>
@@ -30,7 +26,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="col-md-4">
-                    <input type="text" value="@ViewBag.SearchString" name="searchString"/>
+                    <input type="text" value="@ViewBag.SearchString" name="searchString" placeholder="Tìm kiếm theo tên"/>
                 </div>
                 <div class="col-md-4">
                     <button type="submit">Tìm kiếm</button>
@@ -70,14 +66,24 @@
                                             <td>@item.SDT</td>
                                             <td>@(item.TrangThai.GetValueOrDefault(false)? "Hoạt động" : "Khóa")</td>
                                             <td>
-                                                <a href="/GiaoVien/Edit/@item.MaGiaoVien">Sửa</a>
-                                                <a href="/GiaoVien/Details/@item.MaGiaoVien">Chi tiết</a>
+                                                <a href="/GiaoVien/Edit/@item.MaGiaoVien" @*data-toggle="modal" data-target="#modal-update-@item.MaGiaoVien" data-backdrop="static" data-keyboard="false"*@>Sửa</a>
+                                                @*<div class="modal fade" id="#modal-update-@item.MaGiaoVien" >
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content"></div>
+                                                    </div>
+                                                </div>*@
+                                                &nbsp;<a href="/GiaoVien/Details/@item.MaGiaoVien" @*data-toggle="modal" data-target="#modal-details-@item.MaGiaoVien" data-backdrop="static" data-keyboard="false"*@>Chi tiết &nbsp;</a>
+                                                    @*<div class="modal fade" id="#modal-details-@item.MaGiaoVien" >
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content"></div>
+                                                    </div>
+                                                </div>*@
                                                 @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaGiaoVien }, new AjaxOptions
                                                 {
                                                     Confirm = "Bạn có muốn xóa giáo viên này",
                                                     OnComplete = "$('#row_" + item.MaGiaoVien + "').remove()",
                                                     HttpMethod = "Delete"
-                                                });
+                                                })
                                             </td>
                                         </tr>
                                     }

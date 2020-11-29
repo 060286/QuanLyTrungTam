@@ -1,10 +1,9 @@
-namespace Models.Framework
+﻿namespace Models.Framework
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+    using System.ComponentModel;
 
     [Table("KhoaHoc")]
     public partial class KhoaHoc
@@ -19,11 +18,14 @@ namespace Models.Framework
         public int MaKhoaHoc { get; set; }
 
         [StringLength(100)]
+        [DisplayName("Tên khóa học")]
         public string TenKhoaHoc { get; set; }
 
+        [DisplayName("Tình trạng")]
         public int? TinhTrang { get; set; }
 
         [StringLength(100)]
+        [DisplayName("Mô tả")]
         public string MoTa { get; set; }
 
         public int? MaHocVien { get; set; }

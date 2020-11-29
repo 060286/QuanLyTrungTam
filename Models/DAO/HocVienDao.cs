@@ -18,10 +18,16 @@ namespace Models.DAO
             context = new eCenterDbContext();
         }
 
-        public IEnumerable<HocVien> ListAllPaging(int page, int pageSize)
+        public IEnumerable<HocVien> ListAllPaging(string searchString,int page, int pageSize)
         {
 
-            return context.HocViens.OrderBy(x=>x.MaHocVien).ToPagedList(page,pageSize);
+            IQueryable<HocVien> model = context.HocViens;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                model = model.Where(x => x.TenHocVien.Contains(searchString) || x.TenHocVien.Contains(searchString));
+            }
+
+            return model.OrderBy(x => x.MaHocVien).ToPagedList(page, pageSize);
         }
 
         public HocVien GetHocVienById(int id)
