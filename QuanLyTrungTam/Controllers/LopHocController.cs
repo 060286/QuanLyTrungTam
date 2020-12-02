@@ -7,7 +7,7 @@ namespace QuanLyTrungTam.Controllers
     public class LopHocController : BaseController
     {
         // GET: LopHoc
-        public ActionResult Index(string searchString, int page = 1, int pageSize = 1)
+        public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
         {
             var _lopHocDao = new LopHocDao();
             var _modelLopHoc = _lopHocDao.ListAllPaging(searchString, page, pageSize);
@@ -15,10 +15,19 @@ namespace QuanLyTrungTam.Controllers
             return View(_modelLopHoc);
         }
 
+        public ActionResult TamTest()
+        {
+            var _lopHocDao = new LopHocDao();
+            var _modelLopHoc = _lopHocDao.GetClassByStatus(true);
+            return PartialView(_modelLopHoc);
+        }
+
         // GET: LopHoc/Details/5
+        [HttpGet]
         public ActionResult Details(int id)
         {
-            return View();
+            var lopHocDao = new LopHocDao().ViewDetail(id);
+            return View(lopHocDao);
         }
 
         // GET: LopHoc/Create
@@ -101,7 +110,7 @@ namespace QuanLyTrungTam.Controllers
         }
 
         // POST: LopHoc/Delete/5
-        [HttpPost]
+        [HttpDelete]
         public ActionResult Delete(int id)
         {
             try

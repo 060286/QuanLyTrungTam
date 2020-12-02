@@ -29,6 +29,16 @@ namespace Models.DAO
             return _context.LopHocs.SingleOrDefault(x => x.TenLopHoc == tenLopHoc);
         }
 
+        public IEnumerable<LopHoc> GetClassByStatus(bool status)
+        {
+            IQueryable<LopHoc> model = _context.LopHocs;
+            if(status == true)
+            {
+                model = model.Where(x => x.TinhTrang == true);
+            }
+            return model.OrderBy(x => x.MaLopHoc).ToList();
+        }
+
         public IEnumerable<LopHoc> ListAllPaging(string searchString, int page, int pageSize)
         {
             IQueryable<LopHoc> model = _context.LopHocs;

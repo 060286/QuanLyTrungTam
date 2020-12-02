@@ -28,6 +28,9 @@
         [DisplayName("Mô tả")]
         public string MoTa { get; set; }
 
+        [DisplayName("Số lượng")]
+        public int? SoLuong { get; set; }
+
         public int? MaHocVien { get; set; }
 
         public int? MaGiaoVien { get; set; }

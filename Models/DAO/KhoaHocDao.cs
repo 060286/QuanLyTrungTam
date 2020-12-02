@@ -29,6 +29,11 @@ namespace Models.DAO
             return entity.MaKhoaHoc;
         }
 
+        //public KhoaHoc SelectAll()
+        //{
+        //    return _context.KhoaHocs.ToArray(x => x.TinhTrang == true);
+        //}
+
         public KhoaHoc GetById(string tenKhoaHoc)
         {
             return _context.KhoaHocs.SingleOrDefault(x => x.TenKhoaHoc == tenKhoaHoc);
@@ -51,6 +56,14 @@ namespace Models.DAO
             {
                 var _khoaHoc = _context.KhoaHocs.Find(entity.MaKhoaHoc);
                 _khoaHoc.TenKhoaHoc = entity.TenKhoaHoc;
+                _khoaHoc.TinhTrang = entity.TinhTrang;
+                _khoaHoc.MoTa = entity.MoTa;
+                _khoaHoc.SoTuan = entity.SoTuan;
+                _khoaHoc.MaHocVien = entity.MaHocVien;
+                _khoaHoc.MaGiaoVien = entity.MaGiaoVien;
+                _khoaHoc.MaDanhMuc = entity.MaDanhMuc;
+                _khoaHoc.LuaTuoiPhuHop = entity.LuaTuoiPhuHop;
+                _khoaHoc.SoLuong = entity.SoLuong;
                 _context.SaveChanges();
                 return true;
             }

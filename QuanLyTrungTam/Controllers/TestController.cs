@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,6 +18,14 @@ namespace QuanLyTrungTam.Controllers
         public string Hello()
         {
             return "Hello";
+        }
+
+        public ActionResult TestPartialView()
+        {
+            eCenterDbContext db = new eCenterDbContext();
+
+            
+            return PartialView();
         }
     }
 }

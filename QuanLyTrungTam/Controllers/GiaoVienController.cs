@@ -1,14 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http.ModelBinding;
 using System.Web.Mvc;
 using Models;
 using Models.Framework;
+using OfficeOpenXml;
 using PagedList;
+using QuanLyTrungTam.ViewModels;
 
 namespace QuanLyTrungTam.Controllers
 {
     public class GiaoVienController : BaseController
     {
+        eCenterDbContext db = new eCenterDbContext();
+
         // GET: GiaoVien
         public ActionResult Index(string searchString,int page = 1, int pageSize = 10)
         {
@@ -125,6 +131,72 @@ namespace QuanLyTrungTam.Controllers
             {
                 return View();
             }
+        }
+
+        public void ExportToExcel()
+        {
+            List<GiaoVienViewModel> giaoVienList = db.GiaoViens.Select(x => new GiaoVienViewModel
+            {
+                MaGiaoVien = x.MaGiaoVien,
+                TenGiaoVien = x.TenGiaoVien,
+                GioiTinh = x.GioiTinh,
+                NgaySinh = x.NgaySinh,
+                NgayDangKy = x.NgayDangKy,
+                Email = x.Email,
+                SDT = x.SDT,
+                QuocTich = x.QuocTich,
+                GhiChu = x.GhiChu,
+                DiaChi = x.DiaChi,
+                TrangThai = x.TrangThai
+            }).ToList();
+
+            ExcelPackage pck = new ExcelPackage();
+            ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Report");
+
+            ws.Cells["A1"].Value = "Communication";
+            ws.Cells["A2"].Value = "Com1";
+
+            ws.Cells["A2"].Value = "Báo cáo";
+            ws.Cells["B2"].Value = "Báo cáo 1";
+
+            ws.Cells["A3"].Value = "Date";
+            ws.Cells["B3"].Value = string.Format("{0:dd MMMM yyyy} at {0:H: mm tt}", DateTimeOffset.Now);
+
+            ws.Cells["A6"].Value = "Mã giáo vien";
+            ws.Cells["B6"].Value = "Tên giáo viên";
+            ws.Cells["C6"].Value = "Giới tính";
+            ws.Cells["D6"].Value = "Ngày sinh";
+            ws.Cells["E6"].Value = "Ngày đăng ký";
+            ws.Cells["F6"].Value = "Email";
+            ws.Cells["G6"].Value = "Số điện thoại";
+            ws.Cells["H6"].Value = "Quốc tịch";
+            ws.Cells["K6"].Value = "Ghi chú";
+            ws.Cells["I6"].Value = "Địa chỉ";
+            ws.Cells["J6"].Value = "Trạng thái";
+            int rowStart = 7;
+            foreach(var item in giaoVienList)
+            {
+                ws.Cells[string.Format("A{0}", rowStart)].Value = item.MaGiaoVien;
+                ws.Cells[string.Format("B{0}", rowStart)].Value = item.TenGiaoVien;
+                ws.Cells[string.Format("C{0}", rowStart)].Value = item.GioiTinh;
+                ws.Cells[string.Format("D{0}", rowStart)].Value = item.NgaySinh;
+                ws.Cells[string.Format("E{0}", rowStart)].Value = item.NgayDangKy;
+                ws.Cells[string.Format("F{0}", rowStart)].Value = item.Email;
+                ws.Cells[string.Format("G{0}", rowStart)].Value = item.SDT;
+                ws.Cells[string.Format("H{0}", rowStart)].Value = item.QuocTich;
+                ws.Cells[string.Format("K{0}", rowStart)].Value = item.GhiChu;
+                ws.Cells[string.Format("I{0}", rowStart)].Value = item.DiaChi;
+                ws.Cells[string.Format("J{0}", rowStart)].Value = item.TrangThai;
+                rowStart++;
+            }
+
+
+            ws.Cells["A:AZ"].AutoFitColumns();
+            Response.Clear();
+            Response.ContentType = "aplication/vnd.openxmlformats-officedocument.spreedsheetml.sheet";
+            Response.AddHeader("content-disposition", "attachment: filename" + "GiaoVienReport.xlsx");
+            Response.BinaryWrite(pck.GetAsByteArray());
+            Response.End();
         }
     }
 }

@@ -60,7 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAO\BangDiemDao.cs" />
+    <Compile Include="DAO\DanhMucKhoaHocDao.cs" />
     <Compile Include="DAO\GiaoVienDao.cs" />
+    <Compile Include="DAO\HoaDonDao.cs" />
     <Compile Include="DAO\HocVienDao.cs" />
     <Compile Include="DAO\KhoaHocDao.cs" />
     <Compile Include="DAO\LopHocDao.cs" />
@@ -87,6 +89,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\PagedList.css" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,4 +1,5 @@
-﻿using Models.DAO;
+﻿using Models;
+using Models.DAO;
 using Models.Framework;
 using System;
 using System.Collections.Generic;
@@ -20,15 +21,19 @@ namespace QuanLyTrungTam.Controllers
         }
 
         // GET: KhoaHoc/Details/5
+        [HttpGet]
         public ActionResult Details(int id)
         {
-            return View();
+            var _khoaHoc = new KhoaHocDao().ViewDetail(id);
+            return View(_khoaHoc);
         }
 
         // GET: KhoaHoc/Create
         [HttpGet]
         public ActionResult Create()
         {
+            SetViewBagKH();
+            SetViewBagGV();
             return View();
         }
 
@@ -44,7 +49,7 @@ namespace QuanLyTrungTam.Controllers
                     var _khoaHocDao = new KhoaHocDao();
 
                     int _maKhoaHoc = _khoaHocDao.Insert(khoaHoc);
-
+                    
                     if (_maKhoaHoc > 0)
                     {
                         return RedirectToAction("Index", "KhoaHoc");
@@ -54,6 +59,8 @@ namespace QuanLyTrungTam.Controllers
                         ModelState.AddModelError("", "Thêm thất bại");
                     }
                 }
+                SetViewBagKH();
+                SetViewBagGV();
                 return View(khoaHoc);
             }
             catch
@@ -65,6 +72,8 @@ namespace QuanLyTrungTam.Controllers
         // GET: KhoaHoc/Edit/5
         public ActionResult Edit(int id)
         {
+            SetViewBagKH();
+            SetViewBagGV();
             var _khoaHoc = new KhoaHocDao().ViewDetail(id);
 
             return View(_khoaHoc);
@@ -106,7 +115,7 @@ namespace QuanLyTrungTam.Controllers
         }
 
         // POST: KhoaHoc/Delete/5
-        [HttpPost]
+        [HttpDelete]
         public ActionResult Delete(int id)
         {
             try
@@ -121,6 +130,17 @@ namespace QuanLyTrungTam.Controllers
 
                 return View();
             }
+        }
+
+        public void SetViewBagKH(int? maDanhMucKhoaHoc = null)
+        {
+            var dao = new DanhMucKhoaHocDao();
+            ViewBag.MaDanhMuc = new SelectList(dao.ListAll(), "MaDanhMuc", "TenDanhMuc", maDanhMucKhoaHoc);
+        }
+        public void SetViewBagGV(int? maGiaoVien = null)
+        {
+            var daoGiaoVien = new GiaoVienDao();
+            ViewBag.MaGiaoVien = new SelectList(daoGiaoVien.ListAll(), "MaGiaoVien", "TenGiaoVien", maGiaoVien);
         }
     }
 }

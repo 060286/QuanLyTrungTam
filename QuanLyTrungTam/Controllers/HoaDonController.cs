@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.DAO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,6 +18,8 @@ namespace QuanLyTrungTam.Controllers
         // GET: HoaDon/Details/5
         public ActionResult Details(int id)
         {
+            var hoaDon = new HoaDonDao().ViewDetail(id);
+
             return View();
         }
 
@@ -45,7 +48,9 @@ namespace QuanLyTrungTam.Controllers
         // GET: HoaDon/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var _hocVien = new HocVienDao().ViewDetails(id);
+
+            return View(_hocVien);
         }
 
         // POST: HoaDon/Edit/5
@@ -71,7 +76,7 @@ namespace QuanLyTrungTam.Controllers
         }
 
         // POST: HoaDon/Delete/5
-        [HttpPost]
+        [HttpDelete]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try

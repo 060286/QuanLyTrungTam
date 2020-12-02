@@ -1,47 +1,42 @@
 ﻿using Models.Framework;
-using System.Collections.Generic;
-using System.Linq;
 using PagedList;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace Models
+namespace Models.DAO
 {
-    public class GiaoVienDao
+    public class HoaDonDao
     {
-        private eCenterDbContext  _context = null;
+        private eCenterDbContext _context = null;
 
-        public GiaoVienDao()
+        public HoaDonDao()
         {
             _context = new eCenterDbContext();
         }
 
-        public int Insert(GiaoVien entity)
+
+        public int Insert(HoaDon entity)
         {
-            _context.GiaoViens.Add(entity);
+            _context.HoaDons.Add(entity);
             _context.SaveChanges();
-            return entity.MaGiaoVien;
+            return entity.MaHoaDon;
         }
 
-        public List<GiaoVien> ListAll()
+        public HoaDon GetById(int maHoaDon)
         {
-            return _context.GiaoViens.Where(x => x.TrangThai == true).ToList();
+            return _context.HoaDons.SingleOrDefault(x => x.MaHoaDon == maHoaDon);
         }
 
-
-        public GiaoVien GetById(string tenGiaoVien)
+        public IEnumerable<HoaDon> ListAllPaging(int searchString, int page, int pageSize)
         {
-            return _context.GiaoViens.SingleOrDefault(x=>x.TenGiaoVien == tenGiaoVien);
-        }
-
-        public IEnumerable<GiaoVien> ListAllPaging(string searchString,int page, int pageSize)
-        {
-            IQueryable<GiaoVien> model = _context.GiaoViens;
-            if (!string.IsNullOrEmpty(searchString))
+            IQueryable<HoaDon> model = _context.HoaDons;
+            if (searchString >= 0)
             {
-                model = model.Where(x => x.TenGiaoVien.Contains(searchString) || x.TenGiaoVien.Contains(searchString));
+                model = model.Where(x => x.MaHoaDon == searchString );
             }
 
-            return model.OrderBy(x=>x.MaGiaoVien).ToPagedList(page,pageSize);
+            return model.OrderBy(x => x.MaHoaDon).ToPagedList(page, pageSize);
         }
 
         public bool Update(GiaoVien entity)

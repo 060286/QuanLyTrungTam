@@ -21,7 +21,8 @@ namespace QuanLyTrungTam.Controllers
         // GET: HocVien/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var hocVienDao = new HocVienDao().ViewDetails(id);
+            return View(hocVienDao);
         }
 
         // GET: HocVien/Create
@@ -106,7 +107,7 @@ namespace QuanLyTrungTam.Controllers
         }
 
         // POST: HocVien/Delete/5
-        [HttpPost]
+        [HttpDelete]
         public ActionResult Delete(int id)
         {
             try

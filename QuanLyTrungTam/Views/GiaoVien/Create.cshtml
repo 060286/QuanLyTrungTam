@@ -39,8 +39,10 @@
         <div class="form-group">
             @Html.LabelFor(model => model.GioiTinh, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.GioiTinh, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
+                @*@Html.EditorFor(model => model.GioiTinh, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.RadioButtonFor(model => model.GioiTinh, "Nam", new { required = "required" }) Nam
+                @Html.RadioButtonFor(model => model.GioiTinh, "Nữ") Nữ
+                @*@Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
@@ -87,7 +89,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TrangThai, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TrangThai, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.EditorFor(model => model.TrangThai, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.RadioButtonFor(model => model.TrangThai, true, new { required = "required" })Hoạt động
+                @Html.RadioButtonFor(model => model.TrangThai, false) Ngừng hoạt động
                 @Html.ValidationMessageFor(model => model.TrangThai, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -101,5 +105,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Quay lại danh sách", "Index")
 </div>

@@ -1,21 +1,15 @@
-﻿namespace Models.Framework
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Web;
+
+namespace QuanLyTrungTam.ViewModels
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
-    using System.ComponentModel;
-
-    [Table("GiaoVien")]
-    public partial class GiaoVien
+    public class GiaoVienViewModel
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public GiaoVien()
-        {
-            LopHocs = new HashSet<LopHoc>();
-        }
-
         [Key]
         public int MaGiaoVien { get; set; }
 
@@ -37,12 +31,11 @@
         public DateTime? NgaySinh { get; set; }
 
         [Column(TypeName = "date")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? NgayDangKy { get; set; }
 
         [StringLength(100)]
         [DisplayName("Email")]
-        [EmailAddress(ErrorMessage ="Vui lòng nhập email")]
+        [EmailAddress(ErrorMessage = "Vui lòng nhập email")]
         public string Email { get; set; }
         [DisplayName("Số điện thoại")]
         public int? SDT { get; set; }
@@ -53,7 +46,7 @@
 
         [StringLength(200)]
         [DisplayName("Địa chỉ")]
-        [Required(ErrorMessage ="Vui lòng nhập địa chỉ")]
+        [Required(ErrorMessage = "Vui lòng nhập địa chỉ")]
         public string DiaChi { get; set; }
 
         [StringLength(50)]
@@ -63,15 +56,5 @@
         [DisplayName("Trạng thái")]
         [Required(ErrorMessage = "Vui lòng nhập trạng thái")]
         public bool? TrangThai { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LopHoc> LopHocs { get; set; }
-
-
-        //public enum GioiTinh
-        //{
-        //    Nam,
-        //    Nữ
-        //}
     }
 }

@@ -12,6 +12,7 @@
     <div class="page-header no-margin-bottom">
         <div class="container-fluid">
             <h2 class="h5 no-margin-bottom">Danh Sách Giáo Viên</h2>
+            <a href="@Url.Action("ExportToExcel","GiaoVien")">Xuất File</a>
         </div>
     </div>
     <!-- Breadcrumb-->
@@ -39,12 +40,11 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="block margin-bottom-sm">
-                        <div class="title"><strong>Basic Table</strong></div>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>Mã giáo viên</th>
                                         <th>Tên Giáo Viên</th>
                                         <th>Giới Tính</th>
                                         <th>Ngày sinh</th>
@@ -66,21 +66,11 @@
                                             <td>@item.SDT</td>
                                             <td>@(item.TrangThai.GetValueOrDefault(false)? "Hoạt động" : "Khóa")</td>
                                             <td>
-                                                <a href="/GiaoVien/Edit/@item.MaGiaoVien" @*data-toggle="modal" data-target="#modal-update-@item.MaGiaoVien" data-backdrop="static" data-keyboard="false"*@>Sửa</a>
-                                                @*<div class="modal fade" id="#modal-update-@item.MaGiaoVien" >
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content"></div>
-                                                    </div>
-                                                </div>*@
-                                                &nbsp;<a href="/GiaoVien/Details/@item.MaGiaoVien" @*data-toggle="modal" data-target="#modal-details-@item.MaGiaoVien" data-backdrop="static" data-keyboard="false"*@>Chi tiết &nbsp;</a>
-                                                    @*<div class="modal fade" id="#modal-details-@item.MaGiaoVien" >
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content"></div>
-                                                    </div>
-                                                </div>*@
+                                                <a href="/GiaoVien/Edit/@item.MaGiaoVien">Sửa &nbsp;</a>
+                                                <a href="/GiaoVien/Details/@item.MaGiaoVien">Chi tiết &nbsp;</a>
                                                 @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaGiaoVien }, new AjaxOptions
                                                 {
-                                                    Confirm = "Bạn có muốn xóa giáo viên này",
+                                                    Confirm = "Xóa bản ghi giáo viên",
                                                     OnComplete = "$('#row_" + item.MaGiaoVien + "').remove()",
                                                     HttpMethod = "Delete"
                                                 })
