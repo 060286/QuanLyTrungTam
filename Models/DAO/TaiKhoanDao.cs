@@ -19,18 +19,42 @@ namespace Models
             context = new eCenterDbContext();
         }
 
-        public bool Login(string taiKhoan, string matKhau)
+        //public bool Login(string taiKhoan, string matKhau)
+        //{
+        //    // Khởi tạo đối tượng tham số truyền vào bao gồm tài khoản + mật khẩu
+        //    object[] sqlParams =
+        //    {
+        //    new SqlParameter("@TaiKhoan",taiKhoan),
+        //    new SqlParameter("@MatKhau",matKhau),
+        //};
+
+        //    var res = context.Database.SqlQuery<bool>("Sp_TaiKhoan_DangNhap @TaiKhoan ,@MatKhau", sqlParams).SingleOrDefault();
+
+        //    return res;
+        //}
+
+
+        public int Login(string taiKhoan, string matKhau)
         {
-            // Khởi tạo đối tượng tham số truyền vào bao gồm tài khoản + mật khẩu
-            object[] sqlParams =
+            var result = context.DangNhaps.SingleOrDefault(x => x.TaiKhoan == taiKhoan);
+
+            if (result == null)
             {
-            new SqlParameter("@TaiKhoan",taiKhoan),
-            new SqlParameter("@MatKhau",matKhau),
-        };
+                return 0;
+            }
+            else
+            {
+                if (result.TrangThai == false)
+                {
+                    return -1;
+                }
+                else
+                {
+                    if (result.MatKhau == matKhau) return 1;
+                    else return -2;
+                }
 
-            var res = context.Database.SqlQuery<bool>("Sp_TaiKhoan_DangNhap @TaiKhoan ,@MatKhau", sqlParams).SingleOrDefault();
-
-            return res;
+            }
         }
     }
     
