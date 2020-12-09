@@ -6,6 +6,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
     using System.ComponentModel;
+    using System.Web;
 
     [Table("GiaoVien")]
     public partial class GiaoVien
@@ -24,6 +25,15 @@
         [DisplayName("Tên giáo viên")]
         public string TenGiaoVien { get; set; }
 
+        [DisplayName("File ảnh")]
+        [StringLength(200)]
+        public string HinhAnh { get; set; }
+
+        //public HttpPostedFile HinhAnhFile { get; set; }
+        // Tâm fix
+        [DisplayName("Mức lương")]
+        public decimal? MucLuong { get; set; }
+
         [DisplayName("Giới tính")]
         [Required(ErrorMessage = "Vui lòng nhập giới tính")]
         [StringLength(50)]
@@ -33,11 +43,11 @@
         [DataType(DataType.Date)]
         [DisplayName("Ngày sinh")]
         [Required(ErrorMessage = "Vui lòng nhập ngày sinh")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? NgaySinh { get; set; }
 
         [Column(TypeName = "date")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? NgayDangKy { get; set; }
 
         [StringLength(100)]

@@ -19,11 +19,16 @@
 
         [Column(TypeName = "date")]
         [DisplayName("Ngày lập hóa đơn")]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? NgayLap { get; set; }
+
+        public int? MaKhoaHoc { get; set; }
 
         public int? MaLopHoc { get; set; }
 
         public int? MaHocVien { get; set; }
+
+        public virtual KhoaHoc KhoaHoc { get; set; }
 
         public virtual HocVien HocVien { get; set; }
 

@@ -1,9 +1,8 @@
-﻿@model PagedList.IPagedList <Models.Framework.GiaoVien>
+﻿@model PagedList.IPagedList<Models.Framework.GiaoVien>
 
 @using PagedList.Mvc;
-
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "testSearchByAddress";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,10 +11,9 @@
     <div class="page-header no-margin-bottom">
         <div class="container-fluid">
             <h2 class="h5 no-margin-bottom">Danh Sách Giáo Viên</h2>
-            <a class="btn btn-info" href="@Url.Action("ExportToExcel","GiaoVien")">Xuất File</a>
+            <a href="@Url.Action("ExportToExcel","GiaoVien")">Xuất File</a>
         </div>
     </div>
-
     <!-- Breadcrumb-->
     <div class="container-fluid">
         <ul class="breadcrumb">
@@ -25,6 +23,7 @@
     </div>
 
     <div class="container">
+
         <div class="col-lg-3 col-md-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -82,7 +81,6 @@
                             </div>
                             <div class="col-xs-9 text-right">
                                 <div class="huge">@ViewBag.TongTienLuong</div>
-                                @*<div class="huge">@QuanLyTrungTam.Common.Format.FormatCurrencyVND(ViewBag.TongTienLuong)</div>*@
                                 <div>Tiền lương phải trả hàng tháng</div>
                             </div>
                         </div>
@@ -92,16 +90,15 @@
         </div>
     </div>
 
-    <br />
     @using (Html.BeginForm("Index", "GiaoVien", FormMethod.Get))
     {
         <div class="row">
             <div class="col-sm-6">
                 <div class="col-md-4">
-                    <input type="text" style="height:30px" value="@ViewBag.SearchString" name="searchString" placeholder="Tìm kiếm theo tên" />
+                    <input type="text" value="@ViewBag.SearchString" name="searchString" placeholder="Tìm kiếm theo tên" />
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-outline btn-primary btn-sm" type="submit">Tìm kiếm</button>
+                    <button type="submit">Tìm kiếm</button>
                 </div>
             </div>
             <br />
@@ -113,10 +110,10 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="col-md-4">
-                    <input type="text" style="height:30px" value="@ViewBag.SearchStringByGender" name="searchStringGender" placeholder="Tìm kiếm theo giới tính" />
+                    <input type="text" value="@ViewBag.SearchStringByGender" name="searchStringGender" placeholder="Tìm kiếm theo giới tính" />
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-outline btn-primary btn-sm" type="submit">Tìm kiếm</button>
+                    <button type="submit">Tìm kiếm</button>
                 </div>
             </div>
             <br />
@@ -128,16 +125,16 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="col-md-4">
-                    <input type="text" style="height:30px" value="@ViewBag.SearchStringByAddress" name="searchStringAddress" placeholder="Tìm kiếm theo địa chỉ" />
+                    <input type="text" value="@ViewBag.SearchStringByAddress" name="searchStringAddress" placeholder="Tìm kiếm theo địa chỉ" />
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-outline btn-primary btn-sm" type="submit">Tìm kiếm</button>
+                    <button type="submit">Tìm kiếm</button>
                 </div>
             </div>
             <br />
         </div>
     }
-    <br />
+
     @using (Html.BeginForm("testSearchBySalary", "GiaoVien", FormMethod.Get))
     {
         <div class="row">
@@ -152,7 +149,7 @@
             <br />
         </div>
     }
-    <br />
+
     <section class="no-padding-top">
         <div class="container-fluid">
             <div class="row">
@@ -165,7 +162,6 @@
                                         <th>Mã giáo viên</th>
                                         <th>Tên Giáo Viên</th>
                                         <th>Hình ảnh</th>
-                                        <th>Mức lương</th>
                                         <th>Giới Tính</th>
                                         <th>Ngày sinh</th>
                                         <th>Email</th>
@@ -183,7 +179,6 @@
                                             <td>
                                                 <img src="~/Img/GiaoVien/@item.HinhAnh" width="80" height="auto" />
                                             </td>
-                                            <td>@item.MucLuong</td>
                                             <td>@item.GioiTinh</td>
                                             <td>@item.NgaySinh</td>
                                             <td>@item.Email</td>
@@ -204,13 +199,17 @@
                                 </tbody>
                             </table>
                             <br />
-                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchStringAddress = @ViewBag.SearchStringByAddress }))
                         </div>
                     </div>
                 </div>
             </div>
-        </div>searchString
+        </div>
     </section>
 </div>
+
+
+
+
 
 

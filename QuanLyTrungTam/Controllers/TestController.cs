@@ -27,5 +27,23 @@ namespace QuanLyTrungTam.Controllers
             
             return PartialView();
         }
+
+        public ActionResult DemoAjax()
+        {
+
+            return View();
+        }
+
+        public ActionResult LoadAjaxActionLink()
+        {
+
+            return Content("Hello Ajax");
+        }
+
+        public ActionResult LoadAjaxBeginForm(FormCollection f)
+        {
+            string KQ = f["txt1"].ToString();
+            return Content(KQ);
+        }
     }
 }

@@ -1,9 +1,18 @@
 ﻿@model Models.Framework.HocVien
 
-@using (Html.BeginForm()) 
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    //var dao = new KhoaHocDao();
+}
+
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>HocVien</h4>
         <hr />
@@ -19,7 +28,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.GioiTinh, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.GioiTinh, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.EditorFor(model => model.GioiTinh, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.RadioButtonFor(model => model.GioiTinh, "Nam", new { required = "required" }) Nam
+                @Html.RadioButtonFor(model => model.GioiTinh, "Nữ") Nữ
                 @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
             </div>
         </div>

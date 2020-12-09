@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Http.ModelBinding;
 using System.Web.Mvc;
 using Models;
 using Models.Framework;
 using OfficeOpenXml;
-using PagedList;
 using QuanLyTrungTam.ViewModels;
+using System.IO;
+using System.Web;
 
 namespace QuanLyTrungTam.Controllers
 {
@@ -20,10 +20,79 @@ namespace QuanLyTrungTam.Controllers
         {
             var _daoGiaoVien = new GiaoVienDao();
             var _modelGiaoVien = _daoGiaoVien.ListAllPaging(searchString,page, pageSize) ;
-            ViewBag.SearchString = searchString; 
+            ViewBag.SearchString = searchString;
+            //ViewBag.GiaoVien = db.GiaoViens.Count();// return tổng số giáo viên
+            ViewBag.TongGiaoVien = db.GiaoViens.Count();
+            ViewBag.NhanVienNam = db.GiaoViens.Where(x=>x.GioiTinh == "Nam").Count();
+            ViewBag.NhanVienNu = db.GiaoViens.Where(x => x.GioiTinh == "Nữ").Count();
+            ViewBag.TongTienLuong = db.GiaoViens.Sum(x => x.MucLuong).Value.ToString("#,##").Replace(',', '.');
             return View(_modelGiaoVien);
         }
 
+        public ActionResult testListAllPagingOrderByDescending(int page =1, int pageSize = 10)
+        {
+            ViewBag.TongGiaoVien = db.GiaoViens.Count();
+            ViewBag.NhanVienNam = db.GiaoViens.Where(x => x.GioiTinh == "Nam").Count();
+            ViewBag.NhanVienNu = db.GiaoViens.Where(x => x.GioiTinh == "Nữ").Count();
+            ViewBag.TongTienLuong = db.GiaoViens.Sum(x => x.MucLuong).ToString();
+
+            var _daoGiaoVien = new GiaoVienDao();
+            var _modelGiaoVien = _daoGiaoVien.ListAllOrderByDescending(page, pageSize);
+
+            return View(_modelGiaoVien);
+        }
+
+        public ActionResult testSearchByGender(string searchStringGender, int page = 1, int pageSize = 10)
+        {
+            ViewBag.TongGiaoVien = db.GiaoViens.Count();
+            ViewBag.NhanVienNam = db.GiaoViens.Where(x => x.GioiTinh == "Nam").Count();
+            ViewBag.NhanVienNu = db.GiaoViens.Where(x => x.GioiTinh == "Nữ").Count();
+            ViewBag.TongTienLuong = db.GiaoViens.Sum(x => x.MucLuong).ToString();
+
+            var _daoGiaoVien = new GiaoVienDao();
+            var _modelGiaoVien = _daoGiaoVien.ListAllPagingByGender(searchStringGender,page,pageSize);
+            ViewBag.SearchStringByGender = searchStringGender;
+            return View(_modelGiaoVien);
+        }    
+
+        public ActionResult testSearchByAddress(string searchStringAddress, int page = 1, int pageSize = 10)
+        {
+            ViewBag.TongGiaoVien = db.GiaoViens.Count();
+            ViewBag.NhanVienNam = db.GiaoViens.Where(x => x.GioiTinh == "Nam").Count();
+            ViewBag.NhanVienNu = db.GiaoViens.Where(x => x.GioiTinh == "Nữ").Count();
+            ViewBag.TongTienLuong = db.GiaoViens.Sum(x => x.MucLuong).ToString();
+
+            var _daoGiaoVien = new GiaoVienDao();
+            var _modelGiaoVien = _daoGiaoVien.ListAllByAddress(searchStringAddress, page, pageSize);
+            ViewBag.SearchStringByAddress = searchStringAddress;
+            return View(_modelGiaoVien);
+        }
+
+        public ActionResult testSearchBySalary(string searchSalary, int page = 1, int pageSize = 10)
+        {
+            ViewBag.TongGiaoVien = db.GiaoViens.Count();
+            ViewBag.NhanVienNam = db.GiaoViens.Where(x => x.GioiTinh == "Nam").Count();
+            ViewBag.NhanVienNu = db.GiaoViens.Where(x => x.GioiTinh == "Nữ").Count();
+            ViewBag.TongTienLuong = db.GiaoViens.Sum(x => x.MucLuong).ToString();
+
+            var _daoGiaoVien = new GiaoVienDao();
+            var _modelGiaoVien = _daoGiaoVien.ListAllPagingBySalary(searchSalary, page, pageSize);
+            ViewBag.SearchStringBySalary = searchSalary;
+            return View(_modelGiaoVien);
+        }
+
+        public ActionResult testSearchByStatus(string searchStatus,int page = 1, int pageSize = 10)
+        {
+            ViewBag.TongGiaoVien = db.GiaoViens.Count();
+            ViewBag.NhanVienNam = db.GiaoViens.Where(x => x.GioiTinh == "Nam").Count();
+            ViewBag.NhanVienNu = db.GiaoViens.Where(x => x.GioiTinh == "Nữ").Count();
+            ViewBag.TongTienLuong = db.GiaoViens.Sum(x => x.MucLuong).ToString();
+
+            var _daoGiaoVien = new GiaoVienDao();
+            var _modelGiaoVien = _daoGiaoVien.ListAllPagingByStatus(searchStatus,page,pageSize);
+            ViewBag.SearchStatus = searchStatus;
+            return View(_modelGiaoVien);
+        }
         // GET: GiaoVien/Details/5
         [HttpGet]
         public ActionResult Details(int id)
@@ -43,32 +112,44 @@ namespace QuanLyTrungTam.Controllers
 
         // POST: GiaoVien/Create
         [HttpPost]
-        public ActionResult Create(GiaoVien giaoVien)
+        public ActionResult Create(GiaoVien giaoVien, HttpPostedFileBase hinhAnh)
         {
             try
             {
                 // TODO: Add insert logic here
                 if (ModelState.IsValid)
                 {
-                    var _daoGiaoVien = new GiaoVienDao();
-                    giaoVien.NgayDangKy = DateTime.Now;
-                    giaoVien.QuocTich = "Việt Nam";
-                    int _maGiaoVien = _daoGiaoVien.Insert(giaoVien);
+                    string path = "";
+                    if(hinhAnh != null && hinhAnh.ContentLength > 0)
+                    {
+                        string extension = Path.GetExtension(hinhAnh.FileName);
+                        if (extension.Equals(".jpg") || extension.Equals(".png") || extension.Equals(".jpeg"))
+                        {
+                            path = Path.Combine(Server.MapPath("~/Img/GiaoVien/"), hinhAnh.FileName);
+                            hinhAnh.SaveAs(path);
+                        }
+                        giaoVien.HinhAnh = hinhAnh.FileName;
+                        var _daoGiaoVien = new GiaoVienDao();
+                        giaoVien.NgayDangKy = DateTime.Now;
+                        giaoVien.QuocTich = "Việt Nam";
+                        int _maGiaoVien = _daoGiaoVien.Insert(giaoVien);
 
-                    if (_maGiaoVien > 0)
-                    {
-                        return RedirectToAction("Index", "GiaoVien");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Thêm thất bại");
-                    }
+                        if (_maGiaoVien > 0)
+                        {
+                            return RedirectToAction("Index", "GiaoVien");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Thêm thất bại");
+                        }
+                    }    
+
                 }
                 return View(giaoVien);
             }
             catch
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "GiaoVien");
             }
         }
 
@@ -198,5 +279,6 @@ namespace QuanLyTrungTam.Controllers
             Response.BinaryWrite(pck.GetAsByteArray());
             Response.End();
         }
+
     }
 }

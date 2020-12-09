@@ -19,11 +19,22 @@
         }
 
         [Key]
-        
         public int MaHocVien { get; set; }
         [DisplayName("Tên học viên")]
         [StringLength(100)]
         public string TenHocVien { get; set; }
+
+        [DisplayName("File Ảnh")]
+        [StringLength(200)]
+        public string HinhAnh { get; set; }
+
+        [DisplayName("Tên tài khoản User")]
+        [StringLength(100)]
+        public string TaiKhoan { get; set; }
+
+        [StringLength(100)]
+        [DisplayName("Mật khẩu User")]
+        public string MatKhau { get; set; }
 
         [StringLength(50)]
         [DisplayName("Giới tính")]
@@ -41,18 +52,19 @@
         public string DiaChi { get; set; }
 
         [Column(TypeName = "date")]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? NgayDangKy { get; set; }
 
         [Column(TypeName = "date")]
         [DataType(DataType.Date)]
         [DisplayName("Ngày sinh")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? NgaySinh { get; set; }
 
         [DisplayName("Ghi chú")]
         public string GhiChu { get; set; }
 
-        [DisplayName("Trạng th")]
+        [DisplayName("Trạng thái")]
         public bool? TrangThai { get; set; }
 
         [StringLength(100)]

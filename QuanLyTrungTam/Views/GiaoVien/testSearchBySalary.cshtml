@@ -1,11 +1,12 @@
-﻿@model PagedList.IPagedList <Models.Framework.GiaoVien>
+﻿@model PagedList.IPagedList<Models.Framework.GiaoVien>
 
 @using PagedList.Mvc;
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "testSearchBySalary";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 
 <div class="page-content">
     <!-- Page Header-->
@@ -25,6 +26,7 @@
     </div>
 
     <div class="container">
+
         <div class="col-lg-3 col-md-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -82,7 +84,6 @@
                             </div>
                             <div class="col-xs-9 text-right">
                                 <div class="huge">@ViewBag.TongTienLuong</div>
-                                @*<div class="huge">@QuanLyTrungTam.Common.Format.FormatCurrencyVND(ViewBag.TongTienLuong)</div>*@
                                 <div>Tiền lương phải trả hàng tháng</div>
                             </div>
                         </div>
@@ -91,7 +92,6 @@
             </div>
         </div>
     </div>
-
     <br />
     @using (Html.BeginForm("Index", "GiaoVien", FormMethod.Get))
     {
@@ -152,7 +152,6 @@
             <br />
         </div>
     }
-    <br />
     <section class="no-padding-top">
         <div class="container-fluid">
             <div class="row">
@@ -204,13 +203,15 @@
                                 </tbody>
                             </table>
                             <br />
-                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchSalary = @ViewBag.SearchStringBySalary }))
                         </div>
                     </div>
                 </div>
             </div>
-        </div>searchString
+        </div>
     </section>
 </div>
+
+
 
 

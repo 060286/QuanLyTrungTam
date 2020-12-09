@@ -1,9 +1,8 @@
-﻿@model PagedList.IPagedList <Models.Framework.GiaoVien>
+﻿@model PagedList.IPagedList<Models.Framework.GiaoVien>
 
 @using PagedList.Mvc;
-
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "testListAllPagingOrderByDescending";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -24,68 +23,61 @@
         </ul>
     </div>
 
-    <div class="container">
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-users fa-4x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <div class="huge">@ViewBag.TongGiaoVien</div>
-                            <div>Tổng số giáo viên</div>
-                        </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-users fa-5x"></i>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-green">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-user fa-4x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <div class="huge">@ViewBag.NhanVienNam</div>
-                            <div>Số lượng giáo viên nam</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-yellow">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-user fa-4x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <div class="huge"> @ViewBag.NhanVienNu</div>
-                            <div>Số lượng nhân viên nữ</div>
-                        </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">@ViewBag.TongGiaoVien</div>
+                        <div>Tổng số giáo viên</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="row">
-            <div class="col-lg-3 col-md-6">
-                <div class="panel panel-red">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <i class="fa fa-support fa-4x"></i>
-                            </div>
-                            <div class="col-xs-9 text-right">
-                                <div class="huge">@ViewBag.TongTienLuong</div>
-                                @*<div class="huge">@QuanLyTrungTam.Common.Format.FormatCurrencyVND(ViewBag.TongTienLuong)</div>*@
-                                <div>Tiền lương phải trả hàng tháng</div>
-                            </div>
-                        </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-user fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">@ViewBag.NhanVienNam</div>
+                        <div>Số lượng giáo viên nam</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-yellow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-user fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge"> @ViewBag.NhanVienNu</div>
+                        <div>Số lượng nhân viên nữ</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-red">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-support fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">@ViewBag.TongTienLuong</div>
+                        <div>Tiền lương phải trả hàng tháng</div>
                     </div>
                 </div>
             </div>
@@ -137,7 +129,7 @@
             <br />
         </div>
     }
-    <br />
+
     @using (Html.BeginForm("testSearchBySalary", "GiaoVien", FormMethod.Get))
     {
         <div class="row">
@@ -152,7 +144,7 @@
             <br />
         </div>
     }
-    <br />
+
     <section class="no-padding-top">
         <div class="container-fluid">
             <div class="row">
@@ -204,13 +196,12 @@
                                 </tbody>
                             </table>
                             <br />
-                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+                            @Html.PagedListPager(Model, page => Url.Action("testListAllPagingOrderByDescending", new { page, @searchString = @ViewBag.SearchString }))
                         </div>
                     </div>
                 </div>
             </div>
-        </div>searchString
+        </div>
     </section>
 </div>
-
 

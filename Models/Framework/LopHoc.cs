@@ -26,6 +26,9 @@
 
         [Column(TypeName = "date")]
         [DisplayName("Ngày bắt đầu")]
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage = "Vui lòng nhập ngày bắt đầu")]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? NgayBatDau { get; set; }
 
         [DisplayName("Tình trạng")]
@@ -33,6 +36,9 @@
 
         [Column(TypeName = "date")]
         [DisplayName("Ngày kết thúc")]
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage = "Vui lòng nhập ngày bắt đầu")]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? NgayKetThuc { get; set; }
 
         public int? MaGiaoVien { get; set; }

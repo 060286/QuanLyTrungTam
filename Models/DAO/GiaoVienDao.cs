@@ -27,12 +27,13 @@ namespace Models
             return _context.GiaoViens.Where(x => x.TrangThai == true).ToList();
         }
 
-
+        // Lấy giáo viên theo Tên
         public GiaoVien GetById(string tenGiaoVien)
         {
             return _context.GiaoViens.SingleOrDefault(x=>x.TenGiaoVien == tenGiaoVien);
         }
 
+        // Sắp xếp thứ tự tăng dần
         public IEnumerable<GiaoVien> ListAllPaging(string searchString,int page, int pageSize)
         {
             IQueryable<GiaoVien> model = _context.GiaoViens;
@@ -44,6 +45,59 @@ namespace Models
             return model.OrderBy(x=>x.MaGiaoVien).ToPagedList(page,pageSize);
         }
 
+        // Sắp xeeps theo thứ tự giảm dần
+        public IEnumerable<GiaoVien> ListAllOrderByDescending(/*string  searchString,*/int page,int pageSize)
+        {
+            IQueryable<GiaoVien> model = _context.GiaoViens;
+            //if (!string.IsNullOrEmpty(searchString))
+            //{
+            //    model = model.Where(x => x.TenGiaoVien.Contains(searchString) || x.TenGiaoVien.Contains(searchString));
+            //}
+            return model.OrderByDescending(x => x.MaGiaoVien).ToPagedList(page, pageSize);
+        }
+
+        public IEnumerable<GiaoVien> ListAllPagingByGender(string searchStringByGender, int page, int pageSize)
+        {
+            IQueryable<GiaoVien> model = _context.GiaoViens;
+            if(!string.IsNullOrEmpty(searchStringByGender))
+            {
+                model = model.Where(x => x.GioiTinh.Contains(searchStringByGender));
+            }
+            return model.OrderBy(x => x.MaGiaoVien).ToPagedList(page,pageSize);
+        }
+
+
+        public IEnumerable<GiaoVien> ListAllByAddress(string searchStringAddress, int page, int pageSize)
+        {
+            IQueryable<GiaoVien> model = _context.GiaoViens;
+            if (!string.IsNullOrEmpty(searchStringAddress))
+            {
+                model = model.Where(x => x.DiaChi.Contains(searchStringAddress));
+            }
+            return model.OrderBy(x => x.MaGiaoVien).ToPagedList(page, pageSize);
+        }
+
+        
+        public IEnumerable<GiaoVien> ListAllPagingBySalary(string searchSalary,int page, int pageSize)
+        {
+            IQueryable<GiaoVien> model = _context.GiaoViens;
+            if(!string.IsNullOrEmpty(searchSalary))
+            {
+                model = model.Where(x => x.MucLuong.ToString().Contains(searchSalary));
+            }
+            return model.OrderBy(x => x.MaGiaoVien).ToPagedList(page, pageSize);
+        }
+
+        public IEnumerable<GiaoVien> ListAllPagingByStatus(string searchStatus,int page,int pageSize)
+        {
+           IQueryable<GiaoVien> model = _context.GiaoViens;
+            if (!string.IsNullOrEmpty(searchStatus))
+            {
+                model = model.Where(x => x.TrangThai.ToString().Contains(searchStatus) == true);
+            }
+
+            return model.OrderBy(x => x.MaGiaoVien).ToPagedList(page, pageSize);
+        }
         public bool Update(GiaoVien entity)
         {
             try
@@ -51,6 +105,7 @@ namespace Models
                 var _giaoVien = _context.GiaoViens.Find(entity.MaGiaoVien);
                 _giaoVien.TenGiaoVien = entity.TenGiaoVien;
                 _giaoVien.GioiTinh = entity.GioiTinh;
+                _giaoVien.HinhAnh = entity.HinhAnh;
                 _giaoVien.NgaySinh = entity.NgaySinh;
                 _giaoVien.Email = entity.Email;
                 _giaoVien.SDT = entity.SDT;
