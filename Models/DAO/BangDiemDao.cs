@@ -25,6 +25,11 @@ namespace Models.DAO
             return _context.BangDiems.SingleOrDefault(x => x.MaBangDiem == maBangDiem).ToString();
         }
 
+        public BangDiem ViewDetail(int id)
+        {
+            return _context.BangDiems.Find(id);
+        }
+
         public bool Update(BangDiem entity)
         {
             try

@@ -20,13 +20,11 @@
 
         [Key]
         public int MaHocVien { get; set; }
+
+        
         [DisplayName("Tên học viên")]
         [StringLength(100)]
         public string TenHocVien { get; set; }
-
-        [DisplayName("File Ảnh")]
-        [StringLength(200)]
-        public string HinhAnh { get; set; }
 
         [DisplayName("Tên tài khoản User")]
         [StringLength(100)]
@@ -35,6 +33,10 @@
         [StringLength(100)]
         [DisplayName("Mật khẩu User")]
         public string MatKhau { get; set; }
+
+        [DisplayName("File Ảnh")]
+        [StringLength(200)]
+        public string HinhAnh { get; set; }
 
         [StringLength(50)]
         [DisplayName("Giới tính")]

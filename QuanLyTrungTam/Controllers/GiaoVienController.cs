@@ -110,6 +110,8 @@ namespace QuanLyTrungTam.Controllers
             return View();
         }
 
+        
+
         // POST: GiaoVien/Create
         [HttpPost]
         public ActionResult Create(GiaoVien giaoVien, HttpPostedFileBase hinhAnh)
@@ -136,11 +138,13 @@ namespace QuanLyTrungTam.Controllers
 
                         if (_maGiaoVien > 0)
                         {
+                            SetAlert("Thêm thành công", 1);
                             return RedirectToAction("Index", "GiaoVien");
                         }
                         else
                         {
-                            ModelState.AddModelError("", "Thêm thất bại");
+                            SetAlert("Thêm thất bại", 3);
+                            //ModelState.AddModelError("", "Thêm thất bại");
                         }
                     }    
 

@@ -24,6 +24,11 @@ namespace Models.DAO
             return entity.MaLopHoc;
         }
 
+        public List<LopHoc> ListAll()
+        {
+            return _context.LopHocs.ToList();
+        }
+
         public LopHoc GetById(string tenLopHoc)
         {
             return _context.LopHocs.SingleOrDefault(x => x.TenLopHoc == tenLopHoc);

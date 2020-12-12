@@ -11,6 +11,7 @@
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public KhoaHoc()
         {
+            HoaDons = new HashSet<HoaDon>();
             LopHocs = new HashSet<LopHoc>();
         }
 
@@ -34,14 +35,22 @@
         public int? MaHocVien { get; set; }
 
         public int? MaGiaoVien { get; set; }
-
+        [DisplayName("Số tuần")]
         public int? SoTuan { get; set; }
 
         public int? MaDanhMuc { get; set; }
 
+        public int? MaTKB { get; set; }
+
+        [DisplayName("Lứa tuổi phù hợp")]
         public int? LuaTuoiPhuHop { get; set; }
 
         public virtual DanhMucKhoaHoc DanhMucKhoaHoc { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HoaDon> HoaDons { get; set; }
+
+        public virtual ThoiKhoaBieu ThoiKhoaBieu { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LopHoc> LopHocs { get; set; }

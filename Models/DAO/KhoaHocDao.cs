@@ -28,6 +28,13 @@ namespace Models.DAO
             _context.SaveChanges();
             return entity.MaKhoaHoc;
         }
+        // THêm danh mục khóa học
+        public int Insert(DanhMucKhoaHoc entity)
+        {
+            _context.DanhMucKhoaHocs.Add(entity);
+            _context.SaveChanges();
+            return entity.MaDanhMuc;
+        }
 
         //public KhoaHoc SelectAll()
         //{

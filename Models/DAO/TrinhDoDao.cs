@@ -7,25 +7,26 @@ using System.Threading.Tasks;
 
 namespace Models.DAO
 {
-    public class DanhMucKhoaHocDao
+    public class TrinhDoDao
     {
+
         eCenterDbContext _context = null;
 
-        public DanhMucKhoaHocDao()
+        public TrinhDoDao()
         {
             _context = new eCenterDbContext();
         }
 
-        public List<DanhMucKhoaHoc> ListAll()
+        public List<TrinhDo> ListAll()
         {
-            return _context.DanhMucKhoaHocs.ToList();
+            return _context.TrinhDoes.ToList();
         }
 
-        public int Insert(DanhMucKhoaHoc entity)
+        public int Insert(TrinhDo entity)
         {
-            _context.DanhMucKhoaHocs.Add(entity);
+            _context.TrinhDoes.Add(entity);
             _context.SaveChanges();
-            return entity.MaDanhMuc;
+            return entity.MaTrinhDo;
         }
     }
 }

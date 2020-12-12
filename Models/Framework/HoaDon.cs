@@ -14,6 +14,7 @@
         [Column(TypeName = "money")]
         [DisplayName("Tổng tiền")]
         public decimal? TongTien { get; set; }
+
         [DisplayName("Trạng thái")]
         public bool? TinhTrang { get; set; }
 
@@ -28,9 +29,9 @@
 
         public int? MaHocVien { get; set; }
 
-        public virtual KhoaHoc KhoaHoc { get; set; }
-
         public virtual HocVien HocVien { get; set; }
+
+        public virtual KhoaHoc KhoaHoc { get; set; }
 
         public virtual LopHoc LopHoc { get; set; }
     }

@@ -23,10 +23,23 @@ namespace Models.Framework
         public virtual DbSet<LopHoc_Tuan> LopHoc_Tuan { get; set; }
         public virtual DbSet<PhuHuynh> PhuHuynhs { get; set; }
         public virtual DbSet<ThoiKhoaBieu> ThoiKhoaBieux { get; set; }
+        public virtual DbSet<TrinhDo> TrinhDoes { get; set; }
         public virtual DbSet<Tuan> Tuans { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<GiaoVien>()
+                .Property(e => e.MucLuong)
+                .HasPrecision(19, 4);
+
+            modelBuilder.Entity<GiaoVien>()
+                .Property(e => e.MaTrinhDo)
+                .IsFixedLength();
+
+            modelBuilder.Entity<GiaoVien>()
+                .HasOptional(e => e.TrinhDo)
+                .WithRequired(e => e.GiaoVien);
+
             modelBuilder.Entity<HoaDon>()
                 .Property(e => e.TongTien)
                 .HasPrecision(19, 4);

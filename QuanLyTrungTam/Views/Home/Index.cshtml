@@ -1,7 +1,7 @@
 ﻿
 
 @{
-    ViewBag.Title = "Trang chủ";
+    ViewBag.Title = "Báo cáo và biểu đồ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -69,7 +69,7 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
-                                <i class="fa fa-comments fa-5x"></i>
+                                <i class="fa fa-users fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
                                 <div class="huge">@ViewBag.GiaoVien</div>
@@ -92,7 +92,7 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
-                                <i class="fa fa-tasks fa-5x"></i>
+                                <i class="fa  fa-users fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
                                 <div class="huge">@ViewBag.HocVien</div>
@@ -138,7 +138,7 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
-                                <i class="fa fa-support fa-5x"></i>
+                                <i class="fa fa-dollar fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
                                 <div class="huge">@ViewBag.TongTien</div>
@@ -157,11 +157,11 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
-                <div class="panel panel-red">
+                <div class="panel panel-primary">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
-                                <i class="fa  fa-calendar-o fa-5x"></i>
+                                <i class="fa  fa-user fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
                                 <div class="huge">@ViewBag.HocVienDangKyMoi</div>
@@ -180,11 +180,11 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
-                <div class="panel panel-red">
+                <div class="panel panel-green">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
-                                <i class="fa fa-support fa-5x"></i>
+                                <i class="fa fa-user fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
                                 <div class="huge">@ViewBag.HocVienDangKyMoiTheoThang</div>
@@ -202,11 +202,57 @@
                     </a>
                 </div>
             </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-yellow">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-dollar fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">@ViewBag.TongTienLuong</div>
+                                <div>Tổng tiền lương ( VND )</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="/GiaoVien/Index">
+                        <div class="panel-footer">
+                            <span class="pull-left">Xem chi tiết</span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-red">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-check-circle fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">@ViewBag.TongLopHoc</div>
+                                <div>Lớp học đang hoạt động</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="/GiaoVien/Index">
+                        <div class="panel-footer">
+                            <span class="pull-left">Xem chi tiết</span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
 
     </div>
 </div>
-
 
 <!-- Chart-->
 
@@ -235,23 +281,17 @@
                 </p>
             </figure>
         </div>
+        <div class="col-md-8">
+
+            <figure class="highcharts-figure">
+                <div id="areachart"></div>
+                <p class="highcharts-description">
+                    Biểu đồ thể hiện số lượng học viên theo từng tháng
+                </p>
+            </figure>
+        </div>
     </div>
 </div>
-
-@*<div class="row">
-    <div class="col-md-4">
-        <figure class="highcharts-figure">
-            <div id="piechart" style="width: 500px"></div>
-            <p class="highcharts-description">
-                Có tổng số <span style="color:red">@ViewBag.GiaoVien</span> giáo viên
-            </p>
-        </figure>
-    </div>
-</div>*@
-
-
-
-
 
 
 <script>
@@ -269,7 +309,7 @@
                     type: 'line'
                 },
                 title: {
-                    text: '<span style="color:red"> Biểu đồ doanh thu hàng tháng</span>'
+                    text: '<span style="color:red; font-size: 30px"> Biểu đồ doanh thu hàng tháng</span>'
                 },
                 subtitle: {
                     text: 'Nguồn : Trung Tâm Đan Thanh'
@@ -297,13 +337,45 @@
             });
         })
 
+
+        $.getJSON("/Home/GetDataHocVien", function (data) {
+
+            var totalStudent = []
+
+            for (var i = 0; i < data.length; i++) {
+                totalStudent.push(data[i].count);
+            }
+
+            Highcharts.chart('areachart', {
+                chart: {
+                    type: 'area'
+                },
+                title: {
+                    text: '<span style="color: red; font-size: 20px">Biểu đồ Học viên </span>'
+                },
+                xAxis: {
+                    categories: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12']
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Ẩn/Hiện',
+                    data: totalStudent
+                }]
+            });
+
+        })
+
+        
+
         $.getJSON("/Home/GetDataPieChart", function (data) {
             Highcharts.chart('piechart', {
                 chart: {
                     type: 'pie'
                 },
                 title: {
-                    text: 'Biểu đồ thống kê nhân viên'
+                    text: '<span style="color: red; font-size: 20px">Biểu đồ thống kê nhân viên</span>'
                 },
                 //subtitle: {
                 //    text: 'Click the slices to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
@@ -329,7 +401,7 @@
 
                 tooltip: {
                     headerFormat: '<span style="font-size:11px">{series.name}</span>< br >',
-                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total< br /> '
+                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f} nhân viên</b>< br /> '
                 },
 
                 series: [

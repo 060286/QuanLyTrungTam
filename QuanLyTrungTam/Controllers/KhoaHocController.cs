@@ -28,6 +28,8 @@ namespace QuanLyTrungTam.Controllers
             return View(_khoaHoc);
         }
 
+        
+
         // GET: KhoaHoc/Create
         [HttpGet]
         public ActionResult Create()
@@ -142,5 +144,15 @@ namespace QuanLyTrungTam.Controllers
             var daoGiaoVien = new GiaoVienDao();
             ViewBag.MaGiaoVien = new SelectList(daoGiaoVien.ListAll(), "MaGiaoVien", "TenGiaoVien", maGiaoVien);
         }
+
+        //Thêm danh mục khóa học
+        [HttpGet]
+        public ViewResult CreateCatagoryCourse()
+        {
+            eCenterDbContext _context = new eCenterDbContext();
+            List<DanhMucKhoaHoc> listDanhMucKhoaHoc = _context.DanhMucKhoaHocs.ToList();
+            return View(listDanhMucKhoaHoc);
+        }
+
     }
 }

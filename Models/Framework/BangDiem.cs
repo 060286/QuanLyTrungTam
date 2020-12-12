@@ -14,7 +14,7 @@
         public int MaBangDiem { get; set; }
 
         [DisplayName("Điểm kiểm tra lần 1")]
-        
+
         public double? KT1 { get; set; }
         [DisplayName("Điểm kiểm tra lần 2")]
         public double? KT2 { get; set; }

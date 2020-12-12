@@ -68,6 +68,7 @@
     <Compile Include="DAO\KhoaHocDao.cs" />
     <Compile Include="DAO\LopHocDao.cs" />
     <Compile Include="DAO\PhuHuynhDao.cs" />
+    <Compile Include="DAO\TrinhDoDao.cs" />
     <Compile Include="Framework\BangDiem.cs" />
     <Compile Include="Framework\DangNhap.cs" />
     <Compile Include="Framework\DanhMucKhoaHoc.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Framework\LopHoc_Tuan.cs" />
     <Compile Include="Framework\PhuHuynh.cs" />
     <Compile Include="Framework\ThoiKhoaBieu.cs" />
+    <Compile Include="Framework\TrinhDo.cs" />
     <Compile Include="Framework\Tuan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DAO\TaiKhoanDao.cs" />

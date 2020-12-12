@@ -29,8 +29,7 @@
         [StringLength(200)]
         public string HinhAnh { get; set; }
 
-        //public HttpPostedFile HinhAnhFile { get; set; }
-        // Tâm fix
+        [Column(TypeName = "money")]
         [DisplayName("Mức lương")]
         public decimal? MucLuong { get; set; }
 
@@ -52,8 +51,9 @@
 
         [StringLength(100)]
         [DisplayName("Email")]
-        [EmailAddress(ErrorMessage ="Vui lòng nhập email")]
+        [EmailAddress(ErrorMessage = "Vui lòng nhập email")]
         public string Email { get; set; }
+
         [DisplayName("Số điện thoại")]
         public int? SDT { get; set; }
 
@@ -61,9 +61,12 @@
         [DisplayName("Ghi chú")]
         public string GhiChu { get; set; }
 
+        [StringLength(10)]
+        public string MaTrinhDo { get; set; }
+
         [StringLength(200)]
         [DisplayName("Địa chỉ")]
-        [Required(ErrorMessage ="Vui lòng nhập địa chỉ")]
+        [Required(ErrorMessage = "Vui lòng nhập địa chỉ")]
         public string DiaChi { get; set; }
 
         [StringLength(50)]
@@ -77,11 +80,6 @@
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LopHoc> LopHocs { get; set; }
 
-
-        //public enum GioiTinh
-        //{
-        //    Nam,
-        //    Nữ
-        //}
+        public virtual TrinhDo TrinhDo { get; set; }
     }
 }

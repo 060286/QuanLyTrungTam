@@ -12,8 +12,9 @@
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MaLopHoc { get; set; }
-        
+
         public int? MaTuan { get; set; }
+
         [DisplayName("Số giờ")]
         public int? SoGio { get; set; }
 
