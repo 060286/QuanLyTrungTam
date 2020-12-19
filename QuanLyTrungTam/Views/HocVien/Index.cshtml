@@ -51,6 +51,7 @@
                                         <th>Email</th>
                                         <th>SĐT</th>
                                         <th>Trạng thái</th>
+                                        <th>Khóa học đăng ký</th>
                                         <th>Chức năng</th>
                                     </tr>
                                 </thead>
@@ -66,6 +67,7 @@
                                             <td>@item.SDT</td>
                                             <td>@item.TrangThai</td>
                                             <td>@(item.TrangThai.GetValueOrDefault(false)? "Hoạt động" : "Khóa")</td>
+                                            <td><a href="/DangKy/Index/maHocVien=@item.MaHocVien">Đăng ký khóa học</a></td>
                                             <td>
                                                 <a href="/HocVien/Edit/@item.MaHocVien">Sửa</a>
                                                 <a href="/HocVien/Details/@item.MaHocVien">Chi tiết</a>

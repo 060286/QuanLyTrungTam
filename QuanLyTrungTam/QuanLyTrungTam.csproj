@@ -165,6 +165,8 @@
     <Compile Include="Common\Format.cs" />
     <Compile Include="Common\UserLogin.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CartCourseController.cs" />
+    <Compile Include="Controllers\DangKyKHController.cs" />
     <Compile Include="Controllers\GiaoVienController.cs" />
     <Compile Include="Controllers\HoaDonController.cs" />
     <Compile Include="Controllers\HocVienController.cs" />
@@ -176,10 +178,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CartCourse.cs" />
     <Compile Include="Models\Center.cs" />
+    <Compile Include="Models\DangKy.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\Ratio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\DangKyKHViewModels.cs" />
     <Compile Include="ViewModels\GiaoVienViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -300,6 +305,11 @@
     <Content Include="Views\GiaoVien\testListAllPagingOrderByDescending.cshtml" />
     <Content Include="Views\GiaoVien\testSearchBySalary.cshtml" />
     <Content Include="Views\Home\GetDataPieChart.cshtml" />
+    <Content Include="Views\CartCourse\Index.cshtml" />
+    <Content Include="Views\DangKy\Index.cshtml" />
+    <Content Include="Views\HoaDon\Index.cshtml" />
+    <Content Include="Views\HoaDon\Create.cshtml" />
+    <Content Include="Views\KhoaHoc\TaoMoiVaSuaDanhMuc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -309,7 +319,7 @@
     <Folder Include="Img\GiaoVien\" />
     <Folder Include="Img\HocSinh\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\HoaDon\" />
+    <Folder Include="Views\DangKyKH\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

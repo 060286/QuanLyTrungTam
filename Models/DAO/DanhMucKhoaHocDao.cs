@@ -27,5 +27,10 @@ namespace Models.DAO
             _context.SaveChanges();
             return entity.MaDanhMuc;
         }
+
+        public DanhMucKhoaHoc GetById(int maDanhMuc)
+        {
+            return _context.DanhMucKhoaHocs.SingleOrDefault(x => x.MaDanhMuc == maDanhMuc);
+        }
     }
 }

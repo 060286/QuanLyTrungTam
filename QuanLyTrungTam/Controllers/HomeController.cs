@@ -15,6 +15,8 @@ namespace QuanLyTrungTam.Controllers
         {
             eCenterDbContext db = new eCenterDbContext();
 
+            //ViewBag.ThongKeHocVien = db.HocViens.
+
             ViewBag.GiaoVien = db.GiaoViens.Count();// return tổng số giáo viên
             ViewBag.HocVien = db.HocViens.Count();  // return tổng số học viên
             ViewBag.KhoaHoc = db.KhoaHocs.Count();  // return tổng số khóa hoc
@@ -23,6 +25,7 @@ namespace QuanLyTrungTam.Controllers
             ViewBag.HocVienDangKyMoiTheoThang = db.HocViens.Where(x => x.NgayDangKy.Value.Month == DateTime.Today.Month).Count();
             ViewBag.TongTienLuong = db.GiaoViens.Sum(x => x.MucLuong).Value.ToString("#,##").Replace(',', '.');
             ViewBag.TongLopHoc = db.LopHocs.Where(x => x.TinhTrang == true).Count();
+            //ViewBag.KhoaHocNoiBat = db.KhoaHocs.Where(x=>)
 
             return View();
         }

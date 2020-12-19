@@ -36,6 +36,16 @@ namespace Models.DAO
             return entity.MaDanhMuc;
         }
 
+        public List<KhoaHoc> ListAll()
+        {
+            return _context.KhoaHocs.ToList();
+        }
+
+        //public IEnumerable<KhoaHoc> GetKHList()
+        //{
+        //    return _context.KhoaHocs.Where(x => x.MaKhoaHoc >= 0).ToList();
+        //}
+
         //public KhoaHoc SelectAll()
         //{
         //    return _context.KhoaHocs.ToArray(x => x.TinhTrang == true);
@@ -66,7 +76,7 @@ namespace Models.DAO
                 _khoaHoc.TinhTrang = entity.TinhTrang;
                 _khoaHoc.MoTa = entity.MoTa;
                 _khoaHoc.SoTuan = entity.SoTuan;
-                _khoaHoc.MaHocVien = entity.MaHocVien;
+                //_khoaHoc.MaHocVien = entity.MaHocVien;
                 _khoaHoc.MaGiaoVien = entity.MaGiaoVien;
                 _khoaHoc.MaDanhMuc = entity.MaDanhMuc;
                 _khoaHoc.LuaTuoiPhuHop = entity.LuaTuoiPhuHop;

@@ -23,17 +23,43 @@ namespace Models.DAO
             return entity.MaHoaDon;
         }
 
+
+
         public HoaDon GetById(int maHoaDon)
         {
             return _context.HoaDons.SingleOrDefault(x => x.MaHoaDon == maHoaDon);
         }
 
-        public IEnumerable<HoaDon> ListAllPaging(int searchString, int page, int pageSize)
+        public IEnumerable<HoaDon> ListAllPaging(string searchString, int page, int pageSize)
         {
             IQueryable<HoaDon> model = _context.HoaDons;
-            if (searchString >= 0)
+            if (!string.IsNullOrEmpty(searchString))
             {
-                model = model.Where(x => x.MaHoaDon == searchString );
+                model = model.Where(x => x.MaHoaDon.ToString().Contains(searchString));
+            }
+
+            return model.OrderBy(x => x.MaHoaDon).ToPagedList(page, pageSize);
+        }
+
+        // Tìm kiếm theo tổng tiền
+        public IEnumerable<HoaDon> ListAllPagingTotalMoney(string searchString, int page, int pageSize)
+        {
+            IQueryable<HoaDon> model = _context.HoaDons;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                model = model.Where(x => x.TongTien.ToString().Contains(searchString));
+            }
+
+            return model.OrderBy(x => x.MaHoaDon).ToPagedList(page, pageSize);
+        }
+
+        // Tìm kiếm theo tình trạng; với 1 là đã thanh toán, 0 là chưa thanh toán
+        public IEnumerable<HoaDon> ListAllPagingByStatus(string searchStatus, int page, int pageSize)
+        {
+            IQueryable<HoaDon> model = _context.HoaDons;
+            if (!string.IsNullOrEmpty(searchStatus))
+            {
+                model = model.Where(x => x.TinhTrang.ToString().Contains(searchStatus) == true);
             }
 
             return model.OrderBy(x => x.MaHoaDon).ToPagedList(page, pageSize);

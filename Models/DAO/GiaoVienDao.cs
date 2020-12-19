@@ -27,6 +27,12 @@ namespace Models
             return _context.GiaoViens.Where(x => x.TrangThai == true).ToList();
         }
 
+        // Lấy danh sách giáo viên đã nghỉ việc
+        public List<GiaoVien> GetListGiaoVienInactivity()
+        {
+            return _context.GiaoViens.Where(x => x.TrangThai == false).ToList();
+        }
+
         // Lấy giáo viên theo Tên
         public GiaoVien GetById(string tenGiaoVien)
         {
@@ -98,6 +104,7 @@ namespace Models
 
             return model.OrderBy(x => x.MaGiaoVien).ToPagedList(page, pageSize);
         }
+
         public bool Update(GiaoVien entity)
         {
             try
@@ -128,12 +135,14 @@ namespace Models
             return _context.GiaoViens.Find(id);
         }
 
+
+        // Xóa thì chuyển trạng thái giáo viên = false
         public bool Delete(int id)
         {
             try
             {
                 var _giaoVien = _context.GiaoViens.Find(id);
-                _context.GiaoViens.Remove(_giaoVien);
+                _giaoVien.TrangThai = false;
                 _context.SaveChanges();
                 return true;
             }

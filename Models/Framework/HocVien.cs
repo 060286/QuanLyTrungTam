@@ -21,7 +21,7 @@
         [Key]
         public int MaHocVien { get; set; }
 
-        
+
         [DisplayName("Tên học viên")]
         [StringLength(100)]
         public string TenHocVien { get; set; }

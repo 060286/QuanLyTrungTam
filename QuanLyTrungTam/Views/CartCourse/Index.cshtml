@@ -1,0 +1,97 @@
+﻿@model PagedList.IPagedList<Models.Framework.KhoaHoc>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Chọn sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-content">
+    <!-- Page Header-->
+    <div class="page-header no-margin-bottom">
+        <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">Danh Sách Khóa học</h2>
+        </div>
+    </div>
+    <a class="btn btn-success" href="@Url.Action("CreateCatagoryCourse","KhoaHoc")" data-toggle="modal" data-target="#modal-themMoiDMKH" data-backdrop="static" data-keyboard="false">Thêm nhân viên</a>
+    <div class="modal fade" id="modal-themMoiDMKH">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+
+    <br />
+    <br />
+    <!-- Breadcrumb-->
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Home/Index">Home</a></li>
+            <li class="breadcrumb-item active">Khóa học</li>
+        </ul>
+    </div>
+    @using (Html.BeginForm("Index", "CartCourse", FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-md-4">
+                    <input type="text" value="@ViewBag.SearchString" name="searchString" />
+                </div>
+                <div class="col-md-4">
+                    <button type="submit">Tìm kiếm</button>
+                </div>
+            </div>
+        </div>
+    }
+    <section class="no-padding-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="block margin-bottom-sm">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Mã Khóa Học</th>
+                                        <th>Tên Khóa Học</th>
+                                        <th>Số Tuần</th>
+                                        <th>Lứa tuổi</th>
+                                        <th>Số lượng còn</th>
+                                        <th>Giá tiền</th>
+                                        <th>Đăng ký khóa học</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                    <tr id="row_@item.MaKhoaHoc">
+                                        <td>@item.MaKhoaHoc</td>
+                                        <td>@item.TenKhoaHoc</td>
+                                        <td>@item.SoTuan</td>
+                                        <td>@item.LuaTuoiPhuHop</td>
+                                        <td>@item.SoLuong.GetValueOrDefault(0)</td>
+                                        <td>@item.GiaTien.GetValueOrDefault(0)</td>
+                                        @if (item.SoLuong > 0)
+                                        {
+                                            <td class="text-center text-primary">
+                                                <a href="/CartCourse/AddItem?maKhoaHoc=@item.MaKhoaHoc&soLuong=1" class="btn bg-aqua">Đăng ký</a>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-center" style="color: red">Hết chỗ</td>
+                                        }
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <br />
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

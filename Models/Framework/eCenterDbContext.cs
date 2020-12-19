@@ -25,6 +25,7 @@ namespace Models.Framework
         public virtual DbSet<ThoiKhoaBieu> ThoiKhoaBieux { get; set; }
         public virtual DbSet<TrinhDo> TrinhDoes { get; set; }
         public virtual DbSet<Tuan> Tuans { get; set; }
+        public virtual DbSet<CT_HoaDon> CT_HoaDon { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -43,6 +44,20 @@ namespace Models.Framework
             modelBuilder.Entity<HoaDon>()
                 .Property(e => e.TongTien)
                 .HasPrecision(19, 4);
+
+            modelBuilder.Entity<HoaDon>()
+                .HasMany(e => e.CT_HoaDon)
+                .WithRequired(e => e.HoaDon)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<KhoaHoc>()
+                .Property(e => e.GiaTien)
+                .HasPrecision(19, 4);
+
+            modelBuilder.Entity<KhoaHoc>()
+                .HasMany(e => e.CT_HoaDon)
+                .WithRequired(e => e.KhoaHoc)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<LopHoc>()
                 .HasOptional(e => e.LopHoc_Tuan)

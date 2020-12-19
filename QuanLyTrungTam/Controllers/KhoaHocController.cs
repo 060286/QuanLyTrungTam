@@ -14,9 +14,17 @@ namespace QuanLyTrungTam.Controllers
         // GET: KhoaHoc
         public ActionResult Index(string searchString,int page = 1 ,int pageSize = 10)
         {
+            eCenterDbContext _context = new eCenterDbContext();
+            ViewBag.TongKhoaHoc = _context.KhoaHocs.Count();
+            // Khóa học còn chỗ
+            ViewBag.KhoaHocConCho = _context.KhoaHocs.Where(x => x.SoLuong > 0).Count();
+            // Khóa học hết chỗ
+            ViewBag.KhoaHocHetCho = _context.KhoaHocs.Where(x => x.SoLuong == 0).Count();
             var _khoaHocDao = new KhoaHocDao();
             var _modelKhoaHoc = _khoaHocDao.ListAllPaging(searchString, page, pageSize);
             ViewBag.SearchString = searchString;
+
+            
             return View(_modelKhoaHoc);
         }
 
@@ -28,9 +36,27 @@ namespace QuanLyTrungTam.Controllers
             return View(_khoaHoc);
         }
 
-        
+
+        public ActionResult TaoMoiVaSuaDanhMuc()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult TaoMoiVaSuaDanhMuc(DanhMucKhoaHoc danhMuc)
+        {
+            eCenterDbContext _context = new eCenterDbContext();
+            var danhMucDao = new DanhMucKhoaHocDao();
+
+            int _maKhoaHoc = danhMucDao.Insert(danhMuc);
+
+            var modal = danhMucDao.GetById(_maKhoaHoc);
+
+            return Json(modal, JsonRequestBehavior.AllowGet);
+        }
 
         // GET: KhoaHoc/Create
+
         [HttpGet]
         public ActionResult Create()
         {

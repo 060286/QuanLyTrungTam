@@ -11,6 +11,8 @@
 
     Models.DAO.LopHocDao lopHocDao = new Models.DAO.LopHocDao();
     var listLopHoc = lopHocDao.ListAll();
+
+    
 }
 
 <script>
@@ -38,7 +40,7 @@
         <div class="container-fluid">
             <h2 class="h2 no-margin-bottom" style="color: black">Danh Sách Giáo Viên</h2>
             <a class="btn btn-info" href="@Url.Action("ExportToExcel","GiaoVien")">Xuất File</a>
-            <a class="btn btn-success" href="@Url.Action("Create","GiaoVien")" data-toggle="modal" data-target="#modal-themMoi" data-backdrop="static" data-keyboard="false">Thêm nhân viên</a>
+            <a class="btn btn-success" href="@Url.Action("Create","GiaoVien")" data-toggle="modal" data-target="#modal-themMoi" data-backdrop="static" data-keyboard="false">Thêm giáo viên</a>
             <div class="modal fade" id="modal-themMoi">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -215,29 +217,39 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                        <tr id="row_@item.MaGiaoVien">
-                                            <td>@item.MaGiaoVien</td>
-                                            <td>@item.TenGiaoVien</td>
-                                            <td>
-                                                <img src="~/Img/GiaoVien/@item.HinhAnh" width="80" height="auto" />
-                                            </td>
-                                            <td class="text-center">@item.MucLuong</td>
-                                            <td class="text-center">@item.GioiTinh</td>
-                                            <td class="text-center">@item.NgaySinh</td>
-                                            <td class="text-center">@item.Email</td>
-                                            <td class="text-center">@item.SDT</td>
-                                            <td class="text-center" style="color:green">@(item.TrangThai.GetValueOrDefault(false)? "Hoạt động" : "Khóa")</td>
-                                            <td>
-                                                <a class="text-center" href="/GiaoVien/Edit/@item.MaGiaoVien">Sửa &nbsp;</a>
-                                                <a class="text-center" href="/GiaoVien/Details/@item.MaGiaoVien">Chi tiết &nbsp;</a>
-                                                @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaGiaoVien }, new AjaxOptions
-                                                {
-                                                    Confirm = "Xóa bản ghi giáo viên",
-                                                    OnComplete = "$('#row_" + item.MaGiaoVien + "').remove()",
-                                                    HttpMethod = "Delete"
-                                                })
-                                            </td>
-                                        </tr>
+                                        if (item.TrangThai == true)
+                                        {
+                                            <tr id="row_@item.MaGiaoVien">
+                                                <td>@item.MaGiaoVien</td>
+                                                <td>@item.TenGiaoVien</td>
+                                                <td>
+                                                    <img src="~/Img/GiaoVien/@item.HinhAnh" width="80" height="auto" />
+                                                </td>
+                                                <td class="text-center">@item.MucLuong</td>
+                                                <td class="text-center">@item.GioiTinh</td>
+                                                <td class="text-center">@item.NgaySinh</td>
+                                                <td class="text-center">@item.Email</td>
+                                                <td class="text-center">@item.SDT</td>
+                                                <td class="text-center" style="color:green">@(item.TrangThai.GetValueOrDefault(false)? "Hoạt động" : "Khóa")</td>
+                                                <td>
+                                                    <a class="text-center" href="/GiaoVien/Edit/@item.MaGiaoVien">Sửa &nbsp;</a>
+                                                    <a class="text-center" href="/GiaoVien/Details/@item.MaGiaoVien">Chi tiết &nbsp;</a>
+                                                    @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaGiaoVien }, new AjaxOptions
+                                                    {
+                                                        Confirm = "Xóa bản ghi giáo viên",
+                                                        OnComplete = "$('#row_" + item.MaGiaoVien + "').remove()",
+                                                        HttpMethod = "Delete"
+                                                    })
+                                                </td>
+                                            </tr>
+
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td><p>Chưa có có giáo viên trong hệ quản trị cơ sở dữ liệu</p></td>
+                                            </tr>
+                                        }
                                     }
                                 </tbody>
                             </table>
@@ -250,10 +262,6 @@
         </div>
     </section>
 </div>
-
-
-
-
 
 <div class="row" style="display:flex">
     <div class="col-sm-4">

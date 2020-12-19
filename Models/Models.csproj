@@ -70,6 +70,7 @@
     <Compile Include="DAO\PhuHuynhDao.cs" />
     <Compile Include="DAO\TrinhDoDao.cs" />
     <Compile Include="Framework\BangDiem.cs" />
+    <Compile Include="Framework\CT_HoaDon.cs" />
     <Compile Include="Framework\DangNhap.cs" />
     <Compile Include="Framework\DanhMucKhoaHoc.cs" />
     <Compile Include="Framework\eCenterDbContext.cs" />

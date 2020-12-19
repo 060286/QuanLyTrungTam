@@ -30,6 +30,11 @@ namespace Models.DAO
             return model.OrderBy(x => x.MaHocVien).ToPagedList(page, pageSize);
         }
 
+        public List<HocVien> ListAll()
+        {
+            return context.HocViens.ToList();
+        }
+
         public HocVien GetHocVienById(int id)
         {
             return context.HocViens.SingleOrDefault(x => x.MaHocVien == id);
