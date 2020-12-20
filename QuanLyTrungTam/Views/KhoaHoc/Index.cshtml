@@ -1,0 +1,196 @@
+﻿@*@model PagedList.IPagedList<Models.Framework.KhoaHoc>*@
+@model PagedList.IPagedList<Models.Framework.KhoaHoc>
+@using PagedList.Mvc;
+@using Models.DAO;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    Models.DAO.DanhMucKhoaHocDao danhMucDao = new Models.DAO.DanhMucKhoaHocDao();
+    var list = danhMucDao.ListAll();
+}
+
+<head>
+
+
+</head>
+
+<div>@ViewBag.TongKhoaHoc</div>
+
+<div class="page-content">
+    <!-- Page Header-->
+    <div class="page-header no-margin-bottom">
+        <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">Danh Sách Khóa học</h2>
+        </div>
+    </div>
+    <a class="btn btn-success" href="@Url.Action("CreateCatagoryCourse","KhoaHoc")" data-toggle="modal" data-target="#modal-themMoiDMKH" data-backdrop="static" data-keyboard="false">Thêm nhân viên</a>
+    <div class="modal fade" id="modal-themMoiDMKH">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+
+    <br />
+    <br />
+    <!-- Breadcrumb-->
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Home/Index">Home</a></li>
+            <li class="breadcrumb-item active">Khóa học</li>
+        </ul>
+    </div>
+    @using (Html.BeginForm("Index", "KhoaHoc", FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-md-4">
+                    <input type="text" value="@ViewBag.SearchString" name="searchString" />
+                </div>
+                <div class="col-md-4">
+                    <button type="submit">Tìm kiếm</button>
+                </div>
+            </div>
+        </div>
+    }
+    <section class="no-padding-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="block margin-bottom-sm">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Mã Khóa Học</th>
+                                        <th>Tên Khóa Học</th>
+
+                                        <th>Số Tuần</th>
+                                        <th>Lứa tuổi</th>
+                                        <th>Mô tả</th>
+                                        <th>Số lượng </th>
+                                        <th>Chức năng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr id="row_@item.MaKhoaHoc">
+                                            <td>@item.MaKhoaHoc</td>
+                                            <td>@item.TenKhoaHoc</td>
+                                            <td>@item.SoTuan</td>
+                                            <td>@item.LuaTuoiPhuHop</td>
+                                            <td>@item.MoTa</td>
+                                            <td>@item.SoLuong</td>
+                                            <td>
+                                                <a href="/KhoaHoc/Edit/@item.MaKhoaHoc" @*data-toggle="modal" data-target="#modal-update-@item.MaGiaoVien" data-backdrop="static" data-keyboard="false"*@>Sửa</a>
+
+                                                &nbsp;<a href="/KhoaHoc/Details/@item.MaKhoaHoc" @*data-toggle="modal" data-target="#modal-details-@item.MaGiaoVien" data-backdrop="static" data-keyboard="false"*@>Chi tiết &nbsp;</a>@Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaKhoaHoc }, new AjaxOptions
+{
+Confirm = "Bạn có muốn xóa khóa học này",
+OnComplete = "$('#row_" + item.MaKhoaHoc + "').remove()",
+HttpMethod = "Delete"
+})
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <br />
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="block margin-bottom-sm">
+            <div class="table-responsive">
+                @*<a class="btn  btn-default" onclick="PopupForm('@Url.Action("TaoMoiVaSuaDanhMuc","KhoaHoc")')"> Thêm</a>*@
+
+                @*<div class="modal fade" id="CatagoryModel">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4 id="ModalAddTitle"></h4>
+                </div>
+                <div class="modal-body">
+                    <form id="form">
+                        <fieldset id="SubmitForm">
+
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>*@
+
+
+                <a class="btn btn-success" href="@Url.Action("TaoMoiVaSuaDanhMuc","KhoaHoc")" data-toggle="modal" data-target="#modal-themMoi" data-backdrop="static" data-keyboard="false">Thêm khóa học</a>
+                <div class="modal fade" id="modal-themMoi">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                        </div>
+                    </div>
+                </div>
+
+
+                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                    <thead>
+                        <tr>
+                            <th class="h3">STT</th>
+                            <th class="h3">Danh mục khóa học cha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in list)
+                        {
+                            <tr>
+                                <td> @item.MaDanhMuc</td>
+                                <td style="color: green">@item.TenDanhMuc</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@*<script type="text/javascript">
+    var Popup;
+
+    $(document).ready(function (){
+
+        function PopupForm(url) {
+            var formDiv = $('<div/>');
+            $.get(url)
+                .done(function (response) {
+                    formDiv.html(response);
+
+                    Popup = formDiv.dialog({
+                        autoOpen: true,
+                        resizable: false,
+                        title: 'Thêm nhân viên',
+                        height: 600,
+                        width: 700,
+                        close: function () {
+                            Popup.dialog('destroy').remove();
+                        }
+                    });
+
+                });
+        }
+    })
+
+
+</script>*@

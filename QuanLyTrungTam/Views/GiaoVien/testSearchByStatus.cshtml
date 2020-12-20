@@ -1,0 +1,168 @@
+﻿@model PagedList.IPagedList<Models.Framework.GiaoVien>
+
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "testSearchByStatus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page-content">
+    <!-- Page Header-->
+    <div class="page-header no-margin-bottom">
+        <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">Danh Sách Giáo Viên</h2>
+            <a href="@Url.Action("ExportToExcel","GiaoVien")">Xuất File</a>
+        </div>
+    </div>
+    <!-- Breadcrumb-->
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Home/Index">Home</a></li>
+            <li class="breadcrumb-item active">Giáo viên</li>
+        </ul>
+    </div>
+    @using (Html.BeginForm("Index", "GiaoVien", FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-md-4">
+                    <input type="text" value="@ViewBag.SearchString" name="searchString" placeholder="Tìm kiếm theo tên" />
+                </div>
+                <div class="col-md-4">
+                    <button type="submit">Tìm kiếm</button>
+                </div>
+            </div>
+            <br />
+            @*<div class="col-sm-12">
+                    <div class="col-md-4">
+                        <input type="text" value="@ViewBag.SearchStringGender" name="searchStringByGender" placeholder="Tìm kiếm theo giới tính " />
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit">Tìm kiêm</button>
+                    </div>
+                </div>*@
+        </div>
+    }
+    <br />
+    @using (Html.BeginForm("Index", "GiaoVien", FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="col-md-4">
+                    <input type="text" value="@ViewBag.SearchString" name="searchString" placeholder="Tìm kiếm theo tên" />
+                </div>
+                <div class="col-md-2">
+                    <button type="submit">Tìm kiếm</button>
+                </div>
+            </div>
+            <br />
+        </div>
+    }
+    <br />
+    @using (Html.BeginForm("testSearchByGender", "GiaoVien", FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="col-md-4">
+                    <input type="text" value="@ViewBag.SearchStringByGender" name="searchStringGender" placeholder="Tìm kiếm theo giới tính" />
+                </div>
+                <div class="col-md-2">
+                    <button type="submit">Tìm kiếm</button>
+                </div>
+            </div>
+            <br />
+        </div>
+    }
+    <br />
+    @using (Html.BeginForm("searchStringByAddress", "GiaoVien", FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="col-md-4">
+                    <input type="text" value="@ViewBag.searchStringByAddress" name="searchStringAddress" placeholder="Tìm kiếm theo địa chỉ" />
+                </div>
+                <div class="col-md-2">
+                    <button type="submit">Tìm kiếm</button>
+                </div>
+            </div>
+            <br />
+        </div>
+    }
+
+    @using (Html.BeginForm("testSearchBySalary", "GiaoVien", FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="col-md-4">
+                    <input type="text" style="height:30px" value="@ViewBag.SearchStringBySalary" name="searchSalary" placeholder="Tìm kiếm theo lương" />
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-outline btn-primary btn-sm" type="submit">Tìm kiếm</button>
+                </div>
+            </div>
+            <br />
+        </div>
+    }
+
+    <section class="no-padding-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="block margin-bottom-sm">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Mã giáo viên</th>
+                                        <th>Tên Giáo Viên</th>
+                                        <th>Hình ảnh</th>
+                                        <th>Giới Tính</th>
+                                        <th>Ngày sinh</th>
+                                        <th>Email</th>
+                                        <th>SĐT</th>
+                                        <th>Trạng thái</th>
+                                        <th>Chức năng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr id="row_@item.MaGiaoVien">
+                                            <td>@item.MaGiaoVien</td>
+                                            <td>@item.TenGiaoVien</td>
+                                            <td>
+                                                <img src="~/Img/GiaoVien/@item.HinhAnh" width="80" height="auto" />
+                                            </td>
+                                            <td>@item.GioiTinh</td>
+                                            <td>@item.NgaySinh</td>
+                                            <td>@item.Email</td>
+                                            <td>@item.SDT</td>
+                                            <td>@(item.TrangThai.GetValueOrDefault(false)? "Hoạt động" : "Khóa")</td>
+                                            <td>
+                                                <a href="/GiaoVien/Edit/@item.MaGiaoVien">Sửa &nbsp;</a>
+                                                <a href="/GiaoVien/Details/@item.MaGiaoVien">Chi tiết &nbsp;</a>
+                                                @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaGiaoVien }, new AjaxOptions
+                                                {
+                                                    Confirm = "Xóa bản ghi giáo viên",
+                                                    OnComplete = "$('#row_" + item.MaGiaoVien + "').remove()",
+                                                    HttpMethod = "Delete"
+                                                })
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <br />
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+

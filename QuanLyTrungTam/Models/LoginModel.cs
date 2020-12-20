@@ -8,10 +8,10 @@ namespace QuanLyTrungTam.Models
 {
     public class LoginModel
     {
-        [Required]
+        [Required(ErrorMessage ="Nhập tài khoản")]
         public string TaiKhoan { set; get; }
 
-       
+        [Required(ErrorMessage = "Nhập mật khẩu")]
         public string MatKhau { set; get; }
         
         

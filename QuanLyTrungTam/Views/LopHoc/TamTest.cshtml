@@ -1,0 +1,14 @@
+﻿@*@model Models.Framework.LopHoc*@
+@model IEnumerable<Models.Framework.LopHoc>
+
+
+@foreach(var item in Model)
+{
+<tr>
+    <td>@item.MaLopHoc</td>
+    <td>@item.MaKhoaHoc</td>
+    <td>@item.MaGiaoVien</td>
+    <td>@item.TenLopHoc</td>
+    <td>@item.TinhTrang</td>
+</tr>
+}    

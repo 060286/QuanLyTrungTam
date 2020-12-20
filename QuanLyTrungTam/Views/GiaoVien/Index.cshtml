@@ -1,0 +1,318 @@
+﻿@model PagedList.IPagedList<Models.Framework.GiaoVien>
+
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    Models.DAO.TrinhDoDao trinhDoDao = new Models.DAO.TrinhDoDao();
+    var list = trinhDoDao.ListAll();
+
+    Models.DAO.LopHocDao lopHocDao = new Models.DAO.LopHocDao();
+    var listLopHoc = lopHocDao.ListAll();
+
+    
+}
+
+<script>
+    $(function () {
+        $('#AlertBox').removeClass('hide');
+        $('#AlertBox').delay(2000).slideUp(500);
+    });
+
+</script>
+
+
+
+
+<div class="page-content">
+
+    @if (TempData["AlertMessage"] != null)
+    {
+        <div id="AlertBox" class="alert @TempData["AlertType"] hide" role="alert" style="width:400px">
+            @TempData["AlertMessage"]
+        </div>
+    }
+
+    <!-- Page Header-->
+    <div class="page-header no-margin-bottom">
+        <div class="container-fluid">
+            <h2 class="h2 no-margin-bottom" style="color: black">Danh Sách Giáo Viên</h2>
+            <a class="btn btn-info" href="@Url.Action("ExportToExcel","GiaoVien")">Xuất File</a>
+            <a class="btn btn-success" href="@Url.Action("Create","GiaoVien")" data-toggle="modal" data-target="#modal-themMoi" data-backdrop="static" data-keyboard="false">Thêm giáo viên</a>
+            <div class="modal fade" id="modal-themMoi">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumb-->
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Home/Index">Trang chủ</a></li>
+            <li class="breadcrumb-item active">Giáo viên</li>
+        </ul>
+    </div>
+
+
+    <div class="container">
+        <div class="container">
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-users fa-4x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">@ViewBag.TongGiaoVien</div>
+                                <div>Tổng số giáo viên</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-green">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-user fa-4x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">@ViewBag.NhanVienNam</div>
+                                <div>Số lượng giáo viên nam</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-yellow">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-user fa-4x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge"> @ViewBag.NhanVienNu</div>
+                                <div>Số lượng nhân viên nữ</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-red">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-support fa-4x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">@ViewBag.TongTienLuong</div>
+                                        @*<div class="huge">@QuanLyTrungTam.Common.Format.FormatCurrencyVND(ViewBag.TongTienLuong)</div>*@
+                                        <div>Tổng tiền lương</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style=" display: flex">
+        @using (Html.BeginForm("Index", "GiaoVien", FormMethod.Get))
+        {
+            <div class="row ">
+                <div class="col-md-12">
+                    <div class="col-md-7">
+                        <input type="text" style="height:30px" value="@ViewBag.SearchString" name="searchString" placeholder="Tìm kiếm theo tên" />
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-outline btn-primary btn-sm" type="submit">Tìm kiếm</button>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @using (Html.BeginForm("testSearchByGender", "GiaoVien", FormMethod.Get))
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-7">
+                        <input type="text" style="height:30px" value="@ViewBag.SearchStringByGender" name="searchStringGender" placeholder="Tìm kiếm theo giới tính" />
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-outline btn-primary btn-sm" type="submit">Tìm kiếm</button>
+                    </div>
+                </div>
+                <br />
+            </div>
+        }
+
+        @using (Html.BeginForm("testSearchByAddress", "GiaoVien", FormMethod.Get))
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-7">
+                        <input type="text" style="height:30px" value="@ViewBag.SearchStringByAddress" name="searchStringAddress" placeholder="Tìm kiếm theo địa chỉ" />
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-outline btn-primary btn-sm" type="submit">Tìm kiếm</button>
+                    </div>
+                </div>
+                <br />
+            </div>
+        }
+    </div>
+    <br />
+    <div class="container" style=" display: flex">
+        @using (Html.BeginForm("testSearchBySalary", "GiaoVien", FormMethod.Get))
+        {
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-md-7">
+                        <input type="text" style="height:30px" value="@ViewBag.SearchStringBySalary" name="searchSalary" placeholder="Tìm kiếm theo lương" />
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-outline btn-primary btn-sm" type="submit">Tìm kiếm</button>
+                    </div>
+                </div>
+                <br />
+            </div>
+        }
+    </div>
+    <br /><br />
+    <section class="no-padding-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="block margin-bottom-sm">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-primary" style="font-size:18px">Mã giáo viên</th>
+                                        <th class="text-primary" style="font-size:18px">Tên Giáo Viên</th>
+                                        <th class="text-primary" style="font-size:18px">Hình ảnh</th>
+                                        <th class="text-primary" style="font-size:18px">Mức lương</th>
+                                        <th class="text-primary" style="font-size:18px">Giới Tính</th>
+                                        <th class="text-primary" style="font-size:18px">Ngày sinh</th>
+                                        <th class="text-primary" style="font-size:18px">Email</th>
+                                        <th class="text-primary" style="font-size:18px">SĐT</th>
+                                        <th class="text-primary" style="font-size:18px">Trạng thái</th>
+                                        <th class="text-primary" style="font-size:18px">Chức năng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        if (item.TrangThai == true)
+                                        {
+                                            <tr id="row_@item.MaGiaoVien">
+                                                <td>@item.MaGiaoVien</td>
+                                                <td>@item.TenGiaoVien</td>
+                                                <td>
+                                                    <img src="~/Img/GiaoVien/@item.HinhAnh" width="80" height="auto" />
+                                                </td>
+                                                <td class="text-center">@item.MucLuong</td>
+                                                <td class="text-center">@item.GioiTinh</td>
+                                                <td class="text-center">@item.NgaySinh</td>
+                                                <td class="text-center">@item.Email</td>
+                                                <td class="text-center">@item.SDT</td>
+                                                <td class="text-center" style="color:green">@(item.TrangThai.GetValueOrDefault(false)? "Hoạt động" : "Khóa")</td>
+                                                <td>
+                                                    <a class="text-center" href="/GiaoVien/Edit/@item.MaGiaoVien">Sửa &nbsp;</a>
+                                                    <a class="text-center" href="/GiaoVien/Details/@item.MaGiaoVien">Chi tiết &nbsp;</a>
+                                                    @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaGiaoVien }, new AjaxOptions
+                                                    {
+                                                        Confirm = "Xóa bản ghi giáo viên",
+                                                        OnComplete = "$('#row_" + item.MaGiaoVien + "').remove()",
+                                                        HttpMethod = "Delete"
+                                                    })
+                                                </td>
+                                            </tr>
+
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td><p>Chưa có có giáo viên trong hệ quản trị cơ sở dữ liệu</p></td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                            <br />
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="row" style="display:flex">
+    <div class="col-sm-4">
+        <div class="block margin-bottom-sm">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                    <thead>
+                        <tr>
+                            <th  class="h3 text-center text-primary" >Mã trình độ</th>
+                            <th class="h3 text-center text-primary">Năng lực giáo viên</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in list)
+                        {
+                            <tr>
+                                <td >@item.MaTrinhDo</td>
+                                <td >@item.TenTrinhDo</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br />
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6" style="margin-left: 100px">
+        <div class="block margin-bottom-sm">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                    <thead>
+                        <tr>
+                            <th class="h3 text-center text-primary">Mã lớp học</th>
+                            <th class="h3 text-center text-primary">Tên lớp học</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in listLopHoc)
+                        {
+                            <tr>
+                                <td class="text-center">@item.MaLopHoc</td>
+                                <td class="text-center">@item.TenLopHoc</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br />
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

@@ -5,6 +5,11 @@ VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuanLyTrungTam", "QuanLyTrungTam\QuanLyTrungTam.csproj", "{71436DC1-4205-422F-9BDA-C12A236C237D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{24F080A0-ECAA-45AB-A0EC-25F6B96F75B5}"
+	ProjectSection(SolutionItems) = preProject
+		READEME.md = READEME.md
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{0680C2F9-993C-4770-96A2-0553021E4406}"
 EndProject
 Global

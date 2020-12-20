@@ -1,0 +1,71 @@
+﻿@model Models.Framework.DanhMucKhoaHoc
+
+@{
+    Layout = null;
+    ViewBag.Title = "TaoMoiVaSuaDanhMuc";
+}
+
+<div class="modal-header bg-olive">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" style="font-size:25px">Thêm khóa học</h4>
+</div>
+
+@using (Html.BeginForm("TaoMoiVaSuaDanhMuc", "KhoaHoc", FormMethod.Post, new { id = "modalCreate" }) )
+{
+    @Html.AntiForgeryToken()
+
+    <div class="modal-body form-horizontal">
+        <div class="form-horizontal">
+            <h4>DanhMucKhoaHoc</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.MaDanhMuc, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.MaDanhMuc, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MaDanhMuc, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TenDanhMuc, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TenDanhMuc, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TenDanhMuc, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input id="btnCreate" type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnCreate').click(e){
+            e.preventDefault();
+
+            var data = $('#modalCreate').serialize();
+            $.ajax({
+                type: "POST",
+                url: "KhoaHoc/TaoMoiVaSuaDanhMuc",
+                data: data,
+                success: function (result) {
+                    if (result) {
+                        alert("Thêm thành ccong");
+                    }
+                    else {
+                        alert("Thêm thất bại");
+                    }
+                }
+            })
+        }
+    })
+</script>

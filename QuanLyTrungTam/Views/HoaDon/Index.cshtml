@@ -1,0 +1,131 @@
+﻿@model PagedList.IPagedList<Models.Framework.HoaDon>
+
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page-content">
+    <!-- Page Header-->
+    <div class="page-header no-margin-bottom">
+        <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">Danh Sách Hóa Đơn</h2>
+        </div>
+    </div>
+
+    <a class="btn btn-success" href="@Url.Action("Create","HoaDon")" data-toggle="modal" data-target="#modal-themMoi" data-backdrop="static" data-keyboard="false">Thêm hóa đơn</a>
+    <div class="modal fade" id="modal-themMoi">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+    @*<a class="btn btn-success" href="@Url.Action("Create","HoaDon")" data-toggle="modal" data-target="#modal-themMoiDMKH" data-backdrop="static" data-keyboard="false">Thêm hóa đơn</a>
+    <div class="modal fade" id="modal-themMoiDMKH">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content"></div>
+        </div>
+    </div>*@
+    <!-- Modal -->
+
+    <br />
+    <br />
+    <!-- Breadcrumb-->
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Home/Index">Home</a></li>
+            <li class="breadcrumb-item active">Hóa đơn</li>
+        </ul>
+    </div>
+    @using (Html.BeginForm("Index", "HoaDon", FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-md-4">
+                    <input type="text" value="@ViewBag.SearchString" name="searchString" />
+                </div>
+                <div class="col-md-4">
+                    <button type="submit">Tìm kiếm</button>
+                </div>
+            </div>
+        </div>
+    }
+    <section class="no-padding-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="block margin-bottom-sm">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Mã Hóa Đơn</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Ngày lập</th>
+                                        <th>Tình trạng</th>
+                                        <th>Chức năng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+
+                                        if (item.MaHoaDon % 2 == 0)
+                                        {
+                                            <tr id="row_@item.MaHoaDon" style="background-color: #FFFFFF" class="table-hover">
+                                                <td>@item.MaHoaDon</td>
+                                                <td>@item.TongTien.GetValueOrDefault(0)</td>
+                                                <td>@item.NgayLap.GetValueOrDefault(DateTime.Now)</td>
+                                                <td style="color:green">@(item.TinhTrang.GetValueOrDefault(false)? "Đã thanh toán" : "Chưa thanh toán")</td>
+                                                <td>
+                                                    <a href="/KhoaHoc/Edit/@item.MaHoaDon" @*data-toggle="modal" data-target="#modal-update-@item.MaGiaoVien" data-backdrop="static" data-keyboard="false"*@>Sửa</a>
+
+                                                    &nbsp;<a href="/KhoaHoc/Details/@item.MaHoaDon" @*data-toggle="modal" data-target="#modal-details-@item.MaGiaoVien" data-backdrop="static" data-keyboard="false"*@>Chi tiết &nbsp;</a>@Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaHoaDon }, new AjaxOptions
+{
+Confirm = "Bạn có muốn xóa khóa học này",
+OnComplete = "$('#row_" + item.MaHoaDon + "').remove()",
+HttpMethod = "Delete"
+})
+                                                </td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            <tr id="row_@item.MaHoaDon" style="background-color:#F4F4F4">
+                                                <td>@item.MaHoaDon</td>
+                                                <td>@item.TongTien.GetValueOrDefault(0)</td>
+                                                <td>@item.NgayLap.GetValueOrDefault(DateTime.Now)</td>
+                                                @*<td>@item.TinhTrang.GetValueOrDefault(false)? "Đã thanh toán" "Chưa thanh toán" </td>*@
+                                                <td style="color:green">@(item.TinhTrang.GetValueOrDefault(false)? "Đã thanh toán" : "Chưa thanh toán")</td>
+                                                <td>
+                                                    <a href="/KhoaHoc/Edit/@item.MaHoaDon" @*data-toggle="modal" data-target="#modal-update-@item.MaGiaoVien" data-backdrop="static" data-keyboard="false"*@>Sửa</a>
+
+                                                    &nbsp;<a href="/KhoaHoc/Details/@item.MaHoaDon" @*data-toggle="modal" data-target="#modal-details-@item.MaGiaoVien" data-backdrop="static" data-keyboard="false"*@>Chi tiết &nbsp;</a>@Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaHoaDon }, new AjaxOptions
+{
+Confirm = "Bạn có muốn xóa khóa học này",
+OnComplete = "$('#row_" + item.MaHoaDon + "').remove()",
+HttpMethod = "Delete"
+})
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    }
+                                </tbody>
+                            </table>
+                            <br />
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
