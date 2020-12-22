@@ -8,6 +8,7 @@ using OfficeOpenXml;
 using QuanLyTrungTam.ViewModels;
 using System.IO;
 using System.Web;
+using Models.DAO;
 
 namespace QuanLyTrungTam.Controllers
 {
@@ -110,8 +111,6 @@ namespace QuanLyTrungTam.Controllers
             return View();
         }
 
-        
-
         // POST: GiaoVien/Create
         [HttpPost]
         public ActionResult Create(GiaoVien giaoVien, HttpPostedFileBase hinhAnh)
@@ -154,6 +153,42 @@ namespace QuanLyTrungTam.Controllers
             catch
             {
                 return RedirectToAction("Index", "GiaoVien");
+            }
+        }
+
+
+        [HttpGet]
+        public ActionResult ThemMoiTrinhDo()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult ThemMoiTrinhDo(TrinhDo trinhDo)
+        {
+            try { 
+                if(ModelState.IsValid)
+                {
+                    var trinhDoDao = new TrinhDoDao();
+                    int _maTrinhDo = trinhDoDao.InsertTrinhDo(trinhDo);
+
+                    if(_maTrinhDo > 0)
+                    {
+                        SetAlert("Thêm thành công", 1);
+                        return RedirectToAction("Index", "GiaoVien");
+                    }
+                    else
+                    {
+                        SetAlert("Thêm thất bại", 3);
+                        //ModelState.AddModelError("", "Thêm thất bại");
+                    }
+                }
+                return View(trinhDo);
+            }
+            catch
+            {
+                return Content("Lỗi khi thêm mới");
             }
         }
 

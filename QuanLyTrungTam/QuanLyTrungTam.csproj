@@ -310,6 +310,7 @@
     <Content Include="Views\HoaDon\Index.cshtml" />
     <Content Include="Views\HoaDon\Create.cshtml" />
     <Content Include="Views\KhoaHoc\TaoMoiVaSuaDanhMuc.cshtml" />
+    <Content Include="Views\GiaoVien\ThemMoiTrinhDo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

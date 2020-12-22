@@ -7,12 +7,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     Models.DAO.TrinhDoDao trinhDoDao = new Models.DAO.TrinhDoDao();
-    var list = trinhDoDao.ListAll();
+    var list = trinhDoDao.ListTopFive();
 
     Models.DAO.LopHocDao lopHocDao = new Models.DAO.LopHocDao();
-    var listLopHoc = lopHocDao.ListAll();
-
-    
+    var listLopHoc = lopHocDao.ListTop5();
 }
 
 <script>
@@ -265,12 +263,19 @@
 
 <div class="row" style="display:flex">
     <div class="col-sm-4">
+        <a class="btn btn-success" href="@Url.Action("ThemMoiTrinhDo","GiaoVien")" data-toggle="modal" data-target="#modal-themMoiTrinhDo" data-backdrop="static" data-keyboard="false">Thêm nhanh trình độ</a>
+        <div class="modal fade" id="modal-themMoiTrinhDo">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                </div>
+            </div>
+        </div>
         <div class="block margin-bottom-sm">
             <div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                     <thead>
                         <tr>
-                            <th  class="h3 text-center text-primary" >Mã trình độ</th>
+                            <th class="h3 text-center text-primary">Mã trình độ</th>
                             <th class="h3 text-center text-primary">Năng lực giáo viên</th>
                         </tr>
                     </thead>
@@ -278,8 +283,8 @@
                         @foreach (var item in list)
                         {
                             <tr>
-                                <td >@item.MaTrinhDo</td>
-                                <td >@item.TenTrinhDo</td>
+                                <td>@item.MaTrinhDo</td>
+                                <td>@item.TenTrinhDo</td>
                             </tr>
                         }
                     </tbody>

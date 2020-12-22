@@ -38,6 +38,10 @@
         [StringLength(50)]
         public string GioiTinh { get; set; }
 
+        [Required(ErrorMessage ="Vui lòng nhập mật khẩu")]
+        [StringLength(50)]
+        public string MatKhau { get; set; }
+
         [Column(TypeName = "date")]
         [DataType(DataType.Date)]
         [DisplayName("Ngày sinh")]
