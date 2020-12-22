@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Models.DAO
 {
-    class PhuHuynhDao
+    public class PhuHuynhDao
     {
         private eCenterDbContext _context = null;
 
@@ -23,6 +23,20 @@ namespace Models.DAO
             _context.SaveChanges();
             return entity.MaPhuHuynh;
         }
+
+        //public List<int> InsertList(PhuHuynh[] entity)
+        //{
+        //    List<int> list = new List<int>();
+
+        //    for(int i = 0; i < 2; i++)
+        //    {
+        //        _context.PhuHuynhs.Add(entity[i]);
+        //        _context.SaveChanges();
+
+        //        list = list.Add(entity[i].MaPhuHuynh);
+        //    }
+        //    return list;
+        //}
 
         public bool Update(PhuHuynh entity)
         {

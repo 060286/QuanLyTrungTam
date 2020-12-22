@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using QuanLyTrungTam.ViewModels;
+using QuanLyTrungTam.Models;
 
 namespace QuanLyTrungTam.Controllers
 {
@@ -58,6 +60,75 @@ namespace QuanLyTrungTam.Controllers
             }
             catch
             {
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public ActionResult CreateDetails()
+        {
+            return View();
+        }    
+
+        [HttpPost]
+        public ActionResult CreateDetails(HocVienDetails hocVienDetails)
+        {
+           try
+           {
+                if(ModelState.IsValid)
+                {
+                    var _daoHocVien = new HocVienDao();
+                    var _daoPhuHuynh = new PhuHuynhDao();
+
+                    var hocVien = new HocVien();
+
+                    hocVien.TenHocVien = hocVienDetails.HocVien.TenHocVien;
+                    hocVien.TaiKhoan = hocVienDetails.HocVien.TaiKhoan;
+                    hocVien.MatKhau = hocVienDetails.HocVien.MatKhau;
+                    hocVien.HinhAnh = hocVienDetails.HocVien.HinhAnh;
+                    hocVien.GioiTinh = hocVienDetails.HocVien.GioiTinh;
+                    hocVien.SDT = hocVienDetails.HocVien.SDT;
+                    hocVien.Email = hocVienDetails.HocVien.Email;
+                    hocVien.DiaChi = hocVienDetails.HocVien.DiaChi;
+                    hocVien.NgaySinh = hocVienDetails.HocVien.NgaySinh;
+                    hocVien.GhiChu = hocVienDetails.HocVien.GhiChu;
+                    hocVien.TrangThai = hocVienDetails.HocVien.TrangThai;
+                    hocVien.Nguon = hocVienDetails.HocVien.Nguon;
+
+                    // Thêm học viên
+                    int _maHocVien = _daoHocVien.Insert(hocVien);
+
+                    List<PhuHuynh> listPH = new List<PhuHuynh>();
+
+                    for(int i = 0; i < 2; i++)
+                    {
+                        var _phuHuynh = new PhuHuynh();
+
+                        _phuHuynh.TenPhuHuynh = hocVienDetails.LstPhuHuynh[i].TenPhuHuynh;
+
+                        _phuHuynh.TenPhuHuynh = hocVienDetails.LstPhuHuynh[i].TenPhuHuynh;
+                        _phuHuynh.SDT = hocVienDetails.LstPhuHuynh[i].SDT;
+                        _phuHuynh.GioiTinh = hocVienDetails.LstPhuHuynh[i].GioiTinh;
+                        _phuHuynh.DiaChi = hocVienDetails.LstPhuHuynh[i].DiaChi;
+                        _phuHuynh.Email = hocVienDetails.LstPhuHuynh[i].Email;
+                        _phuHuynh.MaHocVien = hocVienDetails.HocVien.MaHocVien;
+
+                        int _maPhuHuynh = _daoPhuHuynh.Insert(_phuHuynh);
+                    }
+
+                    if(_maHocVien > 0 && _maHocVien > 0)
+                    {
+                        return RedirectToAction("Index", "HocVien");
+                    }    
+                    else
+                    {
+                        ModelState.AddModelError("", "Có lỗi khi thêm chi tiết học viên");
+                    }    
+                }
+                return RedirectToAction("Index");
+            }
+           catch
+           {
                 return View();
             }
         }

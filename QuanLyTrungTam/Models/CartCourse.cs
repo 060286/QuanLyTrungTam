@@ -12,5 +12,7 @@ namespace QuanLyTrungTam.Models
         public KhoaHoc KhoaHoc { get; set; }
 
         public int SoLuong { get; set; }
+
+
     }
 }
