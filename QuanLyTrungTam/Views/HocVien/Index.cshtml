@@ -11,14 +11,29 @@
     <!-- Page Header-->
     <div class="page-header no-margin-bottom">
         <div class="container-fluid">
-            <h2 class="h5 no-margin-bottom">Danh Sách Giáo Viên</h2>
+            <h2 class="h5 no-margin-bottom">Danh Sách Học Viên</h2>
+            @*<a class="btn btn-info" href="@Url.Action("ExportToExcel","GiaoVien")">Xuất File</a>*@
+            <a class="btn btn-success" href="@Url.Action("Create","HocVien")" data-toggle="modal" data-target="#modal-themMoi" data-backdrop="static" data-keyboard="false">Thêm nhanh học viên</a>
+            <div class="modal fade" id="modal-themMoi">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                    </div>
+                </div>
+            </div>
+            <a class="btn btn-success" href="@Url.Action("CreateDetails","HocVien")" data-toggle="modal" data-target="#modal-themMoiChiTiet" data-backdrop="static" data-keyboard="false">Thêm chi tiết học viên</a>
+            <div class="modal fade" id="modal-themMoiChiTiet">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- Breadcrumb-->
     <div class="container-fluid">
         <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="~/Home/Index">Home</a></li>
-            <li class="breadcrumb-item active">Giáo viên</li>
+            <li class="breadcrumb-item active">Học Viên</li>
         </ul>
     </div>
     @using (Html.BeginForm("Index", "HocVien", FormMethod.Get))
