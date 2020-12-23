@@ -68,7 +68,7 @@ namespace Models
             //}
             return model.OrderByDescending(x => x.MaGiaoVien).ToPagedList(page, pageSize);
         }
-
+        // Search by Gender
         public IEnumerable<GiaoVien> ListAllPagingByGender(string searchStringByGender, int page, int pageSize)
         {
             IQueryable<GiaoVien> model = _context.GiaoViens;
@@ -77,6 +77,36 @@ namespace Models
                 model = model.Where(x => x.GioiTinh.Contains(searchStringByGender));
             }
             return model.OrderBy(x => x.MaGiaoVien).ToPagedList(page,pageSize);
+        }
+
+        public IEnumerable<GiaoVien> ListAllPagingByEmail(string searchStringByEmail, int page, int pageSize)
+        {
+            IQueryable<GiaoVien> model = _context.GiaoViens;
+            if (!string.IsNullOrEmpty(searchStringByEmail))
+            {
+                model = model.Where(x => x.Email.Contains(searchStringByEmail));
+            }
+            return model.OrderBy(x => x.MaGiaoVien).ToPagedList(page, pageSize);
+        }
+
+        public IEnumerable<GiaoVien> ListAllPagingByPhoneNumber(string searchStringByPhoneNumber, int page, int pageSize)
+        {
+            IQueryable<GiaoVien> model = _context.GiaoViens;
+            if (!string.IsNullOrEmpty(searchStringByPhoneNumber))
+            {
+                model = model.Where(x => x.SDT.ToString().Contains(searchStringByPhoneNumber));
+            }
+            return model.OrderBy(x => x.MaGiaoVien).ToPagedList(page, pageSize);
+        }
+
+        public IEnumerable<GiaoVien> ListAllPagingByBirthday(string searchStringByBirthday, int page, int pageSize)
+        {
+            IQueryable<GiaoVien> model = _context.GiaoViens;
+            if (!string.IsNullOrEmpty(searchStringByBirthday))
+            {
+                model = model.Where(x => x.NgaySinh.ToString().Contains(searchStringByBirthday));
+            }
+            return model.OrderBy(x => x.MaGiaoVien).ToPagedList(page, pageSize);
         }
 
 

@@ -43,6 +43,45 @@ namespace QuanLyTrungTam.Controllers
             return View(_modelGiaoVien);
         }
 
+        public ActionResult testSearchByEmail(string searchStringEmail,int page,int pageSize)
+        {
+            ViewBag.TongGiaoVien = db.GiaoViens.Count();
+            ViewBag.NhanVienNam = db.GiaoViens.Where(x => x.GioiTinh == "Nam").Count();
+            ViewBag.NhanVienNu = db.GiaoViens.Where(x => x.GioiTinh == "Nữ").Count();
+            ViewBag.TongTienLuong = db.GiaoViens.Sum(x => x.MucLuong).ToString();
+
+            var _daoGiaoVien = new GiaoVienDao();
+            var _modelGiaoVien = _daoGiaoVien.ListAllPagingByEmail(searchStringEmail, page,pageSize);
+            ViewBag.SearchStringByEmail = searchStringEmail;
+            return View(_modelGiaoVien);
+        }
+
+        public ActionResult testSearchByPhoneNumber(string searchStringPhoneNumber, int page, int pageSize)
+        {
+            ViewBag.TongGiaoVien = db.GiaoViens.Count();
+            ViewBag.NhanVienNam = db.GiaoViens.Where(x => x.GioiTinh == "Nam").Count();
+            ViewBag.NhanVienNu = db.GiaoViens.Where(x => x.GioiTinh == "Nữ").Count();
+            ViewBag.TongTienLuong = db.GiaoViens.Sum(x => x.MucLuong).ToString();
+
+            var _daoGiaoVien = new GiaoVienDao();
+            var _modelGiaoVien = _daoGiaoVien.ListAllPagingByPhoneNumber(searchStringPhoneNumber, page, pageSize);
+            ViewBag.SearchStringByPhoneNumber = searchStringPhoneNumber;
+            return View(_modelGiaoVien);
+        }
+
+        public ActionResult testSearchByBirthDay(string searchStringBirthDay, int page, int pageSize)
+        {
+            ViewBag.TongGiaoVien = db.GiaoViens.Count();
+            ViewBag.NhanVienNam = db.GiaoViens.Where(x => x.GioiTinh == "Nam").Count();
+            ViewBag.NhanVienNu = db.GiaoViens.Where(x => x.GioiTinh == "Nữ").Count();
+            ViewBag.TongTienLuong = db.GiaoViens.Sum(x => x.MucLuong).ToString();
+
+            var _daoGiaoVien = new GiaoVienDao();
+            var _modelGiaoVien = _daoGiaoVien.ListAllPagingByEmail(searchStringBirthDay, page, pageSize);
+            ViewBag.SearchStringByBirthDay = searchStringBirthDay;
+            return View(_modelGiaoVien);
+        }
+
         public ActionResult testSearchByGender(string searchStringGender, int page = 1, int pageSize = 10)
         {
             ViewBag.TongGiaoVien = db.GiaoViens.Count();
