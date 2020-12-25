@@ -61,9 +61,57 @@ namespace Models.DAO
             IQueryable<KhoaHoc> model = _context.KhoaHocs;
             if (!string.IsNullOrEmpty(searchString))
             {
-                model = model.Where(x => x.TenKhoaHoc.Contains(searchString) || x.TenKhoaHoc.Contains(searchString));
+                model = model.Where(x => x.TenKhoaHoc.Contains(searchString) || x.MaKhoaHoc.ToString().Contains(searchString));
             }
 
+            return model.OrderBy(x => x.MaKhoaHoc).ToPagedList(page, pageSize);
+        }
+
+        //public IEnumerable<KhoaHoc> ListAllPagingDescending()
+        // New
+        public IEnumerable<KhoaHoc> ListAllPagingByQuatity(string searchString, int page,int pageSize)
+        {
+            IQueryable<KhoaHoc> model = _context.KhoaHocs;
+            if(!string.IsNullOrEmpty(searchString))
+            {
+                model = model.Where(x => x.SoLuong.ToString().Contains(searchString));
+
+            }
+            return model.OrderBy(x => x.MaKhoaHoc).ToPagedList(page, pageSize);
+        }
+
+        public IEnumerable<KhoaHoc> ListAllPagingByMoney(string searchString, int page, int pageSize)
+        {
+            IQueryable<KhoaHoc> model = _context.KhoaHocs;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                model = model.Where(x => x.GiaTien.ToString().Contains(searchString));
+
+            }
+            return model.OrderBy(x => x.MaKhoaHoc).ToPagedList(page, pageSize);
+        }
+
+
+        //1 = Còn chỗ : 0 Hết chỗ 
+        public IEnumerable<KhoaHoc> ListAllPagingByStatus(string searchString, int page, int pageSize)
+        {
+            IQueryable<KhoaHoc> model = _context.KhoaHocs;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                model = model.Where(x => x.TinhTrang.ToString().Contains(searchString));
+
+            }
+            return model.OrderBy(x => x.MaKhoaHoc).ToPagedList(page, pageSize);
+        }
+
+        public IEnumerable<KhoaHoc> ListAllPagingByOld(string searchString, int page, int pageSize)
+        {
+            IQueryable<KhoaHoc> model = _context.KhoaHocs;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                model = model.Where(x => x.LuaTuoiPhuHop.ToString().Contains(searchString));
+
+            }
             return model.OrderBy(x => x.MaKhoaHoc).ToPagedList(page, pageSize);
         }
 

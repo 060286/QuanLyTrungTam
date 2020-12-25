@@ -1,6 +1,7 @@
 ﻿using Models;
 using Models.DAO;
 using Models.Framework;
+using QuanLyTrungTam.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,70 @@ namespace QuanLyTrungTam.Controllers
             return View(_modelKhoaHoc);
         }
 
+        public ActionResult testSearchByMoney(string searchString, int page = 1, int pageSize = 10)
+        {
+            eCenterDbContext _context = new eCenterDbContext();
+            ViewBag.TongKhoaHoc = _context.KhoaHocs.Count();
+            // Khóa học còn chỗ
+            ViewBag.KhoaHocConCho = _context.KhoaHocs.Where(x => x.SoLuong > 0).Count();
+            // Khóa học hết chỗ
+            ViewBag.KhoaHocHetCho = _context.KhoaHocs.Where(x => x.SoLuong == 0).Count();
+            var _khoaHocDao = new KhoaHocDao();
+            var _modelKhoaHoc = _khoaHocDao.ListAllPagingByMoney(searchString, page, pageSize);
+            ViewBag.SearchString = searchString;
+
+
+            return View(_modelKhoaHoc);
+        }
+
+        public ActionResult testSearchByOld(string searchString, int page = 1, int pageSize = 10)
+        {
+            eCenterDbContext _context = new eCenterDbContext();
+            ViewBag.TongKhoaHoc = _context.KhoaHocs.Count();
+            // Khóa học còn chỗ
+            ViewBag.KhoaHocConCho = _context.KhoaHocs.Where(x => x.SoLuong > 0).Count();
+            // Khóa học hết chỗ
+            ViewBag.KhoaHocHetCho = _context.KhoaHocs.Where(x => x.SoLuong == 0).Count();
+            var _khoaHocDao = new KhoaHocDao();
+            var _modelKhoaHoc = _khoaHocDao.ListAllPagingByOld(searchString, page, pageSize);
+            ViewBag.SearchString = searchString;
+
+
+            return View(_modelKhoaHoc);
+        }
+
+        public ActionResult testSearchByQuatity(string searchString, int page = 1, int pageSize = 10)
+        {
+            eCenterDbContext _context = new eCenterDbContext();
+            ViewBag.TongKhoaHoc = _context.KhoaHocs.Count();
+            // Khóa học còn chỗ
+            ViewBag.KhoaHocConCho = _context.KhoaHocs.Where(x => x.SoLuong > 0).Count();
+            // Khóa học hết chỗ
+            ViewBag.KhoaHocHetCho = _context.KhoaHocs.Where(x => x.SoLuong == 0).Count();
+            var _khoaHocDao = new KhoaHocDao();
+            var _modelKhoaHoc = _khoaHocDao.ListAllPagingByQuatity(searchString, page, pageSize);
+            ViewBag.SearchString = searchString;
+
+
+            return View(_modelKhoaHoc);
+        }
+
+        public ActionResult testSearchByStatus(string searchString, int page = 1, int pageSize = 10)
+        {
+            eCenterDbContext _context = new eCenterDbContext();
+            ViewBag.TongKhoaHoc = _context.KhoaHocs.Count();
+            // Khóa học còn chỗ
+            ViewBag.KhoaHocConCho = _context.KhoaHocs.Where(x => x.SoLuong > 0).Count();
+            // Khóa học hết chỗ
+            ViewBag.KhoaHocHetCho = _context.KhoaHocs.Where(x => x.SoLuong == 0).Count();
+            var _khoaHocDao = new KhoaHocDao();
+            var _modelKhoaHoc = _khoaHocDao.ListAllPagingByStatus(searchString, page, pageSize);
+            ViewBag.SearchString = searchString;
+
+
+            return View(_modelKhoaHoc);
+        }
+
         // GET: KhoaHoc/Details/5
         [HttpGet]
         public ActionResult Details(int id)
@@ -40,6 +105,40 @@ namespace QuanLyTrungTam.Controllers
         public ActionResult TaoMoiVaSuaDanhMuc()
         {
             return View();
+        }
+        [HttpGet]
+        public ActionResult CreateDetails()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateDetails(KhoaHocDetailsModels khoaHocDetails)
+        {
+            try
+            {
+                if(ModelState.IsValid)
+                {
+                    var _khoaHocDao = new KhoaHocDao();
+                    //var _tkbDao = new ThoiKhoaBieuDao();
+                    var _danhMucDao = new DanhMucKhoaHocDao();
+
+                    var khoaHoc = new KhoaHoc();
+                    var danhMuc = new DanhMucKhoaHoc();
+
+                    khoaHoc.TenKhoaHoc = khoaHocDetails.KhoaHoc.TenKhoaHoc;
+                    khoaHoc.SoLuong = khoaHocDetails.KhoaHoc.SoLuong;
+                    khoaHoc.TinhTrang = khoaHocDetails.KhoaHoc.TinhTrang;
+                    khoaHoc.GiaTien = khoaHocDetails.KhoaHoc.GiaTien;
+                    khoaHoc.MoTa = khoaHocDetails.KhoaHoc.MoTa;
+
+
+                }    
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         [HttpPost]

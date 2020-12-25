@@ -9,6 +9,7 @@ using QuanLyTrungTam.ViewModels;
 using System.IO;
 using System.Web;
 using Models.DAO;
+using QuanLyTrungTam.Common;
 
 namespace QuanLyTrungTam.Controllers
 {
@@ -172,6 +173,10 @@ namespace QuanLyTrungTam.Controllers
                         var _daoGiaoVien = new GiaoVienDao();
                         giaoVien.NgayDangKy = DateTime.Now;
                         giaoVien.QuocTich = "Việt Nam";
+
+                        var encryptMd5Password = Encryptor.MD5Hash(giaoVien.MatKhau);
+                        giaoVien.MatKhau = encryptMd5Password;
+
                         int _maGiaoVien = _daoGiaoVien.Insert(giaoVien);
 
                         if (_maGiaoVien > 0)
