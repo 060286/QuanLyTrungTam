@@ -15,6 +15,30 @@ namespace QuanLyTrungTam.Controllers
             return View(_modelLopHoc);
         }
 
+        public ActionResult testSearchByEndDate(string searchStringEndDate, int page = 1, int pageSize = 10)
+        {
+            var _lopHocDao = new LopHocDao();
+            var _modelLopHoc = _lopHocDao.testSearchByEndDate(searchStringEndDate, page, pageSize);
+            ViewBag.SearchStringEndDate = searchStringEndDate;
+            return View(_modelLopHoc);
+        }
+
+        public ActionResult testSearchByStartDate(string searchStringStartDate, int page = 1, int pageSize = 10)
+        {
+            var _lopHocDao = new LopHocDao();
+            var _modelLopHoc = _lopHocDao.testSearchByEndDate(searchStringStartDate, page, pageSize);
+            ViewBag.SearchStringStartDate = searchStringStartDate;
+            return View(_modelLopHoc);
+        }
+
+        public ActionResult testSearchByStatus(string searchStringStatus, int page = 1, int pageSize = 10)
+        {
+            var _lopHocDao = new LopHocDao();
+            var _modelLopHoc = _lopHocDao.testSearchByEndDate(searchStringStatus, page, pageSize);
+            ViewBag.SearchStringStatus = searchStringStatus;
+            return View(_modelLopHoc);
+        }
+
         public ActionResult TamTest()
         {
             var _lopHocDao = new LopHocDao();

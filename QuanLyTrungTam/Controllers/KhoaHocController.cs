@@ -26,6 +26,7 @@ namespace QuanLyTrungTam.Controllers
             ViewBag.SearchString = searchString;
 
             
+            
             return View(_modelKhoaHoc);
         }
 
