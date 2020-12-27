@@ -313,6 +313,11 @@
     <Content Include="Views\KhoaHoc\TaoMoiVaSuaDanhMuc.cshtml" />
     <Content Include="Views\GiaoVien\ThemMoiTrinhDo.cshtml" />
     <Content Include="Views\HocVien\CreateDetails.cshtml" />
+    <Content Include="Views\KhoaHoc\CreateDetails.cshtml" />
+    <Content Include="Views\KhoaHoc\testSearchByOld.cshtml" />
+    <Content Include="Views\KhoaHoc\testSearchByQuatity.cshtml" />
+    <Content Include="Views\KhoaHoc\testSearchByMoney.cshtml" />
+    <Content Include="Views\KhoaHoc\testSearchByStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

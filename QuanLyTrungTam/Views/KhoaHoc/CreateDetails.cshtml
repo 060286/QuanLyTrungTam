@@ -1,0 +1,132 @@
+﻿@model QuanLyTrungTam.Models.KhoaHocDetailsModels
+
+@{
+    ViewBag.Title = "CreateDetails";
+    Layout = null;
+}
+
+
+<div class="modal-header bg-olive">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" style="font-size:25px">Thêm Chi Tiết Khóa Học</h4>
+</div>
+<div class="modal-body form-horizontal">
+    <div class="modal-body form-horizontal">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>KhoaHocDetailsModels</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.KhoaHoc.TenKhoaHoc, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.KhoaHoc.TenKhoaHoc, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KhoaHoc.TenKhoaHoc, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.KhoaHoc.SoLuong, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.KhoaHoc.SoLuong, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KhoaHoc.SoLuong, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.KhoaHoc.TinhTrang, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.RadioButtonFor(model => model.KhoaHoc.TinhTrang, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KhoaHoc.TinhTrang, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.KhoaHoc.GiaTien, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.KhoaHoc.GiaTien, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KhoaHoc.GiaTien, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.KhoaHoc.MoTa, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.KhoaHoc.MoTa, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KhoaHoc.MoTa, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.KhoaHoc.LuaTuoiPhuHop, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.KhoaHoc.LuaTuoiPhuHop, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KhoaHoc.LuaTuoiPhuHop, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+            @Html.LabelFor(model => model.DanhMucKhoaHoc.TenDanhMuc, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DanhMucKhoaHoc.TenDanhMuc, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DanhMucKhoaHoc.TenDanhMuc, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.MaGiaoVien, null, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.MaGiaoVien, null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.KhoaHoc.MaGiaoVien, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.KhoaHoc.MaDanhMuc, null, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.KhoaHoc.MaDanhMuc, null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.KhoaHoc.MaDanhMuc, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ThoiKhoaBieu.TuanBatDau, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ThoiKhoaBieu.TuanBatDau, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ThoiKhoaBieu.TuanBatDau, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ThoiKhoaBieu.TuanKetThuc, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ThoiKhoaBieu.TuanKetThuc, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ThoiKhoaBieu.TuanKetThuc, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ThoiKhoaBieu.ThoiGianHoc, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ThoiKhoaBieu.ThoiGianHoc, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ThoiKhoaBieu.ThoiGianHoc, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+        }
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
+</div>

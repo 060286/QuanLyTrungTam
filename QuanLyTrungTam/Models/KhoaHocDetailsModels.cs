@@ -10,8 +10,10 @@ namespace QuanLyTrungTam.Models
     {
         public KhoaHoc KhoaHoc { get; set; }
 
-        public DanhMucKhoaHoc DanhMucKhoaHoc { get; set; }
+        //public DanhMucKhoaHoc DanhMucKhoaHoc { get; set; }
 
         public ThoiKhoaBieu ThoiKhoaBieu { get; set; }
+
+        public int MaGiaoVien { get; set; }
     }
 }

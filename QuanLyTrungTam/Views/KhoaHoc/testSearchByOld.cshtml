@@ -4,7 +4,7 @@
 @using Models.DAO;
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "testSearchByOld";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     Models.DAO.DanhMucKhoaHocDao danhMucDao = new Models.DAO.DanhMucKhoaHocDao();
@@ -16,8 +16,6 @@
 
 </head>
 
-
-
 <div class="page-content">
     <!-- Page Header-->
     <div class="page-header no-margin-bottom">
@@ -25,7 +23,7 @@
             <h2 class="h2 no-margin-bottom">Danh Sách Khóa học</h2>
         </div>
     </div>
-
+    <br />
     <a class="btn btn-success" href="@Url.Action("CreateCatagoryCourse","KhoaHoc")" data-toggle="modal" data-target="#modal-themMoiDMKH" data-backdrop="static" data-keyboard="false">Thêm khóa học</a>
     <div class="modal fade" id="modal-themMoiDMKH">
         <div class="modal-dialog modal-lg">
@@ -178,7 +176,7 @@ HttpMethod = "Delete"
                                 </tbody>
                             </table>
                             <br />
-                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchStringByOle = @ViewBag.SearchStringByOld }))
                         </div>
                     </div>
                 </div>

@@ -30,6 +30,79 @@ namespace Models.DAO
             return model.OrderBy(x => x.MaHocVien).ToPagedList(page, pageSize);
         }
 
+        //public IEnumerable<HocVien> testSearchByOld(string searchString, int page, int pageSize)
+        //{
+
+        //    IQueryable<HocVien> model = context.HocViens;
+        //    if (!string.IsNullOrEmpty(searchString))
+        //    {
+        //        model = model.Where(int.Parse(DateTime.Now.Year) ) );
+        //    }
+
+        //    return model.OrderBy(x => x.MaHocVien).ToPagedList(page, pageSize);
+        //}
+
+
+        public IEnumerable<HocVien> testSearchByAddress(string searchStringByAddress, int page, int pageSize)
+        {
+
+            IQueryable<HocVien> model = context.HocViens;
+            if (!string.IsNullOrEmpty(searchStringByAddress))
+            {
+                model = model.Where(x => x.DiaChi.Contains(searchStringByAddress));
+            }
+
+            return model.OrderBy(x => x.MaHocVien).ToPagedList(page, pageSize);
+        }
+
+        public IEnumerable<HocVien> testSearchByEmail(string searchStringByEmail, int page, int pageSize)
+        {
+
+            IQueryable<HocVien> model = context.HocViens;
+            if (!string.IsNullOrEmpty(searchStringByEmail))
+            {
+                model = model.Where(x => x.Email.Contains(searchStringByEmail));
+            }
+
+            return model.OrderBy(x => x.MaHocVien).ToPagedList(page, pageSize);
+        }
+
+        public IEnumerable<HocVien> testSearchByPhoneNumber(string searchStringByPhoneNumber, int page, int pageSize)
+        {
+
+            IQueryable<HocVien> model = context.HocViens;
+            if (!string.IsNullOrEmpty(searchStringByPhoneNumber))
+            {
+                model = model.Where(x => x.SDT.ToString().Contains(searchStringByPhoneNumber));
+            }
+
+            return model.OrderBy(x => x.MaHocVien).ToPagedList(page, pageSize);
+        }
+
+        public IEnumerable<HocVien> testSearchByGender(string searchStringByGender, int page, int pageSize)
+        {
+
+            IQueryable<HocVien> model = context.HocViens;
+            if (!string.IsNullOrEmpty(searchStringByGender))
+            {
+                model = model.Where(x => x.GioiTinh.Contains(searchStringByGender));
+            }
+
+            return model.OrderBy(x => x.MaHocVien).ToPagedList(page, pageSize);
+        }
+
+        public IEnumerable<HocVien> testSearchByStatus(string searchStringByStatus, int page, int pageSize)
+        {
+
+            IQueryable<HocVien> model = context.HocViens;
+            if (!string.IsNullOrEmpty(searchStringByStatus))
+            {
+                model = model.Where(x => x.TrangThai.ToString().Contains(searchStringByStatus));
+            }
+
+            return model.OrderBy(x => x.MaHocVien).ToPagedList(page, pageSize);
+        }
+
         public List<HocVien> ListAll()
         {
             return context.HocViens.ToList();

@@ -133,6 +133,12 @@ namespace QuanLyTrungTam.Controllers
             }
         }
 
+        //[HttpGet]
+        //public ActionResult EditDetails(int id)
+        //{
+        //    var _hocVien = new HocVienDao
+        //}
+
         // GET: HocVien/Edit/5
         [HttpGet]
         public ActionResult Edit(int id)

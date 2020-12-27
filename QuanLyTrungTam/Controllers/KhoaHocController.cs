@@ -29,7 +29,7 @@ namespace QuanLyTrungTam.Controllers
             return View(_modelKhoaHoc);
         }
 
-        public ActionResult testSearchByMoney(string searchString, int page = 1, int pageSize = 10)
+        public ActionResult testSearchByMoney(string searchStringMoney, int page = 1, int pageSize = 10)
         {
             eCenterDbContext _context = new eCenterDbContext();
             ViewBag.TongKhoaHoc = _context.KhoaHocs.Count();
@@ -38,14 +38,14 @@ namespace QuanLyTrungTam.Controllers
             // Khóa học hết chỗ
             ViewBag.KhoaHocHetCho = _context.KhoaHocs.Where(x => x.SoLuong == 0).Count();
             var _khoaHocDao = new KhoaHocDao();
-            var _modelKhoaHoc = _khoaHocDao.ListAllPagingByMoney(searchString, page, pageSize);
-            ViewBag.SearchString = searchString;
+            var _modelKhoaHoc = _khoaHocDao.ListAllPagingByMoney(searchStringMoney, page, pageSize);
+            ViewBag.SearchStringByMoney = searchStringMoney;
 
 
             return View(_modelKhoaHoc);
         }
 
-        public ActionResult testSearchByOld(string searchString, int page = 1, int pageSize = 10)
+        public ActionResult testSearchByOld(string searchStringOld, int page = 1, int pageSize = 10)
         {
             eCenterDbContext _context = new eCenterDbContext();
             ViewBag.TongKhoaHoc = _context.KhoaHocs.Count();
@@ -54,14 +54,14 @@ namespace QuanLyTrungTam.Controllers
             // Khóa học hết chỗ
             ViewBag.KhoaHocHetCho = _context.KhoaHocs.Where(x => x.SoLuong == 0).Count();
             var _khoaHocDao = new KhoaHocDao();
-            var _modelKhoaHoc = _khoaHocDao.ListAllPagingByOld(searchString, page, pageSize);
-            ViewBag.SearchString = searchString;
+            var _modelKhoaHoc = _khoaHocDao.ListAllPagingByOld(searchStringOld, page, pageSize);
+            ViewBag.SearchStringByOld = searchStringOld;
 
 
             return View(_modelKhoaHoc);
         }
 
-        public ActionResult testSearchByQuatity(string searchString, int page = 1, int pageSize = 10)
+        public ActionResult testSearchByQuatity(string searchStringQuatity, int page = 1, int pageSize = 10)
         {
             eCenterDbContext _context = new eCenterDbContext();
             ViewBag.TongKhoaHoc = _context.KhoaHocs.Count();
@@ -70,14 +70,14 @@ namespace QuanLyTrungTam.Controllers
             // Khóa học hết chỗ
             ViewBag.KhoaHocHetCho = _context.KhoaHocs.Where(x => x.SoLuong == 0).Count();
             var _khoaHocDao = new KhoaHocDao();
-            var _modelKhoaHoc = _khoaHocDao.ListAllPagingByQuatity(searchString, page, pageSize);
-            ViewBag.SearchString = searchString;
+            var _modelKhoaHoc = _khoaHocDao.ListAllPagingByQuatity(searchStringQuatity, page, pageSize);
+            ViewBag.SearchStringByQuatity = searchStringQuatity;
 
 
             return View(_modelKhoaHoc);
         }
 
-        public ActionResult testSearchByStatus(string searchString, int page = 1, int pageSize = 10)
+        public ActionResult testSearchByStatus(string searchStringStatus, int page = 1, int pageSize = 10)
         {
             eCenterDbContext _context = new eCenterDbContext();
             ViewBag.TongKhoaHoc = _context.KhoaHocs.Count();
@@ -86,8 +86,8 @@ namespace QuanLyTrungTam.Controllers
             // Khóa học hết chỗ
             ViewBag.KhoaHocHetCho = _context.KhoaHocs.Where(x => x.SoLuong == 0).Count();
             var _khoaHocDao = new KhoaHocDao();
-            var _modelKhoaHoc = _khoaHocDao.ListAllPagingByStatus(searchString, page, pageSize);
-            ViewBag.SearchString = searchString;
+            var _modelKhoaHoc = _khoaHocDao.ListAllPagingByStatus(searchStringStatus, page, pageSize);
+            ViewBag.SearchStringByStatus = searchStringStatus;
 
 
             return View(_modelKhoaHoc);
@@ -109,6 +109,9 @@ namespace QuanLyTrungTam.Controllers
         [HttpGet]
         public ActionResult CreateDetails()
         {
+            SetViewBagDMKHDetails();
+            SetViewBagGVDetails();
+
             return View();
         }
 
@@ -119,21 +122,55 @@ namespace QuanLyTrungTam.Controllers
             {
                 if(ModelState.IsValid)
                 {
+                    // Create Data Access Object
                     var _khoaHocDao = new KhoaHocDao();
-                    //var _tkbDao = new ThoiKhoaBieuDao();
+                    var _tkbDao = new ThoiKhoaBieuDao();
                     var _danhMucDao = new DanhMucKhoaHocDao();
 
+                    // Create Model
                     var khoaHoc = new KhoaHoc();
                     var danhMuc = new DanhMucKhoaHoc();
+                    var thoiKhoaBieu = new ThoiKhoaBieu();
 
+                    // Thêm khóa học
                     khoaHoc.TenKhoaHoc = khoaHocDetails.KhoaHoc.TenKhoaHoc;
                     khoaHoc.SoLuong = khoaHocDetails.KhoaHoc.SoLuong;
                     khoaHoc.TinhTrang = khoaHocDetails.KhoaHoc.TinhTrang;
                     khoaHoc.GiaTien = khoaHocDetails.KhoaHoc.GiaTien;
                     khoaHoc.MoTa = khoaHocDetails.KhoaHoc.MoTa;
+                    khoaHoc.LuaTuoiPhuHop = khoaHocDetails.KhoaHoc.LuaTuoiPhuHop;
+                    khoaHoc.MaDanhMuc = khoaHocDetails.KhoaHoc.MaDanhMuc;
+                    khoaHoc.MaGiaoVien = khoaHocDetails.KhoaHoc.MaGiaoVien;
 
+                    int idKH = _khoaHocDao.Insert(khoaHoc);
 
-                }    
+                    // Thêm Danh muc khóa học
+                    //danhMuc.TenDanhMuc = khoaHocDetails.DanhMucKhoaHoc.TenDanhMuc;
+
+                    //int idDM = _danhMucDao.Insert(danhMuc);
+
+                    // Thêm thời khóa biểu
+                    thoiKhoaBieu.TuanBatDau = khoaHocDetails.ThoiKhoaBieu.TuanBatDau;
+                    thoiKhoaBieu.TuanKetThuc = khoaHocDetails.ThoiKhoaBieu.TuanKetThuc;
+                    thoiKhoaBieu.ThoiGianHoc = khoaHocDetails.ThoiKhoaBieu.ThoiGianHoc;
+
+                    int idTKB = _tkbDao.Insert(thoiKhoaBieu);
+
+                    if(idKH > 0 && idTKB > 0)
+                    {
+                        return RedirectToAction("Index", "KhoaHoc");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Xảy ra lỗi khi thêm khóa học");
+                    }
+
+                    //SetViewBagDMKHDetails();
+                    //SetViewBagGVDetails();
+                    //SetViewBagGV();
+                    return View(khoaHoc);
+                }
+                return RedirectToAction("Index", "KhoaHoc");
             }
             catch
             {
@@ -268,6 +305,18 @@ namespace QuanLyTrungTam.Controllers
         {
             var daoGiaoVien = new GiaoVienDao();
             ViewBag.MaGiaoVien = new SelectList(daoGiaoVien.ListAll(), "MaGiaoVien", "TenGiaoVien", maGiaoVien);
+        }
+
+        public void SetViewBagDMKHDetails(int? maDanhMucKhoaHoc = null)
+        {
+            var dao = new DanhMucKhoaHocDao();
+            ViewBag.MaDanhMucDetails = new SelectList(dao.ListAll(), "MaDanhMuc", "TenDanhMuc", maDanhMucKhoaHoc);
+        }
+
+        public void SetViewBagGVDetails(int? maGiaoVien = null)
+        {
+            var dao = new GiaoVienDao();
+            ViewBag.MaGiaoVienDetails = new SelectList(dao.ListAll(), "MaGiaoVien", "TenGiaoVien", maGiaoVien);
         }
 
         //Thêm danh mục khóa học
