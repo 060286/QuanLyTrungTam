@@ -4,7 +4,7 @@
 @using Models.DAO;
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "testSearchByQuatity";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     Models.DAO.DanhMucKhoaHocDao danhMucDao = new Models.DAO.DanhMucKhoaHocDao();
@@ -15,8 +15,6 @@
 
 
 </head>
-
-
 
 <div class="page-content">
     <!-- Page Header-->
@@ -178,7 +176,7 @@ HttpMethod = "Delete"
                                 </tbody>
                             </table>
                             <br />
-                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchStringByQuantity = @ViewBag.SearchStringByQuantity }))
                         </div>
                     </div>
                 </div>

@@ -29,6 +29,11 @@ namespace Models.DAO
             return _context.LopHocs.ToList();
         }
 
+        public List<LopHoc> ListTop5()
+        {
+            return _context.LopHocs.Where(x => x.MaLopHoc <= 5).ToList();
+        }
+
         public LopHoc GetById(string tenLopHoc)
         {
             return _context.LopHocs.SingleOrDefault(x => x.TenLopHoc == tenLopHoc);

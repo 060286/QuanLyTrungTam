@@ -68,6 +68,7 @@
     <Compile Include="DAO\KhoaHocDao.cs" />
     <Compile Include="DAO\LopHocDao.cs" />
     <Compile Include="DAO\PhuHuynhDao.cs" />
+    <Compile Include="DAO\ThoiKhoaBieuDao.cs" />
     <Compile Include="DAO\TrinhDoDao.cs" />
     <Compile Include="Framework\BangDiem.cs" />
     <Compile Include="Framework\CT_HoaDon.cs" />

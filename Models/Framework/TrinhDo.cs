@@ -10,6 +10,7 @@
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DisplayName("Mã trình độ")]
         public int MaTrinhDo { get; set; }
 
         [StringLength(50)]
