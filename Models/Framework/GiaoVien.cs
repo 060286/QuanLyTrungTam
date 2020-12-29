@@ -77,7 +77,7 @@
         [DisplayName("Quốc tịch")]
         public string QuocTich { get; set; }
 
-        [DisplayName("Trạng thái")]
+        [DisplayName("Tình trạng hoạt động")]
         [Required(ErrorMessage = "Vui lòng nhập trạng thái")]
         public bool? TrangThai { get; set; }
 

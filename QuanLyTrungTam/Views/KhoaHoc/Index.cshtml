@@ -10,14 +10,6 @@
     Models.DAO.DanhMucKhoaHocDao danhMucDao = new Models.DAO.DanhMucKhoaHocDao();
     var list = danhMucDao.ListAll();
 }
-
-<head>
-
-
-</head>
-
-
-
 <div class="page-content">
     <!-- Page Header-->
     <div class="page-header no-margin-bottom">
@@ -26,8 +18,16 @@
         </div>
     </div>
 
-    <a class="btn btn-success" href="@Url.Action("CreateCatagoryCourse","KhoaHoc")" data-toggle="modal" data-target="#modal-themMoiDMKH" data-backdrop="static" data-keyboard="false">Thêm khóa học</a>
+    <a class="btn btn-success" href="@Url.Action("Create","KhoaHoc")" data-toggle="modal" data-target="#modal-themMoiDMKH" data-backdrop="static" data-keyboard="false">Thêm khóa học</a>
     <div class="modal fade" id="modal-themMoiDMKH">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+    <a class="btn btn-primary" href="@Url.Action("TaoMoiVaSuaDanhMuc","KhoaHoc")" data-toggle="modal" data-target="#modal-themMoi" data-backdrop="static" data-keyboard="false">Thêm danh mục khóa học</a>
+    <div class="modal fade" id="modal-themMoi">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
             </div>
@@ -40,7 +40,7 @@
     <!-- Breadcrumb-->
     <div class="container-fluid">
         <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="~/Home/Index">Home</a></li>
+            <li class="breadcrumb-item"><a href="~/Home/Index">Trang chủ</a></li>
             <li class="breadcrumb-item active">Khóa học</li>
         </ul>
     </div>
@@ -239,20 +239,12 @@ HttpMethod = "Delete"
                     </div>*@
 
 
-                <a class="btn btn-success" href="@Url.Action("TaoMoiVaSuaDanhMuc","KhoaHoc")" data-toggle="modal" data-target="#modal-themMoi" data-backdrop="static" data-keyboard="false">Thêm khóa học</a>
-                <div class="modal fade" id="modal-themMoi">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                        </div>
-                    </div>
-                </div>
-
-
                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                     <thead>
                         <tr>
                             <th class="h3">STT</th>
                             <th class="h3">Danh mục khóa học cha</th>
+                            <th class="h3">Chức năng</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -261,6 +253,7 @@ HttpMethod = "Delete"
                             <tr>
                                 <td> @item.MaDanhMuc</td>
                                 <td style="color: green">@item.TenDanhMuc</td>
+                                <td>Sửa</td>
                             </tr>
                         }
                     </tbody>

@@ -318,6 +318,9 @@
     <Content Include="Views\KhoaHoc\testSearchByQuatity.cshtml" />
     <Content Include="Views\KhoaHoc\testSearchByMoney.cshtml" />
     <Content Include="Views\KhoaHoc\testSearchByStatus.cshtml" />
+    <Content Include="Views\LopHoc\testSearchByEndDate.cshtml" />
+    <Content Include="Views\LopHoc\testSearchByStartDate.cshtml" />
+    <Content Include="Views\LopHoc\testSearchByStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

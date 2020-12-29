@@ -3,7 +3,7 @@
 @using PagedList.Mvc;
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "testSearchByStatus";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -70,7 +70,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-7">
-                        <input type="text" style="height:30px" value="@ViewBag.SearchStringStatus" name="searchStringStatus" placeholder="Tìm kiếm theo trạng thái" />
+                        <input type="text" style="height:30px" value="@ViewBag.SearchStringStatus" name="searchStringStatus" placeholder="Tìm kiếm theo trạng thái " />
                     </div>
                     <div class="col-md-2">
                         <button class="btn btn-outline btn-primary btn-sm" type="submit">Tìm kiếm</button>
@@ -122,7 +122,7 @@
                                 </tbody>
                             </table>
                             <br />
-                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchStringStatus = ViewBag.SearchStringStatus }))
                         </div>
                     </div>
                 </div>

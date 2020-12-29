@@ -3,7 +3,7 @@
 @using PagedList.Mvc;
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "testSearchByStartDate";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -122,7 +122,7 @@
                                 </tbody>
                             </table>
                             <br />
-                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchStringStartDate = ViewBag.SearchStringStartDate }))
                         </div>
                     </div>
                 </div>

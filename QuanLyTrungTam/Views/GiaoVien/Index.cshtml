@@ -45,6 +45,13 @@
                     </div>
                 </div>
             </div>
+            <a class="btn btn-success" href="@Url.Action("ThemMoiTrinhDo","GiaoVien")" data-toggle="modal" data-target="#modal-themMoiTrinhDo" data-backdrop="static" data-keyboard="false">Thêm nhanh trình độ</a>
+            <div class="modal fade" id="modal-themMoiTrinhDo">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -240,13 +247,6 @@
                                                     })
                                                 </td>
                                             </tr>
-
-                                        }
-                                        else
-                                        {
-                                            <tr>
-                                                <td><p>Chưa có có giáo viên trong hệ quản trị cơ sở dữ liệu</p></td>
-                                            </tr>
                                         }
                                     }
                                 </tbody>
@@ -263,13 +263,6 @@
 
 <div class="row" style="display:flex">
     <div class="col-sm-4">
-        <a class="btn btn-success" href="@Url.Action("ThemMoiTrinhDo","GiaoVien")" data-toggle="modal" data-target="#modal-themMoiTrinhDo" data-backdrop="static" data-keyboard="false">Thêm nhanh trình độ</a>
-        <div class="modal fade" id="modal-themMoiTrinhDo">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                </div>
-            </div>
-        </div>
         <div class="block margin-bottom-sm">
             <div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
