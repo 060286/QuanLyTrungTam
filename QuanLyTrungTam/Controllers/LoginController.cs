@@ -2,6 +2,7 @@
 using QuanLyTrungTam.Code;
 using QuanLyTrungTam.Common;
 using QuanLyTrungTam.Models;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -21,37 +22,50 @@ namespace QuanLyTrungTam.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model)
         {
-            if(ModelState.IsValid)
-            {
-                var dao = new TaiKhoanDao();
-                var result = dao.Login(model.TaiKhoan, Encryptor.MD5Hash(model.MatKhau));
-                if(result == 1)
-                {
-                    var user = dao.GetById(model.TaiKhoan);
-                    var userSession = new UserLogin();
-                    userSession.UserId = user.MaTaiKhoan;
-                    userSession.TaiKhoan = user.TaiKhoan;
+            Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            Match match = regex.Match(model.TaiKhoan);
 
-                    Session.Add(CommonConstants.USER_SESSION, userSession);
-                    return RedirectToAction("Index", "Home");
-                }
-                else if(result == -1)
+            if (match.Success)
+            {
+                if(ModelState.IsValid)
                 {
-                    ModelState.AddModelError("", "Tài khoản hiện đang bị khóa");
-                }
-                else if (result == -2)
-                { 
-                    ModelState.AddModelError("", "Vui lòng nhập lại mật khẩu");
-                }
-                else if (result == 0)
+                    
+                }    
+            }
+            else
+            {
+                if (ModelState.IsValid)
                 {
-                    ModelState.AddModelError("", "Tài khoản không tồn tại");
+                    var dao = new TaiKhoanDao();
+                    var result = dao.Login(model.TaiKhoan, Encryptor.MD5Hash(model.MatKhau));
+                    if (result == 1)
+                    {
+                        var user = dao.GetById(model.TaiKhoan);
+                        var userSession = new UserLogin();
+                        userSession.UserId = user.MaTaiKhoan;
+                        userSession.TaiKhoan = user.TaiKhoan;
+
+                        Session.Add(CommonConstants.USER_SESSION, userSession);
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else if (result == -1)
+                    {
+                        ModelState.AddModelError("", "Tài khoản hiện đang bị khóa");
+                    }
+                    else if (result == -2)
+                    {
+                        ModelState.AddModelError("", "Vui lòng nhập lại mật khẩu");
+                    }
+                    else if (result == 0)
+                    {
+                        ModelState.AddModelError("", "Tài khoản không tồn tại");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Đăng nhập thất bại, vui lòng liên hệ Admin");
+                    }
                 }
-                else
-                {
-                    ModelState.AddModelError("","Đăng nhập thất bại, vui lòng liên hệ Admin");
-                }
-            }    
+            }
             return View("Index");
         }
 

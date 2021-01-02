@@ -2,12 +2,11 @@
 using Models.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using QuanLyTrungTam.ViewModels;
 using QuanLyTrungTam.Models;
 using System.IO;
+using Common;
 
 namespace QuanLyTrungTam.Controllers
 {
@@ -50,7 +49,7 @@ namespace QuanLyTrungTam.Controllers
 
                         if(extension.Equals(".jpg") || extension.Equals(".png") || extension.Equals(".jpeg"))
                         {
-                            path = Path.Combine(Server.MapPath("~/Img/HocSinh/"), hinhAnh.FileName);
+                            path = Path.Combine(Server.MapPath("~/Img/HocVien/"), hinhAnh.FileName);
                             hinhAnh.SaveAs(path);
                         }
 
@@ -61,15 +60,30 @@ namespace QuanLyTrungTam.Controllers
 
                         if (_maGiaoVien > 0)
                         {
-                            return RedirectToAction("Index", "HocVien");
+                            if(hocVien.Email == null)
+                            {
+                                return RedirectToAction("Index", "HocVien");
+                            }
+                            else
+                            {
+                                string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/Email/HocVien.html"));
+
+                                content = content.Replace("{{TenHV}}", hocVien.TenHocVien.ToString());
+                                content = content.Replace("{{NgaySinh}}", hocVien.NgaySinh.ToString());
+                                content = content.Replace("{{SDT}}", hocVien.SDT.ToString());
+                                content = content.Replace("{{DiaChi}}", hocVien.DiaChi.ToString());
+                                content = content.Replace("{{NgayDangKy}}", hocVien.NgayDangKy.ToString());
+
+                                new MailHelper().SendMail(hocVien.Email, "Chào mừng em đã tham gia vào đại gia đình Đan Thanh!", content);
+                                //SetAlert("")
+                                return RedirectToAction("Index", "HocVien");
+                            }    
                         }
                         else
                         {
                             ModelState.AddModelError("", "Có lỗi khi thêm học viên");
                         }
-                    }    
-
-                   
+                    }   
                 }
 
                 return RedirectToAction("Index");
@@ -87,7 +101,7 @@ namespace QuanLyTrungTam.Controllers
         }    
 
         [HttpPost]
-        public ActionResult CreateDetails(HocVienDetails hocVienDetails,HttpPostedFileBase hinhAnh)
+        public ActionResult CreateDetails(HocVienDetails hocVienDetails, HttpPostedFileBase hinhAnh)
         {
            try
            {
@@ -145,7 +159,24 @@ namespace QuanLyTrungTam.Controllers
 
                         if (_maHocVien > 0 && _maHocVien > 0)
                         {
-                            return RedirectToAction("Index", "HocVien");
+                            if (hocVien.Email == null)
+                            {
+                                return RedirectToAction("Index", "HocVien");
+                            }
+                            else
+                            {
+                                string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/Email/HocVien.html"));
+
+                                content = content.Replace("{{TenHV}}", hocVien.TenHocVien.ToString());
+                                content = content.Replace("{{NgaySinh}}", hocVien.NgaySinh.ToString());
+                                content = content.Replace("{{SDT}}", hocVien.SDT.ToString());
+                                content = content.Replace("{{DiaChi}}", hocVien.DiaChi.ToString());
+                                content = content.Replace("{{NgayDangKy}}", hocVien.NgayDangKy.ToString());
+
+                                new MailHelper().SendMail(hocVien.Email, "Chào mừng em đã tham gia vào đại gia đình Đan Thanh!", content);
+                                SetAlert("Thêm thành công", 1);
+                                return RedirectToAction("Index","HocVien");
+                            }
                         }
                         else
                         {
