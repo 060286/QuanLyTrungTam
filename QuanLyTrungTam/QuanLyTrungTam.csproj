@@ -162,6 +162,7 @@
     <Compile Include="Common\CommonConstants.cs" />
     <Compile Include="Common\Encryptor.cs" />
     <Compile Include="Common\Format.cs" />
+    <Compile Include="Common\HasCredentialAttribute.cs" />
     <Compile Include="Common\UserLogin.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CartCourseController.cs" />
@@ -322,6 +323,7 @@
     <Content Include="Views\LopHoc\testSearchByEndDate.cshtml" />
     <Content Include="Views\LopHoc\testSearchByStartDate.cshtml" />
     <Content Include="Views\LopHoc\testSearchByStatus.cshtml" />
+    <Content Include="Views\Shared\401.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

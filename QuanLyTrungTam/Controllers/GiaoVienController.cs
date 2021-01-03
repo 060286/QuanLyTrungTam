@@ -211,10 +211,15 @@ namespace QuanLyTrungTam.Controllers
         [HttpPost]
         public ActionResult ThemMoiTrinhDo(TrinhDo trinhDo)
         {
-            try { 
+             
                 if(ModelState.IsValid)
                 {
-                    var trinhDoDao = new TrinhDoDao();
+                    var trinhDoDao = new GiaoVienDao();
+
+                    //int maxId = trinhDoDao.getIdMax();
+
+                    //trinhDo.MaTrinhDo = maxId + 1;
+
                     int _maTrinhDo = trinhDoDao.InsertTrinhDo(trinhDo);
 
                     if(_maTrinhDo > 0)
@@ -229,11 +234,8 @@ namespace QuanLyTrungTam.Controllers
                     }
                 }
                 return View(trinhDo);
-            }
-            catch
-            {
-                return Content("Lỗi khi thêm mới");
-            }
+            
+            
         }
 
         // GET: GiaoVien/Edit/5  

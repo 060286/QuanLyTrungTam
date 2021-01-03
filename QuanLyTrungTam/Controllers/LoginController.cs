@@ -44,7 +44,10 @@ namespace QuanLyTrungTam.Controllers
                         var userSession = new UserLogin();
                         userSession.UserId = user.MaTaiKhoan;
                         userSession.TaiKhoan = user.TaiKhoan;
+                        userSession.MaVaiTro = user.MaVaiTro;
+                        var listCredentials = dao.GetListCredential(model.TaiKhoan);
 
+                        Session.Add(CommonConstants.SESSION_CREDENTIALS, listCredentials);
                         Session.Add(CommonConstants.USER_SESSION, userSession);
                         return RedirectToAction("Index", "Home");
                     }

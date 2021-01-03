@@ -1,6 +1,7 @@
 ﻿using Models;
 using Models.DAO;
 using Models.Framework;
+using QuanLyTrungTam.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,11 @@ using System.Web.Mvc;
 
 namespace QuanLyTrungTam.Controllers
 {
+   
     public class HoaDonController : BaseController
     {
         // GET: HoaDon
+        [HasCredential(Roles = "Xem_HoaDon")]
         public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
         {
             ViewBag.Current = DateTime.UtcNow;
@@ -22,6 +25,7 @@ namespace QuanLyTrungTam.Controllers
         }
 
         // Thêm view như Giao Vien 
+        [HasCredential(Roles = "Xem_HoaDon")]
         public ActionResult testSearchByStatus(string searchStatus, int page = 1, int pageSize = 10)
         {
             // Thêm view bag như Index
@@ -33,6 +37,7 @@ namespace QuanLyTrungTam.Controllers
         }
 
         // Thêm view như Giao Vien 
+        [HasCredential(Roles = "Xem_HoaDon")]
         public ActionResult testSearchByTotalMoney(string searchStatus, int page = 1, int pageSize = 10)
         {
             // Thêm view bag như Index

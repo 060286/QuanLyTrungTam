@@ -6,18 +6,15 @@ namespace Models.Framework
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("TrinhDo")]
-    public partial class TrinhDo
+    [Table("ChucNang")]
+    public partial class ChucNang
     {
         [Key]
-        public int MaTrinhDo { get; set; }
-
         [StringLength(50)]
-        public string TenTrinhDo { get; set; }
+        public string MaChucNang { get; set; }
 
-        [StringLength(100)]
-        public string GhiChu { get; set; }
-
-        public virtual GiaoVien GiaoVien { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string TenChucNang { get; set; }
     }
 }

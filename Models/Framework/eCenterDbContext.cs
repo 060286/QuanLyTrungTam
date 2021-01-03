@@ -1,10 +1,10 @@
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Linq;
+
 namespace Models.Framework
 {
-    using System;
-    using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-
     public partial class eCenterDbContext : DbContext
     {
         public eCenterDbContext()
@@ -13,11 +13,14 @@ namespace Models.Framework
         }
 
         public virtual DbSet<BangDiem> BangDiems { get; set; }
+        public virtual DbSet<ChucNang> ChucNangs { get; set; }
         public virtual DbSet<DangNhap> DangNhaps { get; set; }
         public virtual DbSet<DanhMucKhoaHoc> DanhMucKhoaHocs { get; set; }
         public virtual DbSet<GiaoVien> GiaoViens { get; set; }
+        public virtual DbSet<GV_DiemDanh> GV_DiemDanh { get; set; }
         public virtual DbSet<HoaDon> HoaDons { get; set; }
         public virtual DbSet<HocVien> HocViens { get; set; }
+        public virtual DbSet<HV_DiemDanh> HV_DiemDanh { get; set; }
         public virtual DbSet<KhoaHoc> KhoaHocs { get; set; }
         public virtual DbSet<LopHoc> LopHocs { get; set; }
         public virtual DbSet<LopHoc_Tuan> LopHoc_Tuan { get; set; }
@@ -25,7 +28,9 @@ namespace Models.Framework
         public virtual DbSet<ThoiKhoaBieu> ThoiKhoaBieux { get; set; }
         public virtual DbSet<TrinhDo> TrinhDoes { get; set; }
         public virtual DbSet<Tuan> Tuans { get; set; }
+        public virtual DbSet<VaiTro> VaiTroes { get; set; }
         public virtual DbSet<CT_HoaDon> CT_HoaDon { get; set; }
+        public virtual DbSet<VaiTro_ChucNang> VaiTro_ChucNangs { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

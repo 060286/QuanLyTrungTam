@@ -26,11 +26,16 @@ namespace Models.DAO
             return _context.TrinhDoes.Where(x => x.MaTrinhDo <= 5).ToList();
         }
 
-        public int InsertTrinhDo(TrinhDo entity)
+        public int Insert(TrinhDo entity)
         {
             _context.TrinhDoes.Add(entity);
             _context.SaveChanges();
             return entity.MaTrinhDo;    
+        }
+
+        public int getIdMax()
+        {
+            return _context.TrinhDoes.Max(x => x.MaTrinhDo);
         }
     }
 }

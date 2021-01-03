@@ -10,5 +10,6 @@ namespace QuanLyTrungTam.Common
     {
         public int UserId {set; get;}
         public string TaiKhoan { set; get; }
+        public string MaVaiTro { get; set; }
     }
 }

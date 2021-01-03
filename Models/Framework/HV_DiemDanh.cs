@@ -6,22 +6,23 @@ namespace Models.Framework
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Tuan")]
-    public partial class Tuan
+    public partial class HV_DiemDanh
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tuan()
+        public HV_DiemDanh()
         {
-            LopHoc_Tuan = new HashSet<LopHoc_Tuan>();
+            HocViens = new HashSet<HocVien>();
         }
 
         [Key]
-        public int MaTuan { get; set; }
+        public int MaHVDD { get; set; }
+
+        public int? TinhTrang { get; set; }
 
         [StringLength(50)]
-        public string TenTuan { get; set; }
+        public string GhiCh { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LopHoc_Tuan> LopHoc_Tuan { get; set; }
+        public virtual ICollection<HocVien> HocViens { get; set; }
     }
 }
