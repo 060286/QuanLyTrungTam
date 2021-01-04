@@ -2,82 +2,125 @@
 
 @{
     ViewBag.Title = "AddCourse";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
+
+    decimal? tongTien = 0;
 }
 
-<h2>AddCourse</h2>
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <h4>DangKy</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        <div class="col-md-10">
-            @Html.HiddenFor(model => model.MaHocVien, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.MaHocVien, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.HoaDon.TongTien, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.HoaDon.TongTien, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.HoaDon.TongTien, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.HoaDon.TinhTrang, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.HoaDon.TinhTrang, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.HoaDon.TinhTrang, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.HoaDon.NgayLap, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DisplayFor(model => model.HoaDon.NgayLap, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.HoaDon.NgayLap, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.CT_HoaDon.SoLuong, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.CT_HoaDon.SoLuong, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.CT_HoaDon.SoLuong, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.Label("Chọn khóa học", null, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.MaKhoaHoc, null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.MaKhoaHoc, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.Label("Chọn lớp học", null, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.MaLopHoc, null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.MaLopHoc, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
-        </div>
-    </div>
+<div class="modal-header bg-olive">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" style="font-size:25px">Điền thông tin đăng ký</h4>
 </div>
-}
+<div class="modal-body form-horizontal">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    <div class="form-horizontal">
+        <hr />
+        <div class="form-group">
+            @Html.Label("Chọn khóa học", null, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.DropDownListFor(model => model.MaKhoaHoc, null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MaKhoaHoc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Chọn lớp học", null, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.DropDownListFor(model => model.MaLopHoc, null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MaLopHoc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-6">
+                @Html.HiddenFor(model => model.MaHocVien, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MaHocVien, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.HoaDon.NgayLap, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.HoaDon.NgayLap, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.HoaDon.NgayLap, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.HoaDon.NgayLap, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.DisplayFor(model => model.NgayLap, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NgayLap, "", new { @class = "text-danger" })*@
+                <div><span id="hour">00 </span>: <span id="minute">00 </span>: <span id="second">00 </span>  Ngày : <span id="day">00</span> : Tháng <span id="month">: Tháng </span>: Năm <span id="year">0000</span> </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CT_HoaDon.SoLuong, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.CT_HoaDon.SoLuong, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CT_HoaDon.SoLuong, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HoaDon.TongTien, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.HoaDon.TongTien, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.HoaDon.TongTien, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HoaDon.TinhTrang, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.HoaDon.TinhTrang, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.HoaDon.TinhTrang, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-1">
+                <input type="submit" value="Thêm mới" class="btn btn-primary" />
+            </div>
+            <div class="col-md-1">
+                <a href="~/HocVien/Index" class="btn btn-default">Quay lại</a>
+            </div>
+        </div>
+    </div>
+    }
 </div>
+
+
+<script type="text/javascript">
+    function clock() {
+        var hours = document.getElementById('hour');
+        var minutes = document.getElementById('minute');
+        var seconds = document.getElementById('second');
+        var days = document.getElementById('day');
+        var months = document.getElementById('month');
+        var years = document.getElementById('year');
+
+        var h = new Date().getHours();
+        var m = new Date().getMinutes();
+        var s = new Date().getSeconds();
+        var d = new Date().getDate();
+        var mo = new Date().getMonth() + 1;
+        var y = new Date().getFullYear();
+
+        hours.innerHTML = h;
+        minutes.innerHTML = m;
+        seconds.innerHTML = s;
+        days.innerHTML = d;
+        months.innerHTML = mo;
+        years.innerHTML = y;
+    }
+    var internal = setInterval(clock, 1000);
+</script>

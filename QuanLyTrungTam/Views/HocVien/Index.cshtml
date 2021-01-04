@@ -81,7 +81,15 @@
                                             <td>@item.SDT</td>
                                             <td>@item.TrangThai</td>
                                             <td>@(item.TrangThai.GetValueOrDefault(false)? "Hoạt động" : "Khóa")</td>
-                                            <td><a href="/HocVien/AddCourse/@item.MaHocVien">Đăng ký khóa học</a></td>
+                                            <td>
+                                                <a href="/HocVien/AddCourse/@item.MaHocVien" class="btn bg-maroon btn_update" data-toggle="modal" data-target="#modal-dangKyKhoaHoc-@item.MaHocVien" data-backdrop="static" data-keyboard="false">Đăng ký khóa học</a>
+                                                <div class="modal fade" id="modal-dangKyKhoaHoc-@item.MaHocVien">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
                                             <td>
                                                 <a href="/HocVien/Edit/@item.MaHocVien">Sửa</a>
                                                 <a href="/HocVien/Details/@item.MaHocVien">Chi tiết</a>

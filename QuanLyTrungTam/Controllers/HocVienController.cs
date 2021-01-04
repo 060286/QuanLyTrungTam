@@ -114,8 +114,9 @@ namespace QuanLyTrungTam.Controllers
 
             var hoaDon = new HoaDon();
             var ct_HD = new CT_HoaDon();
+            var khoaHoc = new KhoaHoc();
 
-            hoaDon.TongTien = entity.HoaDon.TongTien;
+            hoaDon.TongTien = khoaHoc.GiaTien * entity.CT_HoaDon.SoLuong;
             hoaDon.TinhTrang = entity.HoaDon.TinhTrang;
             hoaDon.MaHocVien = hocVienDao.MaHocVien;
             hoaDon.NgayLap = DateTime.Now;
@@ -126,7 +127,7 @@ namespace QuanLyTrungTam.Controllers
 
             ct_HD.MaKhoaHoc = maKhoaHoc;
             ct_HD.MaHoaDon = checkHD;
-            ct_HD.SoLuong = 1;
+            ct_HD.SoLuong = entity.CT_HoaDon.SoLuong;
 
             int checkCTHD = ct_HoaDonDao.Insert(ct_HD);
 
@@ -149,23 +150,22 @@ namespace QuanLyTrungTam.Controllers
         }    
 
         [HttpPost]
-        public ActionResult CreateDetails(HocVienDetails hocVienDetails, HttpPostedFileBase hinhAnh)
+        public ActionResult CreateDetails(HocVienDetails hocVienDetails, HttpPostedFileBase hinhAnhDetail)
         {
            try
            {
                 if(ModelState.IsValid)
                 {
                     string path = "";
-                    if(hinhAnh != null && hinhAnh.ContentLength > 0)
+                    if(hinhAnhDetail != null && hinhAnhDetail.ContentLength > 0)
                     {
-                        string extension = Path.GetExtension(hinhAnh.FileName);
+                        string extension = Path.GetExtension(hinhAnhDetail.FileName);
                         if (extension.Equals(".jpg") || extension.Equals(".png") || extension.Equals(".jpeg"))
                         {
-                            path = Path.Combine(Server.MapPath("~/Img/HocSinh/"), hinhAnh.FileName);
-                            hinhAnh.SaveAs(path);
+                            path = Path.Combine(Server.MapPath("~/Img/HocVien/"), hinhAnhDetail.FileName);
+                            hinhAnhDetail.SaveAs(path);
                         }
                         
-
                         var _daoHocVien = new HocVienDao();
                         var _daoPhuHuynh = new PhuHuynhDao();
 
@@ -174,7 +174,7 @@ namespace QuanLyTrungTam.Controllers
                         hocVien.TenHocVien = hocVienDetails.HocVien.TenHocVien;
                         hocVien.TaiKhoan = hocVienDetails.HocVien.TaiKhoan;
                         hocVien.MatKhau = hocVienDetails.HocVien.MatKhau;
-                        hocVien.HinhAnh = hinhAnh.FileName;
+                        hocVien.HinhAnh = hinhAnhDetail.FileName;
                         hocVien.GioiTinh = hocVienDetails.HocVien.GioiTinh;
                         hocVien.SDT = hocVienDetails.HocVien.SDT;
                         hocVien.Email = hocVienDetails.HocVien.Email;
@@ -200,7 +200,7 @@ namespace QuanLyTrungTam.Controllers
                             _phuHuynh.GioiTinh = hocVienDetails.LstPhuHuynh[i].GioiTinh;
                             _phuHuynh.DiaChi = hocVienDetails.LstPhuHuynh[i].DiaChi;
                             _phuHuynh.Email = hocVienDetails.LstPhuHuynh[i].Email;
-                            _phuHuynh.MaHocVien = hocVienDetails.HocVien.MaHocVien;
+                            _phuHuynh.MaHocVien = _maHocVien;
 
                             int _maPhuHuynh = _daoPhuHuynh.Insert(_phuHuynh);
                         }
