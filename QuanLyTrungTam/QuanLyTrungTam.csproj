@@ -324,6 +324,7 @@
     <Content Include="Views\LopHoc\testSearchByStartDate.cshtml" />
     <Content Include="Views\LopHoc\testSearchByStatus.cshtml" />
     <Content Include="Views\Shared\401.cshtml" />
+    <Content Include="Views\HocVien\AddCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

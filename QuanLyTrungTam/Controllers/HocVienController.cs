@@ -95,6 +95,54 @@ namespace QuanLyTrungTam.Controllers
         }
 
         [HttpGet]
+        public ActionResult AddCourse()
+        {
+          
+            GetViewBagKhoaHoc();
+            GetViewBagLopHoc();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddCourse(DangKy entity,int id,int maLopHoc,int maKhoaHoc)
+        {
+            var hocVienDao = new HocVienDao().ViewDetails(id);
+            GetViewBagIdHocVien(hocVienDao.MaHocVien);
+
+            var hoaDonDao = new HoaDonDao();
+            var ct_HoaDonDao = new CT_HoaDonDao();
+
+            var hoaDon = new HoaDon();
+            var ct_HD = new CT_HoaDon();
+
+            hoaDon.TongTien = entity.HoaDon.TongTien;
+            hoaDon.TinhTrang = entity.HoaDon.TinhTrang;
+            hoaDon.MaHocVien = hocVienDao.MaHocVien;
+            hoaDon.NgayLap = DateTime.Now;
+            hoaDon.MaLopHoc = maLopHoc;
+            hoaDon.MaKhoaHoc = maKhoaHoc;
+
+            int checkHD = hoaDonDao.Insert(hoaDon);
+
+            ct_HD.MaKhoaHoc = maKhoaHoc;
+            ct_HD.MaHoaDon = checkHD;
+            ct_HD.SoLuong = 1;
+
+            int checkCTHD = ct_HoaDonDao.Insert(ct_HD);
+
+            if(checkHD > 0 && checkCTHD > 0)
+            {
+                SetAlert("Thêm thành công", 1);
+                return RedirectToAction("Index", "HocVien");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Có lỗi khi thêm chi tiết học viên");
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
         public ActionResult CreateDetails()
         {
             return View();
@@ -257,6 +305,24 @@ namespace QuanLyTrungTam.Controllers
             {
                 return View();
             }
+        }
+
+        public void GetViewBagKhoaHoc(int? maKhoaHoc = null)
+        {
+            var dao = new KhoaHocDao();
+            ViewBag.MaKhoaHoc = new SelectList(dao.ListAll(), "MaKhoaHoc", "TenKhoaHoc", maKhoaHoc);
+        }
+
+        public void GetViewBagLopHoc(int? maLopHoc = null)
+        {
+            var dao = new LopHocDao();
+            ViewBag.MaLopHoc = new SelectList(dao.ListAll(), "MaLopHoc", "TenLopHoc", maLopHoc);
+        }
+
+        public void GetViewBagIdHocVien(int maHocVien)
+        {
+            var dao = new HocVienDao();
+            ViewBag.MaHocVien = dao.GetHocVienById(maHocVien);
         }
     }
 }

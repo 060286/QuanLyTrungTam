@@ -10,15 +10,27 @@
     <!-- Page Header-->
     <div class="page-header no-margin-bottom">
         <div class="container-fluid">
-            <h2 class="h2 no-margin-bottom" style="color: black">Danh Sách Giáo Viên</h2>
+            <h2 class="h2 no-margin-bottom text-primary">Mục Quản lý giáo viên</h2>
+        </div>
+        <div class="container-fluid">
+            <h3 class="no-margin-bottom text-primary">Chức năng</h3>
             <a class="btn btn-info" href="@Url.Action("ExportToExcel","GiaoVien")">Xuất File</a>
+            <a class="btn btn-success" href="@Url.Action("Create","GiaoVien")" data-toggle="modal" data-target="#modal-themMoi" data-backdrop="static" data-keyboard="false">Thêm giáo viên</a>
             <div class="modal fade" id="modal-themMoi">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                     </div>
                 </div>
             </div>
+            <a class="btn btn-success" href="@Url.Action("ThemMoiTrinhDo","GiaoVien")" data-toggle="modal" data-target="#modal-themMoiTrinhDo" data-backdrop="static" data-keyboard="false">Thêm nhanh trình độ</a>
+            <div class="modal fade" id="modal-themMoiTrinhDo">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
         <!-- Breadcrumb-->
         <div class="container-fluid">
             <ul class="breadcrumb">

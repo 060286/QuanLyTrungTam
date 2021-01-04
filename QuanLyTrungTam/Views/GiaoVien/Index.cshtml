@@ -36,7 +36,10 @@
     <!-- Page Header-->
     <div class="page-header no-margin-bottom">
         <div class="container-fluid">
-            <h2 class="h2 no-margin-bottom" style="color: black">Danh Sách Giáo Viên</h2>
+            <h2 class="h2 no-margin-bottom text-primary">Mục Quản lý giáo viên</h2>
+        </div>
+        <div class="container-fluid">
+            <h3 class="no-margin-bottom text-primary">Chức năng</h3>
             <a class="btn btn-info" href="@Url.Action("ExportToExcel","GiaoVien")">Xuất File</a>
             <a class="btn btn-success" href="@Url.Action("Create","GiaoVien")" data-toggle="modal" data-target="#modal-themMoi" data-backdrop="static" data-keyboard="false">Thêm giáo viên</a>
             <div class="modal fade" id="modal-themMoi">
@@ -75,7 +78,7 @@
                             </div>
                             <div class="col-xs-9 text-right">
                                 <div class="huge">@ViewBag.TongGiaoVien</div>
-                                <div>Tổng số giáo viên</div>
+                                <div>Giáo viên</div>
                             </div>
                         </div>
                     </div>
@@ -90,7 +93,7 @@
                             </div>
                             <div class="col-xs-9 text-right">
                                 <div class="huge">@ViewBag.NhanVienNam</div>
-                                <div>Số lượng giáo viên nam</div>
+                                <div>Giáo viên nam</div>
                             </div>
                         </div>
                     </div>
@@ -105,7 +108,7 @@
                             </div>
                             <div class="col-xs-9 text-right">
                                 <div class="huge"> @ViewBag.NhanVienNu</div>
-                                <div>Số lượng nhân viên nữ</div>
+                                <div>Giáo viên nữ</div>
                             </div>
                         </div>
                     </div>
@@ -124,7 +127,7 @@
                                     <div class="col-xs-9 text-right">
                                         <div class="huge">@ViewBag.TongTienLuong</div>
                                         @*<div class="huge">@QuanLyTrungTam.Common.Format.FormatCurrencyVND(ViewBag.TongTienLuong)</div>*@
-                                        <div>Tổng tiền lương</div>
+                                        <div>Tổng tiền lương (VNĐ)</div>
                                     </div>
                                 </div>
                             </div>
