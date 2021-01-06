@@ -1,4 +1,5 @@
-﻿using Models.DAO;
+﻿using Models;
+using Models.DAO;
 using Models.Framework;
 using System.Web.Mvc;
 
@@ -55,8 +56,12 @@ namespace QuanLyTrungTam.Controllers
         }
 
         // GET: LopHoc/Create
+        [HttpGet]
         public ActionResult Create()
         {
+            GetViewBagKhoaHoc();
+            GetViewBagGiaoVien();
+
             return View();
         }
 
@@ -149,6 +154,18 @@ namespace QuanLyTrungTam.Controllers
 
                 return View();
             }
+        }
+
+        public void GetViewBagKhoaHoc(int? maKhoaHoc = null)
+        {
+            var dao = new KhoaHocDao();
+            ViewBag.MaKhoaHoc = new SelectList(dao.ListAll(), "MaKhoaHoc", "TenKhoaHoc", maKhoaHoc);
+        }
+
+        public void GetViewBagGiaoVien(int? maGiaoVien = null)
+        {
+            var dao = new GiaoVienDao();
+            ViewBag.MaGiaoVien = new SelectList(dao.ListAll(), "MaGiaoVien", "TenGiaoVien", maGiaoVien);
         }
     }
 }

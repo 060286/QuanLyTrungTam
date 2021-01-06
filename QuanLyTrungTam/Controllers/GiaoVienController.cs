@@ -200,7 +200,6 @@ namespace QuanLyTrungTam.Controllers
             }
         }
 
-
         [HttpGet]
         public ActionResult ThemMoiTrinhDo()
         {
@@ -236,6 +235,24 @@ namespace QuanLyTrungTam.Controllers
                 return View(trinhDo);
             
             
+        }
+
+        [HttpGet]
+        public ActionResult EditLevel(int id)
+        {
+            var _trinhDo = new TrinhDoDao().ViewDetails(id);
+
+            return View(_trinhDo);
+        }
+
+        [HttpPost]
+        public ActionResult EditLevel(TrinhDo trinhDo)
+        {
+            var _daoTrinhDo = new TrinhDoDao();
+
+            var res = _daoTrinhDo.Update(trinhDo);
+
+            return View();
         }
 
         // GET: GiaoVien/Edit/5  

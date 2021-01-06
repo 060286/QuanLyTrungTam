@@ -12,6 +12,8 @@ namespace QuanLyTrungTam.Controllers
 {
     public class HocVienController : BaseController
     {
+        public static int? getId;
+
         // GET: HocVien
         public ActionResult Index(string searchString,int page = 1, int pageSize = 10)
         {
@@ -25,6 +27,46 @@ namespace QuanLyTrungTam.Controllers
         {
             var hocVienDao = new HocVienDao().ViewDetails(id);
             return View(hocVienDao);
+        }
+
+        
+        [HttpGet]
+        public ActionResult CreateScore(int id)
+        {
+            GetViewBagLopHoc();
+            var hocVienDao = new BangDiemDao().ViewDetail(id);
+
+            getId = id;
+
+            return View(hocVienDao);
+        }
+
+        [HttpPost]
+        public ActionResult CreateScore(BangDiem bangDiem)
+        {
+            var _bangDiemDao = new BangDiemDao();
+            var _bangDiem = new BangDiem();
+
+            _bangDiem.MaLopHoc = bangDiem.MaLopHoc;
+            _bangDiem.MaHocVien = getId;
+            _bangDiem.KT1 = bangDiem.KT1;
+            _bangDiem.KT2 = bangDiem.KT2;
+            _bangDiem.THIL1 = bangDiem.THIL1;
+            _bangDiem.KetQua = bangDiem.KetQua;
+
+            int check = _bangDiemDao.Insert(_bangDiem);
+
+            if (check > 0)
+            {
+                SetAlert("Thêm thành công", 1);
+                return RedirectToAction("Index", "HocVien");
+            }
+            else
+            {
+                SetAlert("Thêm thất bại", 3);
+            }
+
+            return View(bangDiem);
         }
 
         // GET: HocVien/Create

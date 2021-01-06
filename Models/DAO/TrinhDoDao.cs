@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Models.DAO
 {
@@ -36,6 +34,30 @@ namespace Models.DAO
         public int getIdMax()
         {
             return _context.TrinhDoes.Max(x => x.MaTrinhDo);
+        }
+
+        public TrinhDo ViewDetails(int id)
+        {
+            return _context.TrinhDoes.Find(id);
+        }
+
+        public bool Update(TrinhDo entity)
+        {
+            try
+            {
+                var _lopHoc = _context.TrinhDoes.Find(entity.MaTrinhDo);
+
+                _lopHoc.TenTrinhDo = entity.TenTrinhDo;
+                _lopHoc.GhiChu = entity.GhiChu;
+
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

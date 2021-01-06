@@ -12,6 +12,13 @@
     <div class="page-header no-margin-bottom">
         <div class="container-fluid">
             <h2 class="h2 no-margin-bottom">Mục Quản Lý Lớp Học</h2>
+            <a class="btn btn-success" href="@Url.Action("Create","LopHoc")" data-toggle="modal" data-target="#modal-themMoi" data-backdrop="static" data-keyboard="false">Thêm lớp học</a>
+            <div class="modal fade" id="modal-themMoi">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- Breadcrumb-->
@@ -20,6 +27,7 @@
             <li class="breadcrumb-item"><a href="~/Home/Index">Home</a></li>
             <li class="breadcrumb-item active">Lớp học</li>
         </ul>
+
     </div>
     <div class="container" style="display:flex">
         @using (Html.BeginForm("Index", "LopHoc", FormMethod.Get))

@@ -325,6 +325,8 @@
     <Content Include="Views\LopHoc\testSearchByStatus.cshtml" />
     <Content Include="Views\Shared\401.cshtml" />
     <Content Include="Views\HocVien\AddCourse.cshtml" />
+    <Content Include="Views\GiaoVien\testSearchByEmail.cshtml" />
+    <Content Include="Views\HocVien\CreateScore.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
