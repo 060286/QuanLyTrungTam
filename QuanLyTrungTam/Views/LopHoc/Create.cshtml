@@ -10,80 +10,71 @@
     <button type="button" class="close" data-dismiss="modal">
         <span aria-hidden="true">&times;</span>
     </button>
-    <h4 class="modal-title" style="font-size:25px; color:black">Thêm lớp học</h4>
+    <h4 class="modal-title" style="font-size:25px; color:black">Thêm mới lớp học</h4>
 </div>
 
 <div class="modal-body form-horizontal">
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-horizontal">
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.HiddenFor(model => model.MaLopHoc, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-8">
+            @Html.HiddenFor(model => model.MaLopHoc, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-5">
                 @Html.HiddenFor(model => model.MaLopHoc, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.MaLopHoc, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TenLopHoc, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-8">
-                @Html.EditorFor(model => model.TenLopHoc, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TenLopHoc, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TenLopHoc, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.TenLopHoc, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TenLopHoc, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TinhTrang, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-5">
+                        <div class="checkbox">
+                            @Html.RadioButtonFor(model => model.TinhTrang, true, new { required = "required" })Hoạt động
+                            @Html.RadioButtonFor(model => model.TinhTrang, false) Ngừng hoạt động
+                            @Html.ValidationMessageFor(model => model.TinhTrang, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-6">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NgayBatDau, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-8">
-                @Html.EditorFor(model => model.NgayBatDau, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NgayBatDau, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MaGiaoVien, null, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(model => model.MaGiaoVien, null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.MaGiaoVien, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
-        </div>
+            <div class="col-lg-6">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NgayKetThuc, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-8">
-                @Html.EditorFor(model => model.NgayKetThuc, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NgayKetThuc, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TinhTrang, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-8">
-                <div class="checkbox">
-                    @Html.RadioButtonFor(model => model.TinhTrang, true, new { required = "required" })Hoạt động
-                    @Html.RadioButtonFor(model => model.TinhTrang, false) Ngừng hoạt động
-                    @Html.ValidationMessageFor(model => model.TinhTrang, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MaKhoaHoc, null, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(model => model.MaKhoaHoc, null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.MaKhoaHoc, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
         </div>
 
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaGiaoVien, null, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-8">
-                @Html.DropDownListFor(model => model.MaGiaoVien, null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.MaGiaoVien, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaKhoaHoc, null, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-8">
-                @Html.DropDownListFor(model => model.MaKhoaHoc, null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.MaKhoaHoc, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
         <div class="form-group" style="margin-top: 30px">
-            <div class="col-md-1" style="margin-left:500px">
+            <div class="col-md-1" style="margin-left:500px; margin-right: 15px">
                 <input type="submit" value="Tạo mới" class="btn btn-success" />
             </div>
             <div class=" col-md-1">
@@ -93,5 +84,5 @@
     </div>
     }
 
-    
+
 </div>

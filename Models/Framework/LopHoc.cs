@@ -22,13 +22,11 @@ namespace Models.Framework
         [StringLength(100)]
         public string TenLopHoc { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime? NgayBatDau { get; set; }
+      
 
         public bool? TinhTrang { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime? NgayKetThuc { get; set; }
+       
 
         public int? MaGiaoVien { get; set; }
 

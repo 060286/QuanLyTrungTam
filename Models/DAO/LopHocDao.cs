@@ -61,27 +61,27 @@ namespace Models.DAO
         }
 
         // Ngày bắt đầu
-        public IEnumerable<LopHoc> testSearchByStartDate(string searchStringStartDate, int page, int pageSize)
-        {
-            IQueryable<LopHoc> model = _context.LopHocs;
-            if (!string.IsNullOrEmpty(searchStringStartDate))
-            {
-                model = model.Where(x => x.NgayBatDau.ToString().Contains(searchStringStartDate));
-            }
+        //public IEnumerable<LopHoc> testSearchByStartDate(string searchStringStartDate, int page, int pageSize)
+        //{
+        //    IQueryable<LopHoc> model = _context.LopHocs;
+        //    if (!string.IsNullOrEmpty(searchStringStartDate))
+        //    {
+        //        model = model.Where(x => x.NgayBatDau.ToString().Contains(searchStringStartDate));
+        //    }
 
-            return model.OrderBy(x => x.MaGiaoVien).ToPagedList(page, pageSize);
-        }
+        //    return model.OrderBy(x => x.MaGiaoVien).ToPagedList(page, pageSize);
+        //}
 
-        public IEnumerable<LopHoc> testSearchByEndDate(string searchStringEndDate, int page, int pageSize)
-        {
-            IQueryable<LopHoc> model = _context.LopHocs;
-            if (!string.IsNullOrEmpty(searchStringEndDate))
-            {
-                model = model.Where(x => x.NgayKetThuc.ToString().Contains(searchStringEndDate));
-            }
+        //public IEnumerable<LopHoc> testSearchByEndDate(string searchStringEndDate, int page, int pageSize)
+        //{
+        //    IQueryable<LopHoc> model = _context.LopHocs;
+        //    if (!string.IsNullOrEmpty(searchStringEndDate))
+        //    {
+        //        model = model.Where(x => x.NgayKetThuc.ToString().Contains(searchStringEndDate));
+        //    }
 
-            return model.OrderBy(x => x.MaGiaoVien).ToPagedList(page, pageSize);
-        }
+        //    return model.OrderBy(x => x.MaGiaoVien).ToPagedList(page, pageSize);
+        //}
 
 
         public IEnumerable<LopHoc> testSearchByStatus(string searchStringStatus, int page, int pageSize)
@@ -101,9 +101,8 @@ namespace Models.DAO
             {
                 var _lopHoc = _context.LopHocs.Find(entity.MaLopHoc);
                 _lopHoc.TenLopHoc = entity.TenLopHoc;
-                _lopHoc.NgayBatDau = entity.NgayBatDau;
                 _lopHoc.TinhTrang = entity.TinhTrang;
-                _lopHoc.NgayKetThuc = entity.NgayKetThuc;
+            
                 
                 _context.SaveChanges();
 

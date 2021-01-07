@@ -32,6 +32,12 @@ namespace Models.Framework
         [StringLength(100)]
         public string MoTa { get; set; }
 
+        [Column(TypeName = "date")]
+        public DateTime? NgayBatDau { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime? NgayKetThuc { get; set; }
+
         public int? MaGiaoVien { get; set; }
 
         public int? SoTuan { get; set; }
