@@ -31,6 +31,7 @@ namespace Models.Framework
 
         public int? MaHocVien { get; set; }
 
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CT_HoaDon> CT_HoaDon { get; set; }
 

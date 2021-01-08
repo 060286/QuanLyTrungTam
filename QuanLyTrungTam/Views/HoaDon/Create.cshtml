@@ -21,7 +21,7 @@
         <button type="button" class="close" data-dismiss="modal">
             <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title" style="font-size:25px">Thêm hóa đơn</h4>
+        <h4 class="modal-title" style="font-size:25px">Tạo hóa đơn</h4>
     </div>
 
     <div class="modal-body form-horizontal">
@@ -48,7 +48,8 @@
             @Html.LabelFor(model => model.TinhTrang, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.TinhTrang)
+                    @Html.RadioButtonFor(model => model.TinhTrang, true, new { required = "required" }) Đã thanh toán
+                    @Html.RadioButtonFor(model => model.TinhTrang, false) Chưa thanh toán
                     @Html.ValidationMessageFor(model => model.TinhTrang, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -78,12 +79,13 @@
             </div>
         </div>
 
+
         <div class="modal-footer">
-            <div class="col-md-offset-2 col-md-2">
-                <button type="submit" value="Create" class="btn bg-olive btn-lg">Thêm Mới</button>
+            <div class="col-md-1" style="margin-left:600px;margin-right:20px">
+                <button type="submit" value="Create" class="btn bg-olive">Thêm Mới</button>
             </div>
-            <div class="col-md-offset-2 col-md-2">
-                <button class="btn bg-danger btn-lg">@Html.ActionLink("Back to List", "Index")</button>
+            <div class="col-md-1">
+               <a href="/HoaDon/Index" class="btn btn-danger">Hủy bỏ</a>
             </div>
         </div>
     </div>

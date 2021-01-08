@@ -181,6 +181,7 @@
     <Compile Include="Models\CartCourse.cs" />
     <Compile Include="Models\Center.cs" />
     <Compile Include="Models\DangKy.cs" />
+    <Compile Include="Models\HoaDonDetails.cs" />
     <Compile Include="Models\HocVienDetails.cs" />
     <Compile Include="Models\KhoaHocDetailsModels.cs" />
     <Compile Include="Models\LoginModel.cs" />
@@ -325,6 +326,8 @@
     <Content Include="Views\HocVien\AddCourse.cshtml" />
     <Content Include="Views\GiaoVien\testSearchByEmail.cshtml" />
     <Content Include="Views\HocVien\CreateScore.cshtml" />
+    <Content Include="Views\HoaDon\Details.cshtml" />
+    <Content Include="Views\HoaDon\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -238,7 +238,7 @@
         }
     </div>
 
-    <div class="container" style=" display: flex">
+    @*<div class="container" style=" display: flex">
         @using (Html.BeginForm("testSearchByEmail", "GiaoVien", FormMethod.Get))
         {
             <div class="row">
@@ -253,7 +253,7 @@
                 <br />
             </div>
         }
-    </div>
+    </div>*@
 
     <br /><br />
     <section class="no-padding-top">
@@ -295,14 +295,15 @@
                                                 <td class="text-center">@item.SDT</td>
                                                 <td class="text-center" style="color:green">@(item.TrangThai.GetValueOrDefault(false)? "Hoạt động" : "Khóa")</td>
                                                 <td>
-                                                    <a class="text-center" href="/GiaoVien/Edit/@item.MaGiaoVien">Sửa &nbsp;</a>
-                                                    <a class="text-center" href="/GiaoVien/Details/@item.MaGiaoVien">Chi tiết &nbsp;</a>
+                                                    <a class="text-center btn btn-primary" href="/GiaoVien/Edit/@item.MaGiaoVien">Sửa &nbsp;</a>
+                                                    <a class="text-center btn btn-primary" href="/GiaoVien/Details/@item.MaGiaoVien">Chi tiết &nbsp;</a>
                                                     @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaGiaoVien }, new AjaxOptions
-                                                    {
-                                                        Confirm = "Xóa bản ghi giáo viên",
-                                                        OnComplete = "$('#row_" + item.MaGiaoVien + "').remove()",
-                                                        HttpMethod = "Delete"
-                                                    })
+                                               {
+                                                   Confirm = "Xóa bản ghi giáo viên",
+                                                   OnComplete = "$('#row_" + item.MaGiaoVien + "').remove()",
+                                                   HttpMethod = "Delete"
+                                               },
+                                                    new { @class="btn btn-primary"})
                                                 </td>
                                             </tr>
                                         }

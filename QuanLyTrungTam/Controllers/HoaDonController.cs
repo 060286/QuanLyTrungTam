@@ -7,17 +7,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Linq;
+using System.Data.Entity;
 
 namespace QuanLyTrungTam.Controllers
 {
    
     public class HoaDonController : BaseController
     {
+        private eCenterDbContext db = new eCenterDbContext();
         // GET: HoaDon
         [HasCredential(Roles = "Xem_HoaDon")]
         public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
         {
             ViewBag.Current = DateTime.UtcNow;
+            ViewBag.DoanhThuHomNay = db.HoaDons.Where(i => i.NgayLap.Value.Day == DateTime.Now.Day 
+                                                && i.NgayLap.Value.Year == DateTime.Now.Year)
+                                                .Sum(i => i.TongTien).GetValueOrDefault(0).ToString("#,##").Replace(',', '.');
+
+            ViewBag.DoanhThuThangNay = db.HoaDons.Where(i => i.NgayLap.Value.Month == DateTime.Now.Month 
+                                                         && i.NgayLap.Value.Year == DateTime.Now.Year)
+                                                        .Sum(i => i.TongTien).GetValueOrDefault(0).ToString("#,##").Replace(',', '.');
+
+            ViewBag.TongHoaDonHomNay = db.HoaDons.Where(i => i.NgayLap.Value.Day == DateTime.Now.Day
+                                                && i.NgayLap.Value.Year == DateTime.Now.Year)
+                                                .Count();
+
+            ViewBag.TongHoaDonThangNay = db.HoaDons.Where(i => i.NgayLap.Value.Month == DateTime.Now.Month
+                                                   && i.NgayLap.Value.Year == DateTime.Now.Year)
+                                                   .Count();
+
             var hoaDonDao = new HoaDonDao();
             var modelHoaDon = hoaDonDao.ListAllPaging(searchString, page, pageSize);
             
@@ -161,6 +180,29 @@ namespace QuanLyTrungTam.Controllers
             {
                 return View();
             }
+        }
+
+        public JsonResult GetData()
+        {
+            eCenterDbContext db = new eCenterDbContext();
+            var query = db.HoaDons.Include("HoaDon")
+                            .Where(i=>i.NgayLap.Value.Month == DateTime.Now.Month)
+                            .GroupBy(p => p.NgayLap.Value.Day )
+                            .Select(g => new { name = g.Key, count = g.Sum(x => x.TongTien) });
+
+            return Json(query, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public void ExportToExcel()
+        {
+            List<HoaDon> hoaDonList = db.HoaDons.Select(x => new HoaDon
+            {
+                MaHoaDon = x.MaHoaDon,
+                NgayLap = x.NgayLap,
+                TinhTrang = x.TinhTrang,
+                MaHocVien = x.MaHocVien
+            }).ToList();
         }
     }
 }
