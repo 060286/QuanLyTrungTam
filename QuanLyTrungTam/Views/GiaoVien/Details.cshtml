@@ -21,15 +21,24 @@
 <div class="modal-body form-horizontal">
     <div class="container" margin-top: 20px">
         <div class="row">
-            <div class="col-md-3" style="margin-bottom: 10px">
+            <div class="col-lg-12" style="margin-bottom: 10px">
+                <div class="col-md-3">
+                    <h3>Ảnh giáo viên</h3>
+                </div>
+                <img class="profile-user-img img-responsive col-md-9" style="width:150px;height:auto" alt="User profile picture" src="~/Img/GiaoVien/@Model.HinhAnh" />
+            </div>
+        </div>
+
+        <div class="row">
+            @*<div class="col-md-3" style="margin-bottom: 10px">
                 <div>
                     <h3>Ảnh giáo viên</h3>
                 </div>
                 <img class="profile-user-img img-responsive" style="width:200px;height:auto" alt="User profile picture" src="~/Img/GiaoVien/@Model.HinhAnh" />
-            </div>
-            <div class="col-md-9">
-                <h2>Thông tin giáo viên</h2>
-                <div class="col-md-6">
+            </div>*@
+            <div class="col-md-12">
+                <h3>Thông tin giáo viên</h3>
+                <div class="col-md-4">
                     <h3 style="color:dodgerblue">Tên giáo viên : @Model.TenGiaoVien</h3>
                     <h4>Giới tính : @Model.GioiTinh</h4>
                     <h4>Ngày sinh : @Model.NgaySinh</h4>
@@ -37,7 +46,7 @@
                     <h4>Trình độ học vấn : @Model.MaTrinhDo</h4>
                     <h4>Số điện thoại : @Model.SDT</h4>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <h4>Mức lương : @Model.MucLuong</h4>
                     <h4>Email : @Model.Email</h4>
                     <h4>Địa chỉ cư trú : @Model.DiaChi</h4>
@@ -54,7 +63,7 @@
 
     <div class="modal-footer">
         <p>
-            <a href="~/GiaoVien/Edit/@Model.MaGiaoVien" class="btn btn-success">Sửa thông tin</a>
+            @*<a href="~/GiaoVien/Edit/@Model.MaGiaoVien" class="btn btn-success">Sửa thông tin</a>*@
             <a href="~/GiaoVien/Index" class="btn btn-default">Quay lại</a>
         </p>
     </div>

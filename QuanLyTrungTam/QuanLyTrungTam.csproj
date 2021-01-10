@@ -167,6 +167,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CartCourseController.cs" />
     <Compile Include="Controllers\DangKyKHController.cs" />
+    <Compile Include="Controllers\DangNhapController.cs" />
     <Compile Include="Controllers\GiaoVienController.cs" />
     <Compile Include="Controllers\HoaDonController.cs" />
     <Compile Include="Controllers\HocVienController.cs" />
@@ -241,6 +242,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Img\a.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Assets\Admin\fonts\fontawesome-webfont.eot" />
@@ -269,6 +271,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\sang.js" />
+    <Content Include="Style\StyleSheet1.css" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Web.config" />
@@ -328,6 +331,7 @@
     <Content Include="Views\HocVien\CreateScore.cshtml" />
     <Content Include="Views\HoaDon\Details.cshtml" />
     <Content Include="Views\HoaDon\Edit.cshtml" />
+    <Content Include="Views\DangNhap\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

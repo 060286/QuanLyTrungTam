@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="DAO\BangDiemDao.cs" />
     <Compile Include="DAO\CT_HoaDonDao.cs" />
+    <Compile Include="DAO\DangNhapDao.cs" />
     <Compile Include="DAO\DanhMucKhoaHocDao.cs" />
     <Compile Include="DAO\GiaoVienDao.cs" />
     <Compile Include="DAO\HoaDonDao.cs" />

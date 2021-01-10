@@ -137,6 +137,7 @@ namespace QuanLyTrungTam.Controllers
         }
 
         [HttpGet]
+        //[ValidateAntiForgeryToken]
         public ActionResult AddCourse()
         {
           
@@ -169,7 +170,7 @@ namespace QuanLyTrungTam.Controllers
 
             ct_HD.MaKhoaHoc = maKhoaHoc;
             ct_HD.MaHoaDon = checkHD;
-            ct_HD.SoLuong = entity.CT_HoaDon.SoLuong;
+            ct_HD.SoLuong = /*entity.CT_HoaDon.SoLuong*/ 1;
 
             int checkCTHD = ct_HoaDonDao.Insert(ct_HD);
 
