@@ -11,7 +11,14 @@
     <!-- Page Header-->
     <div class="page-header no-margin-bottom">
         <div class="container-fluid">
-            <h2 class="h5 no-margin-bottom">Danh Sách Lớp Học</h2>
+            <h2 class="h2" style="margin-bottom:30px">Mục Quản Lý Lớp Học</h2>
+            <a class="btn btn-success" href="@Url.Action("Create","LopHoc")" data-toggle="modal" data-target="#modal-themMoi" data-backdrop="static" data-keyboard="false">Thêm mới lớp học</a>
+            <div class="modal fade" id="modal-themMoi">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- Breadcrumb-->
@@ -21,68 +28,135 @@
             <li class="breadcrumb-item active">Lớp học</li>
         </ul>
     </div>
-    @using (Html.BeginForm("Index", "LopHoc", FormMethod.Get))
-    {
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="col-md-4">
-                    <input type="text" value="@ViewBag.SearchString" name="searchString" placeholder="Tìm kiếm theo tên" />
-                </div>
-                <div class="col-md-4">
-                    <button type="submit">Tìm kiếm</button>
+
+    <div class="container">
+        <div class="container">
+            <div class="col-lg-6 col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-users fa-4x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">@ViewBag.LopHocHoatDong</div>
+                                <div>Lớp học đang hoạt động</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-    <section class="no-padding-top">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="block margin-bottom-sm">
-                        <br />
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Tên Lớp Học</th>
-                                        <th>Ngày bắt đầu</th>
-                                        <th>Ngày kết thúc</th>
-                                        <th>Trạng thái</th>
-                                        <th>Chức năng</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        <tr id="row_@item.MaLopHoc">
-                                            <td>@item.MaLopHoc</td>
-                                            <td>@item.TenLopHoc</td>
-                                            <td>@item.NgayBatDau</td>
-                                            <td>@item.NgayKetThuc</td>
-                                            <td>@(item.TinhTrang.GetValueOrDefault(false)? "Hoạt động" : "Khóa")</td>
-                                            <td>
-                                                <a href="/LopHoc/Edit/@item.MaLopHoc">Sửa&nbsp;</a>
-                                                <a href="/LopHoc/Details/@item.MaLopHoc" >Chi tiết &nbsp;</a>
-                                                @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaLopHoc }, new AjaxOptions
-                                                {
-                                                    Confirm = "Bạn có muốn xóa giáo viên này",
-                                                    OnComplete = "$('#row_" + item.MaLopHoc + "').remove()",
-                                                    HttpMethod = "Delete"
-                                                })
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                            <br />
-                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+            <div class="col-lg-6 col-md-6">
+                <div class="panel panel-yellow">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-users fa-4x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">@ViewBag.LopHocNgungHoatDong</div>
+                                <div>Lớp học ngừng hoạt động</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-</div>
+    </div>
+        <div class="container" style="display:flex;padding-left:30px">
+            @using (Html.BeginForm("Index", "LopHoc", FormMethod.Get))
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-7">
+                            <input type="text" style="height:30px" value="@ViewBag.SearchString" name="searchString" placeholder="Tìm kiếm theo tên" />
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-outline btn-primary btn-sm" type="submit">Tìm kiếm</button>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @using (Html.BeginForm("testSearchByStatus", "LopHoc", FormMethod.Get))
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-7">
+                            <input type="text" style="height:30px" value="@ViewBag.SearchStringStatus" name="searchStringStatus" placeholder="Tìm kiếm theo trạng thái" />
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-outline btn-primary btn-sm" type="submit">Tìm kiếm</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+            <br />
+
+            <section class="no-padding-top">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="block margin-bottom-sm">
+                                <br />
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Mã lớp học</th>
+                                                <th>Tên Lớp Học</th>
+                                                <th>Trạng thái</th>
+                                                <th>Chức năng</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr id="row_@item.MaLopHoc">
+                                                    <td>@item.MaLopHoc</td>
+                                                    <td>@item.TenLopHoc</td>
+                                                    <td>@(item.TinhTrang.GetValueOrDefault(false)? "Đang hoạt động" : "Ngừng hoạt động")</td>
+                                                    <td>
+                                                        <a href="/LopHoc/Edit/@item.MaLopHoc" data-toggle="modal"
+                                                           data-target="#modal-capNhat-@item.MaLopHoc" data-backdrop="static"
+                                                           data-keyboard="false" class="btn btn-primary">Sửa</a>
+                                                        <div class="modal fade" id="modal-capNhat-@item.MaLopHoc">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <a href="/LopHoc/Details/@item.MaLopHoc" data-toggle="modal"
+                                                           data-target="#modal-chiTiet-@item.MaLopHoc" data-backdrop="static"
+                                                           data-keyboard="false" class="btn btn-primary">Chi tiết </a>
+                                                        <div class="modal fade" id="modal-chiTiet-@item.MaLopHoc">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaLopHoc }, new AjaxOptions
+                                                   {
+                                                       Confirm = "Bạn có muốn xóa lớp học này",
+                                                       OnComplete = "$('#row_" + item.MaLopHoc + "').remove()",
+                                                       HttpMethod = "Delete"
+                                                   },
+                                                        new { @class = "btn btn-primary" })
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <br />
+                                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
 
 

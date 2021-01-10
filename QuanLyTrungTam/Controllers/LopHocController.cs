@@ -1,17 +1,35 @@
-﻿using Models.DAO;
+﻿using Models;
+using Models.DAO;
 using Models.Framework;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace QuanLyTrungTam.Controllers
 {
     public class LopHocController : BaseController
     {
+        eCenterDbContext db = new eCenterDbContext();
         // GET: LopHoc
         public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
         {
+            ViewBag.LopHocHoatDong = db.LopHocs.Where(i => i.TinhTrang == true).Count();
+            ViewBag.LopHocNgungHoatDong = db.LopHocs.Where(i => i.TinhTrang == false).Count();
+
+
             var _lopHocDao = new LopHocDao();
             var _modelLopHoc = _lopHocDao.ListAllPaging(searchString, page, pageSize);
             ViewBag.SearchString = searchString;
+            return View(_modelLopHoc);
+        }
+
+        public ActionResult testSearchByStatus(string searchStringStatus, int page = 1, int pageSize = 10)
+        {
+            ViewBag.LopHocHoatDong = db.LopHocs.Where(i => i.TinhTrang == true).Count();
+            ViewBag.LopHocNgungHoatDong = db.LopHocs.Where(i => i.TinhTrang == false).Count();
+
+            var _lopHocDao = new LopHocDao();
+            var _modelLopHoc = _lopHocDao.testSearchByStatus(searchStringStatus, page, pageSize);
+            ViewBag.SearchStringStatus = searchStringStatus;
             return View(_modelLopHoc);
         }
 
@@ -31,8 +49,12 @@ namespace QuanLyTrungTam.Controllers
         }
 
         // GET: LopHoc/Create
+        [HttpGet]
         public ActionResult Create()
         {
+            GetViewBagKhoaHoc();
+            GetViewBagGiaoVien();
+
             return View();
         }
 
@@ -67,9 +89,12 @@ namespace QuanLyTrungTam.Controllers
         }
 
         // GET: LopHoc/Edit/5
+        [HttpGet]
         public ActionResult Edit(int id)
         {
             var _lopHoc = new LopHocDao().ViewDetail(id);
+            GetViewBagGiaoVien();
+            GetViewBagKhoaHoc();
 
             return View(_lopHoc);
         }
@@ -125,6 +150,18 @@ namespace QuanLyTrungTam.Controllers
 
                 return View();
             }
+        }
+
+        public void GetViewBagKhoaHoc(int? maKhoaHoc = null)
+        {
+            var dao = new KhoaHocDao();
+            ViewBag.MaKhoaHoc = new SelectList(dao.ListAll(), "MaKhoaHoc", "TenKhoaHoc", maKhoaHoc);
+        }
+
+        public void GetViewBagGiaoVien(int? maGiaoVien = null)
+        {
+            var dao = new GiaoVienDao();
+            ViewBag.MaGiaoVien = new SelectList(dao.ListAll(), "MaGiaoVien", "TenGiaoVien", maGiaoVien);
         }
     }
 }

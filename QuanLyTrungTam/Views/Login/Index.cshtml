@@ -7,84 +7,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Đăng nhập</title>
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <!-- Font Icon -->
 
-    <!-- Bootstrap Core CSS -->
-    <link href="/Assets/Admin/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/material-design-iconic-font.min.css" rel="stylesheet" />
 
-    <!-- MetisMenu CSS -->
-    <link href="/Assets/Admin/css/metisMenu.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="/Assets/Admin/css/startmin.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="/Assets/Admin/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <!-- Main css -->
+    @*<link rel="stylesheet" href="css/style.css">*@
+    <link href="~/Style/StyleSheet1.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="login-panel panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Vui lòng đăng nhập</h3>
+    <div class="main" style="font-family:'Times New Roman', Times, serif">
+        <!-- Sing in  Form -->
+        <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <div class="signin-image">
+                        <figure>
+                            <img src="~/Img/a.jpg" alt="sing up image">
+                        </figure>
+                       
                     </div>
-                    <div class="panel-body">
+                    <div class="signin-form">
+                        <h2 class="form-title">Đăng nhập</h2>
                         @using (Html.BeginForm("Login", "Login", FormMethod.Post))
                         {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary(false, "", new { @class = "alert alert-danger" })
-                            <div class="form d-flex align-items-center">
-                                <div class="content">
-                                    <form method="get" class="form-validate mb-4">
-                                        <div class="form-group">
-                                            @Html.TextBoxFor(model => model.TaiKhoan, new { @class = "form-control", @placeholder = "Tài Khoản", @autofocus = "autofocus" })
-                                            @*<input id="login-username" type="text" name="loginUsername" required data-msg="Please enter your username" class="input-material">*@
-                                            @*<label for="login-username" class="label-materia">Tài Khoản</label>*@
-                                        </div>
-                                        <div class="form-group">
-                                            @Html.TextBoxFor(model => model.MatKhau, new { @class = "form-control", @placeholder = "Mật Khẩu", @type = "password" })
-                                            @*<input id="login-password" type="password" name="loginPassword" required data-msg="Please enter your password" class="input-material">
-                                                <label for="login-password" class="label-material">Mật khẩu</label>*@
-                                        </div>
-                                        <button type="submit" id="btndangNhap" class="btn btn-primary">Đăng nhập</button>
-                                        <br />
-                                    </form>
+                            <form method="get" class="register-form" id="login-form">
+                                <div class="form-group" style="font-size:50px">
+                                    @Html.TextBoxFor(model => model.TaiKhoan, new { @class = "form-control", @placeholder = "Tài Khoản", @autofocus = "autofocus" })
+
                                 </div>
-                            </div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(model => model.MatKhau, new { @class = "form-control", @placeholder = "Mật Khẩu", @type = "password" })
+                                </div>
+                                <div class="form-group">
+                                    <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
+                                    <label for="remember-me" class="label-agree-term"><span><span></span></span>Nhớ mật khẩu</label>
+                                </div>
+                                <div class="form-group form-button">
+                                    <input type="submit" name="signin" id="btndangNhap" class="form-submit" value="Đăng nhập" />
+                                </div>
+                            </form>
+
                         }
                     </div>
+
                 </div>
             </div>
-        </div>
+        </section>
     </div>
-
-    <!-- jQuery -->
-    <script src="/Assets/Admin/js/jquery.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="/Assets/Admin/js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="/Assets/Admin/js/metisMenu.min.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="/Assets/Admin/js/startmin.js"></script>
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Assets/Admin/js/bootstrap.min.js"></script>
 
 </body>
-
-
 </html>

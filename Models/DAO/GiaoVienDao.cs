@@ -22,12 +22,12 @@ namespace Models
             return entity.MaGiaoVien;
         }
 
-        //public int InsertTrinhDo(TrinhDo entity)
-        //{
-        //    _context.TrinhDoes.Add(entity);
-        //    _context.SaveChanges();
-        //    return entity.MaTrinhDo;
-        //}
+        public int InsertTrinhDo(TrinhDo entity)
+        {
+            _context.TrinhDoes.Add(entity);
+            _context.SaveChanges();
+            return entity.MaTrinhDo;
+        }
 
         public List<GiaoVien> ListAll()
         {

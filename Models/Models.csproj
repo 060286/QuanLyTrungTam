@@ -61,6 +61,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAO\BangDiemDao.cs" />
+    <Compile Include="DAO\CT_HoaDonDao.cs" />
+    <Compile Include="DAO\DangNhapDao.cs" />
     <Compile Include="DAO\DanhMucKhoaHocDao.cs" />
     <Compile Include="DAO\GiaoVienDao.cs" />
     <Compile Include="DAO\HoaDonDao.cs" />
@@ -71,13 +73,16 @@
     <Compile Include="DAO\ThoiKhoaBieuDao.cs" />
     <Compile Include="DAO\TrinhDoDao.cs" />
     <Compile Include="Framework\BangDiem.cs" />
+    <Compile Include="Framework\ChucNang.cs" />
     <Compile Include="Framework\CT_HoaDon.cs" />
     <Compile Include="Framework\DangNhap.cs" />
     <Compile Include="Framework\DanhMucKhoaHoc.cs" />
     <Compile Include="Framework\eCenterDbContext.cs" />
     <Compile Include="Framework\GiaoVien.cs" />
+    <Compile Include="Framework\GV_DiemDanh.cs" />
     <Compile Include="Framework\HoaDon.cs" />
     <Compile Include="Framework\HocVien.cs" />
+    <Compile Include="Framework\HV_DiemDanh.cs" />
     <Compile Include="Framework\KhoaHoc.cs" />
     <Compile Include="Framework\LopHoc.cs" />
     <Compile Include="Framework\LopHoc_Tuan.cs" />
@@ -85,6 +90,8 @@
     <Compile Include="Framework\ThoiKhoaBieu.cs" />
     <Compile Include="Framework\TrinhDo.cs" />
     <Compile Include="Framework\Tuan.cs" />
+    <Compile Include="Framework\VaiTro.cs" />
+    <Compile Include="Framework\VaiTro_ChucNang.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DAO\TaiKhoanDao.cs" />
   </ItemGroup>

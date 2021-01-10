@@ -162,10 +162,12 @@
     <Compile Include="Common\CommonConstants.cs" />
     <Compile Include="Common\Encryptor.cs" />
     <Compile Include="Common\Format.cs" />
+    <Compile Include="Common\HasCredentialAttribute.cs" />
     <Compile Include="Common\UserLogin.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CartCourseController.cs" />
     <Compile Include="Controllers\DangKyKHController.cs" />
+    <Compile Include="Controllers\DangNhapController.cs" />
     <Compile Include="Controllers\GiaoVienController.cs" />
     <Compile Include="Controllers\HoaDonController.cs" />
     <Compile Include="Controllers\HocVienController.cs" />
@@ -180,6 +182,7 @@
     <Compile Include="Models\CartCourse.cs" />
     <Compile Include="Models\Center.cs" />
     <Compile Include="Models\DangKy.cs" />
+    <Compile Include="Models\HoaDonDetails.cs" />
     <Compile Include="Models\HocVienDetails.cs" />
     <Compile Include="Models\KhoaHocDetailsModels.cs" />
     <Compile Include="Models\LoginModel.cs" />
@@ -229,6 +232,7 @@
     <Content Include="Assets\Admin\js\morris.min.js" />
     <Content Include="Assets\Admin\js\raphael.min.js" />
     <Content Include="Assets\Admin\js\startmin.js" />
+    <Content Include="Assets\Email\HocVien.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -238,6 +242,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Img\a.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Assets\Admin\fonts\fontawesome-webfont.eot" />
@@ -266,6 +271,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\sang.js" />
+    <Content Include="Style\StyleSheet1.css" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Web.config" />
@@ -318,6 +324,14 @@
     <Content Include="Views\KhoaHoc\testSearchByQuatity.cshtml" />
     <Content Include="Views\KhoaHoc\testSearchByMoney.cshtml" />
     <Content Include="Views\KhoaHoc\testSearchByStatus.cshtml" />
+    <Content Include="Views\LopHoc\testSearchByStatus.cshtml" />
+    <Content Include="Views\Shared\401.cshtml" />
+    <Content Include="Views\HocVien\AddCourse.cshtml" />
+    <Content Include="Views\GiaoVien\testSearchByEmail.cshtml" />
+    <Content Include="Views\HocVien\CreateScore.cshtml" />
+    <Content Include="Views\HoaDon\Details.cshtml" />
+    <Content Include="Views\HoaDon\Edit.cshtml" />
+    <Content Include="Views\DangNhap\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -325,7 +339,7 @@
     <Folder Include="Areas\Clients\Data\" />
     <Folder Include="Areas\Clients\Views\Shared\" />
     <Folder Include="Img\GiaoVien\" />
-    <Folder Include="Img\HocSinh\" />
+    <Folder Include="Img\HocVien\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\DangKyKH\" />
   </ItemGroup>
@@ -343,6 +357,10 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common1\Common.csproj">
+      <Project>{3401720b-28a4-4433-afe6-7a7d51a85f5c}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{0680c2f9-993c-4770-96a2-0553021e4406}</Project>
       <Name>Models</Name>

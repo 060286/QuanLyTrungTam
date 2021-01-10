@@ -200,7 +200,6 @@ namespace QuanLyTrungTam.Controllers
             }
         }
 
-
         [HttpGet]
         public ActionResult ThemMoiTrinhDo()
         {
@@ -211,10 +210,15 @@ namespace QuanLyTrungTam.Controllers
         [HttpPost]
         public ActionResult ThemMoiTrinhDo(TrinhDo trinhDo)
         {
-            try { 
+             
                 if(ModelState.IsValid)
                 {
-                    var trinhDoDao = new TrinhDoDao();
+                    var trinhDoDao = new GiaoVienDao();
+
+                    //int maxId = trinhDoDao.getIdMax();
+
+                    //trinhDo.MaTrinhDo = maxId + 1;
+
                     int _maTrinhDo = trinhDoDao.InsertTrinhDo(trinhDo);
 
                     if(_maTrinhDo > 0)
@@ -229,11 +233,26 @@ namespace QuanLyTrungTam.Controllers
                     }
                 }
                 return View(trinhDo);
-            }
-            catch
-            {
-                return Content("Lỗi khi thêm mới");
-            }
+            
+            
+        }
+
+        [HttpGet]
+        public ActionResult EditLevel(int id)
+        {
+            var _trinhDo = new TrinhDoDao().ViewDetails(id);
+
+            return View(_trinhDo);
+        }
+
+        [HttpPost]
+        public ActionResult EditLevel(TrinhDo trinhDo)
+        {
+            var _daoTrinhDo = new TrinhDoDao();
+
+            var res = _daoTrinhDo.Update(trinhDo);
+
+            return View();
         }
 
         // GET: GiaoVien/Edit/5  

@@ -26,6 +26,7 @@ namespace QuanLyTrungTam.Controllers
             ViewBag.SearchString = searchString;
 
             
+            
             return View(_modelKhoaHoc);
         }
 
@@ -101,7 +102,7 @@ namespace QuanLyTrungTam.Controllers
             return View(_khoaHoc);
         }
 
-
+        [HttpGet]
         public ActionResult TaoMoiVaSuaDanhMuc()
         {
             return View();

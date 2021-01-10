@@ -20,12 +20,20 @@
     <!-- Page Header-->
     <div class="page-header no-margin-bottom">
         <div class="container-fluid">
-            <h2 class="h2 no-margin-bottom">Danh Sách Khóa học</h2>
+            <h2 class="h2 no-margin-bottom">Mục Quản Lý Khóa học</h2>
         </div>
     </div>
 
     <a class="btn btn-success" href="@Url.Action("CreateCatagoryCourse","KhoaHoc")" data-toggle="modal" data-target="#modal-themMoiDMKH" data-backdrop="static" data-keyboard="false">Thêm khóa học</a>
     <div class="modal fade" id="modal-themMoiDMKH">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+    <a class="btn btn-primary" href="@Url.Action("TaoMoiVaSuaDanhMuc","KhoaHoc")" data-toggle="modal" data-target="#modal-themMoi" data-backdrop="static" data-keyboard="false">Thêm danh mục khóa học</a>
+    <div class="modal fade" id="modal-themMoi">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
             </div>
@@ -38,7 +46,7 @@
     <!-- Breadcrumb-->
     <div class="container-fluid">
         <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="~/Home/Index">Home</a></li>
+            <li class="breadcrumb-item"><a href="~/Home/Index">Trang chủ</a></li>
             <li class="breadcrumb-item active">Khóa học</li>
         </ul>
     </div>
@@ -54,6 +62,36 @@
                             <div class="col-xs-9 text-right">
                                 <div class="huge">@ViewBag.TongKhoaHoc</div>
                                 <div>Tổng số khóa học</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-users fa-4x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">@ViewBag.KhoaHocConCho</div>
+                                <div>Khóa học còn chỗ</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-users fa-4x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">@ViewBag.KhoaHocHetCho</div>
+                                <div>Khóa học hết chỗ</div>
                             </div>
                         </div>
                     </div>
@@ -162,14 +200,23 @@
                                             <td>@item.MoTa</td>
                                             <td>@item.SoLuong</td>
                                             <td>
-                                                <a href="/KhoaHoc/Edit/@item.MaKhoaHoc" @*data-toggle="modal" data-target="#modal-update-@item.MaGiaoVien" data-backdrop="static" data-keyboard="false"*@>Sửa</a>
+                                                <a class="text-center btn btn-primary" href="/GiaoVien/Edit/@item.MaGiaoVien"
+                                                   data-toggle="modal" data-target="#modal-capNhat-@item.MaGiaoVien"
+                                                   data-backdrop="static" data-keyboard="false">Sửa &nbsp;</a>
+                                                <div class="modal fade" id="modal-capNhat-@item.MaGiaoVien">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                                &nbsp;<a href="/KhoaHoc/Details/@item.MaKhoaHoc" @*data-toggle="modal" data-target="#modal-details-@item.MaGiaoVien" data-backdrop="static" data-keyboard="false"*@>Chi tiết &nbsp;</a>@Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaKhoaHoc }, new AjaxOptions
-{
-Confirm = "Bạn có muốn xóa khóa học này",
-OnComplete = "$('#row_" + item.MaKhoaHoc + "').remove()",
-HttpMethod = "Delete"
-})
+                                                <a href="/KhoaHoc/Details/@item.MaKhoaHoc" class="btn btn-primary" @*data-toggle="modal" data-target="#modal-details-@item.MaGiaoVien" data-backdrop="static" data-keyboard="false"*@>Chi tiết</a>
+                                                @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaKhoaHoc }, new AjaxOptions
+                                                {
+                                                Confirm = "Bạn có muốn xóa khóa học này",
+                                                OnComplete = "$('#row_" + item.MaKhoaHoc + "').remove()",
+                                                HttpMethod = "Delete"
+                                                }, new { @class = "btn btn-primary" })
                                             </td>
                                         </tr>
                                     }

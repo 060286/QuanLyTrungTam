@@ -1,10 +1,10 @@
-﻿namespace Models.Framework
+namespace Models.Framework
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.ComponentModel;
-
+    using System.Data.Entity.Spatial;
 
     [Table("KhoaHoc")]
     public partial class KhoaHoc
@@ -20,35 +20,32 @@
         public int MaKhoaHoc { get; set; }
 
         [StringLength(100)]
-        [DisplayName("Tên khóa học")]
         public string TenKhoaHoc { get; set; }
 
-        [DisplayName("Số lượng")]
         public int? SoLuong { get; set; }
 
-        [DisplayName("Tình trạng")]
         public int? TinhTrang { get; set; }
 
         [Column(TypeName = "money")]
-        [DisplayName("Giá tiền")]
         public decimal? GiaTien { get; set; }
 
         [StringLength(100)]
-        [DisplayName("Mô tả")]
         public string MoTa { get; set; }
 
-        //public int? MaHocVien { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime? NgayBatDau { get; set; }
 
-        [DisplayName("Mã giáo viên ")]
+        [Column(TypeName = "date")]
+        public DateTime? NgayKetThuc { get; set; }
+
         public int? MaGiaoVien { get; set; }
-        [DisplayName("Số tuần")]
+
         public int? SoTuan { get; set; }
-        [DisplayName("Mã Danh mục ")]
+
         public int? MaDanhMuc { get; set; }
-        [DisplayName("Mã thời khóa biểu ")]
+
         public int? MaTKB { get; set; }
 
-        [DisplayName("Lứa tuổi phù hợp")]
         public int? LuaTuoiPhuHop { get; set; }
 
         public virtual DanhMucKhoaHoc DanhMucKhoaHoc { get; set; }

@@ -1,11 +1,10 @@
-﻿namespace Models.Framework
+namespace Models.Framework
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-    using System.ComponentModel;
 
     [Table("LopHoc")]
     public partial class LopHoc
@@ -21,25 +20,13 @@
         public int MaLopHoc { get; set; }
 
         [StringLength(100)]
-        [DisplayName("Tên lớp học")]
         public string TenLopHoc { get; set; }
 
-        [Column(TypeName = "date")]
-        [DisplayName("Ngày bắt đầu")]
-        [DataType(DataType.Date)]
-        [Required(ErrorMessage = "Vui lòng nhập ngày bắt đầu")]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime? NgayBatDau { get; set; }
+      
 
-        [DisplayName("Tình trạng")]
         public bool? TinhTrang { get; set; }
 
-        [Column(TypeName = "date")]
-        [DisplayName("Ngày kết thúc")]
-        [DataType(DataType.Date)]
-        [Required(ErrorMessage = "Vui lòng nhập ngày bắt đầu")]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime? NgayKetThuc { get; set; }
+       
 
         public int? MaGiaoVien { get; set; }
 

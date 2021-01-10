@@ -1,8 +1,7 @@
-﻿namespace Models.Framework
+namespace Models.Framework
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -22,7 +21,6 @@
         [Key]
         [Column(Order = 2)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [DisplayName("Số lượng")]
         public int SoLuong { get; set; }
 
         public virtual HoaDon HoaDon { get; set; }

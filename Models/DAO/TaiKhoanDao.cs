@@ -33,8 +33,27 @@ namespace Models
         //    return res;
         //}
 
+        public List<string> GetListCredential(string userName)
+        {
+            var user = context.DangNhaps.Single(x => x.TaiKhoan == userName);
+            var data = (from a in context.VaiTro_ChucNangs
+                        join b in context.VaiTroes on a.MaVaiTro equals b.MaVaiTro
+                        join c in context.ChucNangs on a.MaChucNang equals c.MaChucNang
+                        where b.MaVaiTro == user.MaVaiTro
+                        select new 
+                        {
+                            MaVaiTro = a.MaVaiTro,
+                            MaChucNang = a.MaChucNang
+                        }).AsEnumerable().Select(x => new VaiTro_ChucNang()
+                        {
+                            MaChucNang = x.MaChucNang,
+                            MaVaiTro = x.MaVaiTro
+                        });
+            return data.Select(x => x.MaChucNang).ToList();
+        }
 
-        public int Login(string taiKhoan, string matKhau)
+
+        public int Login(string taiKhoan, string matKhau, bool isLoginAdmin = false)
         {
             var result = context.DangNhaps.SingleOrDefault(x => x.TaiKhoan == taiKhoan);
 

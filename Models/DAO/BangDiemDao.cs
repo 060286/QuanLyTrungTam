@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Models.DAO
 {
-    class BangDiemDao
+    public class BangDiemDao
     {
         private eCenterDbContext _context = null; 
 

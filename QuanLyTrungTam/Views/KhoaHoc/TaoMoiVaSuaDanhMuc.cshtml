@@ -9,7 +9,7 @@
     <button type="button" class="close" data-dismiss="modal">
         <span aria-hidden="true">&times;</span>
     </button>
-    <h4 class="modal-title" style="font-size:25px">Thêm khóa học</h4>
+    <h4 class="modal-title" style="font-size:25px">Thêm danh mục</h4>
 </div>
 
 @using (Html.BeginForm("TaoMoiVaSuaDanhMuc", "KhoaHoc", FormMethod.Post, new { id = "modalCreate" }) )
@@ -18,7 +18,6 @@
 
     <div class="modal-body form-horizontal">
         <div class="form-horizontal">
-            <h4>DanhMucKhoaHoc</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">

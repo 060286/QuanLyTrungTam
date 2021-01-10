@@ -1,20 +1,43 @@
 ﻿using Models;
 using Models.DAO;
 using Models.Framework;
+using QuanLyTrungTam.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Linq;
+using System.Data.Entity;
+using QuanLyTrungTam.Models;
 
 namespace QuanLyTrungTam.Controllers
 {
+   
     public class HoaDonController : BaseController
     {
+        private eCenterDbContext db = new eCenterDbContext();
         // GET: HoaDon
+        [HasCredential(Roles = "Xem_HoaDon")]
         public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
         {
             ViewBag.Current = DateTime.UtcNow;
+            ViewBag.DoanhThuHomNay = db.HoaDons.Where(i => i.NgayLap.Value.Day == DateTime.Now.Day 
+                                                && i.NgayLap.Value.Year == DateTime.Now.Year)
+                                                .Sum(i => i.TongTien).GetValueOrDefault(0).ToString("#,##").Replace(',', '.');
+
+            ViewBag.DoanhThuThangNay = db.HoaDons.Where(i => i.NgayLap.Value.Month == DateTime.Now.Month 
+                                                         && i.NgayLap.Value.Year == DateTime.Now.Year)
+                                                        .Sum(i => i.TongTien).GetValueOrDefault(0).ToString("#,##").Replace(',', '.');
+
+            ViewBag.TongHoaDonHomNay = db.HoaDons.Where(i => i.NgayLap.Value.Day == DateTime.Now.Day
+                                                && i.NgayLap.Value.Year == DateTime.Now.Year)
+                                                .Count();
+
+            ViewBag.TongHoaDonThangNay = db.HoaDons.Where(i => i.NgayLap.Value.Month == DateTime.Now.Month
+                                                   && i.NgayLap.Value.Year == DateTime.Now.Year)
+                                                   .Count();
+
             var hoaDonDao = new HoaDonDao();
             var modelHoaDon = hoaDonDao.ListAllPaging(searchString, page, pageSize);
             
@@ -22,6 +45,7 @@ namespace QuanLyTrungTam.Controllers
         }
 
         // Thêm view như Giao Vien 
+        [HasCredential(Roles = "Xem_HoaDon")]
         public ActionResult testSearchByStatus(string searchStatus, int page = 1, int pageSize = 10)
         {
             // Thêm view bag như Index
@@ -33,6 +57,7 @@ namespace QuanLyTrungTam.Controllers
         }
 
         // Thêm view như Giao Vien 
+        [HasCredential(Roles = "Xem_HoaDon")]
         public ActionResult testSearchByTotalMoney(string searchStatus, int page = 1, int pageSize = 10)
         {
             // Thêm view bag như Index
@@ -70,7 +95,34 @@ namespace QuanLyTrungTam.Controllers
             return View();
         }
 
+        [HttpGet] 
+        public ActionResult CreateDetails()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateDetails(HoaDonDetails hoaDonDetails)
+        {
+            var hoaDonDao = new HoaDonDao();
+            var ctHDDao = new CT_HoaDonDao();
+            var lopHocDao = new LopHocDao();
+            var hocVienDao = new HocVienDao();
+
+            var hocVien = new HocVien();
+            var ctHD = new CT_HoaDon();
+            var lopHoc = new LopHoc();
+            var hoaDon = new HoaDon();
+
+
+
+
+
+            return RedirectToAction("Index");
+        }
+
         // GET: HoaDon/Create
+        [HttpGet]
         public ActionResult Create()
         {
             SetViewBagHoaDon();
@@ -156,6 +208,29 @@ namespace QuanLyTrungTam.Controllers
             {
                 return View();
             }
+        }
+
+        public JsonResult GetData()
+        {
+            eCenterDbContext db = new eCenterDbContext();
+            var query = db.HoaDons.Include("HoaDon")
+                            .Where(i=>i.NgayLap.Value.Month == DateTime.Now.Month)
+                            .GroupBy(p => p.NgayLap.Value.Day )
+                            .Select(g => new { name = g.Key, count = g.Sum(x => x.TongTien) });
+
+            return Json(query, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public void ExportToExcel()
+        {
+            List<HoaDon> hoaDonList = db.HoaDons.Select(x => new HoaDon
+            {
+                MaHoaDon = x.MaHoaDon,
+                NgayLap = x.NgayLap,
+                TinhTrang = x.TinhTrang,
+                MaHocVien = x.MaHocVien
+            }).ToList();
         }
     }
 }

@@ -2,16 +2,18 @@
 using Models.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using QuanLyTrungTam.ViewModels;
 using QuanLyTrungTam.Models;
+using System.IO;
+using Common;
 
 namespace QuanLyTrungTam.Controllers
 {
     public class HocVienController : BaseController
     {
+        public static int? getId;
+
         // GET: HocVien
         public ActionResult Index(string searchString,int page = 1, int pageSize = 10)
         {
@@ -27,6 +29,46 @@ namespace QuanLyTrungTam.Controllers
             return View(hocVienDao);
         }
 
+        
+        [HttpGet]
+        public ActionResult CreateScore(int id)
+        {
+            GetViewBagLopHoc();
+            var hocVienDao = new BangDiemDao().ViewDetail(id);
+
+            getId = id;
+
+            return View(hocVienDao);
+        }
+
+        [HttpPost]
+        public ActionResult CreateScore(BangDiem bangDiem)
+        {
+            var _bangDiemDao = new BangDiemDao();
+            var _bangDiem = new BangDiem();
+
+            _bangDiem.MaLopHoc = bangDiem.MaLopHoc;
+            _bangDiem.MaHocVien = getId;
+            _bangDiem.KT1 = bangDiem.KT1;
+            _bangDiem.KT2 = bangDiem.KT2;
+            _bangDiem.THIL1 = bangDiem.THIL1;
+            _bangDiem.KetQua = bangDiem.KetQua;
+
+            int check = _bangDiemDao.Insert(_bangDiem);
+
+            if (check > 0)
+            {
+                SetAlert("Thêm thành công", 1);
+                return RedirectToAction("Index", "HocVien");
+            }
+            else
+            {
+                SetAlert("Thêm thất bại", 3);
+            }
+
+            return View(bangDiem);
+        }
+
         // GET: HocVien/Create
         [HttpGet]
         public ActionResult Create()
@@ -36,24 +78,54 @@ namespace QuanLyTrungTam.Controllers
 
         // POST: HocVien/Create
         [HttpPost]
-        public ActionResult Create(HocVien hocVien)
+        public ActionResult Create(HocVien hocVien, HttpPostedFileBase hinhAnh)
         {
             try
             {
                 if(ModelState.IsValid)
                 {
-                    var _daoHocVien = new HocVienDao();
-                    hocVien.NgayDangKy = DateTime.Now;
-                    int _maGiaoVien = _daoHocVien.Insert(hocVien);
-                    
-                    if(_maGiaoVien > 0)
+                    string path = "";
+                    if(hinhAnh != null && hinhAnh.ContentLength > 0 )
                     {
-                        return RedirectToAction("Index", "HocVien");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("","Có lỗi khi thêm học viên");
-                    }
+                        string extension = Path.GetExtension(hinhAnh.FileName);
+
+                        if(extension.Equals(".jpg") || extension.Equals(".png") || extension.Equals(".jpeg"))
+                        {
+                            path = Path.Combine(Server.MapPath("~/Img/HocVien/"), hinhAnh.FileName);
+                            hinhAnh.SaveAs(path);
+                        }
+
+                        hocVien.HinhAnh = hinhAnh.FileName;
+                        var _daoHocVien = new HocVienDao();
+                        hocVien.NgayDangKy = DateTime.Now;
+                        int _maGiaoVien = _daoHocVien.Insert(hocVien);
+
+                        if (_maGiaoVien > 0)
+                        {
+                            if(hocVien.Email == null)
+                            {
+                                return RedirectToAction("Index", "HocVien");
+                            }
+                            else
+                            {
+                                string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/Email/HocVien.html"));
+
+                                content = content.Replace("{{TenHV}}", hocVien.TenHocVien.ToString());
+                                content = content.Replace("{{NgaySinh}}", hocVien.NgaySinh.ToString());
+                                content = content.Replace("{{SDT}}", hocVien.SDT.ToString());
+                                content = content.Replace("{{DiaChi}}", hocVien.DiaChi.ToString());
+                                content = content.Replace("{{NgayDangKy}}", hocVien.NgayDangKy.ToString());
+
+                                new MailHelper().SendMail(hocVien.Email, "Chào mừng em đã tham gia vào đại gia đình Đan Thanh!", content);
+                                //SetAlert("")
+                                return RedirectToAction("Index", "HocVien");
+                            }    
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Có lỗi khi thêm học viên");
+                        }
+                    }   
                 }
 
                 return RedirectToAction("Index");
@@ -65,65 +137,143 @@ namespace QuanLyTrungTam.Controllers
         }
 
         [HttpGet]
+        //[ValidateAntiForgeryToken]
+        public ActionResult AddCourse()
+        {
+          
+            GetViewBagKhoaHoc();
+            GetViewBagLopHoc();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddCourse(DangKy entity,int id,int maLopHoc,int maKhoaHoc)
+        {
+            var hocVienDao = new HocVienDao().ViewDetails(id);
+            GetViewBagIdHocVien(hocVienDao.MaHocVien);
+
+            var hoaDonDao = new HoaDonDao();
+            var ct_HoaDonDao = new CT_HoaDonDao();
+
+            var hoaDon = new HoaDon();
+            var ct_HD = new CT_HoaDon();
+            var khoaHoc = new KhoaHoc();
+
+            hoaDon.TongTien = khoaHoc.GiaTien * entity.CT_HoaDon.SoLuong;
+            hoaDon.TinhTrang = entity.HoaDon.TinhTrang;
+            hoaDon.MaHocVien = hocVienDao.MaHocVien;
+            hoaDon.NgayLap = DateTime.Now;
+            hoaDon.MaLopHoc = maLopHoc;
+            hoaDon.MaKhoaHoc = maKhoaHoc;
+
+            int checkHD = hoaDonDao.Insert(hoaDon);
+
+            ct_HD.MaKhoaHoc = maKhoaHoc;
+            ct_HD.MaHoaDon = checkHD;
+            ct_HD.SoLuong = /*entity.CT_HoaDon.SoLuong*/ 1;
+
+            int checkCTHD = ct_HoaDonDao.Insert(ct_HD);
+
+            if(checkHD > 0 && checkCTHD > 0)
+            {
+                SetAlert("Thêm thành công", 1);
+                return RedirectToAction("Index", "HocVien");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Có lỗi khi thêm chi tiết học viên");
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
         public ActionResult CreateDetails()
         {
             return View();
         }    
 
         [HttpPost]
-        public ActionResult CreateDetails(HocVienDetails hocVienDetails)
+        public ActionResult CreateDetails(HocVienDetails hocVienDetails, HttpPostedFileBase hinhAnhDetail)
         {
            try
            {
                 if(ModelState.IsValid)
                 {
-                    var _daoHocVien = new HocVienDao();
-                    var _daoPhuHuynh = new PhuHuynhDao();
-
-                    var hocVien = new HocVien();
-
-                    hocVien.TenHocVien = hocVienDetails.HocVien.TenHocVien;
-                    hocVien.TaiKhoan = hocVienDetails.HocVien.TaiKhoan;
-                    hocVien.MatKhau = hocVienDetails.HocVien.MatKhau;
-                    hocVien.HinhAnh = hocVienDetails.HocVien.HinhAnh;
-                    hocVien.GioiTinh = hocVienDetails.HocVien.GioiTinh;
-                    hocVien.SDT = hocVienDetails.HocVien.SDT;
-                    hocVien.Email = hocVienDetails.HocVien.Email;
-                    hocVien.DiaChi = hocVienDetails.HocVien.DiaChi;
-                    hocVien.NgaySinh = hocVienDetails.HocVien.NgaySinh;
-                    hocVien.GhiChu = hocVienDetails.HocVien.GhiChu;
-                    hocVien.TrangThai = hocVienDetails.HocVien.TrangThai;
-                    hocVien.Nguon = hocVienDetails.HocVien.Nguon;
-
-                    // Thêm học viên
-                    int _maHocVien = _daoHocVien.Insert(hocVien);
-
-                    List<PhuHuynh> listPH = new List<PhuHuynh>();
-
-                    for(int i = 0; i < 2; i++)
+                    string path = "";
+                    if(hinhAnhDetail != null && hinhAnhDetail.ContentLength > 0)
                     {
-                        var _phuHuynh = new PhuHuynh();
+                        string extension = Path.GetExtension(hinhAnhDetail.FileName);
+                        if (extension.Equals(".jpg") || extension.Equals(".png") || extension.Equals(".jpeg"))
+                        {
+                            path = Path.Combine(Server.MapPath("~/Img/HocVien/"), hinhAnhDetail.FileName);
+                            hinhAnhDetail.SaveAs(path);
+                        }
+                        
+                        var _daoHocVien = new HocVienDao();
+                        var _daoPhuHuynh = new PhuHuynhDao();
 
-                        _phuHuynh.TenPhuHuynh = hocVienDetails.LstPhuHuynh[i].TenPhuHuynh;
+                        var hocVien = new HocVien();
 
-                        _phuHuynh.TenPhuHuynh = hocVienDetails.LstPhuHuynh[i].TenPhuHuynh;
-                        _phuHuynh.SDT = hocVienDetails.LstPhuHuynh[i].SDT;
-                        _phuHuynh.GioiTinh = hocVienDetails.LstPhuHuynh[i].GioiTinh;
-                        _phuHuynh.DiaChi = hocVienDetails.LstPhuHuynh[i].DiaChi;
-                        _phuHuynh.Email = hocVienDetails.LstPhuHuynh[i].Email;
-                        _phuHuynh.MaHocVien = hocVienDetails.HocVien.MaHocVien;
+                        hocVien.TenHocVien = hocVienDetails.HocVien.TenHocVien;
+                        hocVien.TaiKhoan = hocVienDetails.HocVien.TaiKhoan;
+                        hocVien.MatKhau = hocVienDetails.HocVien.MatKhau;
+                        hocVien.HinhAnh = hinhAnhDetail.FileName;
+                        hocVien.GioiTinh = hocVienDetails.HocVien.GioiTinh;
+                        hocVien.SDT = hocVienDetails.HocVien.SDT;
+                        hocVien.Email = hocVienDetails.HocVien.Email;
+                        hocVien.DiaChi = hocVienDetails.HocVien.DiaChi;
+                        hocVien.NgaySinh = hocVienDetails.HocVien.NgaySinh;
+                        hocVien.GhiChu = hocVienDetails.HocVien.GhiChu;
+                        hocVien.TrangThai = hocVienDetails.HocVien.TrangThai;
+                        hocVien.Nguon = hocVienDetails.HocVien.Nguon;
 
-                        int _maPhuHuynh = _daoPhuHuynh.Insert(_phuHuynh);
+                        // Thêm học viên
+                        int _maHocVien = _daoHocVien.Insert(hocVien);
+
+                        List<PhuHuynh> listPH = new List<PhuHuynh>();
+
+                        for (int i = 0; i < 2; i++)
+                        {
+                            var _phuHuynh = new PhuHuynh();
+
+                            _phuHuynh.TenPhuHuynh = hocVienDetails.LstPhuHuynh[i].TenPhuHuynh;
+
+                            _phuHuynh.TenPhuHuynh = hocVienDetails.LstPhuHuynh[i].TenPhuHuynh;
+                            _phuHuynh.SDT = hocVienDetails.LstPhuHuynh[i].SDT;
+                            _phuHuynh.GioiTinh = hocVienDetails.LstPhuHuynh[i].GioiTinh;
+                            _phuHuynh.DiaChi = hocVienDetails.LstPhuHuynh[i].DiaChi;
+                            _phuHuynh.Email = hocVienDetails.LstPhuHuynh[i].Email;
+                            _phuHuynh.MaHocVien = _maHocVien;
+
+                            int _maPhuHuynh = _daoPhuHuynh.Insert(_phuHuynh);
+                        }
+
+                        if (_maHocVien > 0 && _maHocVien > 0)
+                        {
+                            if (hocVien.Email == null)
+                            {
+                                return RedirectToAction("Index", "HocVien");
+                            }
+                            else
+                            {
+                                string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/Email/HocVien.html"));
+
+                                content = content.Replace("{{TenHV}}", hocVien.TenHocVien.ToString());
+                                content = content.Replace("{{NgaySinh}}", hocVien.NgaySinh.ToString());
+                                content = content.Replace("{{SDT}}", hocVien.SDT.ToString());
+                                content = content.Replace("{{DiaChi}}", hocVien.DiaChi.ToString());
+                                content = content.Replace("{{NgayDangKy}}", hocVien.NgayDangKy.ToString());
+
+                                new MailHelper().SendMail(hocVien.Email, "Chào mừng em đã tham gia vào đại gia đình Đan Thanh!", content);
+                                SetAlert("Thêm thành công", 1);
+                                return RedirectToAction("Index","HocVien");
+                            }
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Có lỗi khi thêm chi tiết học viên");
+                        }
                     }
-
-                    if(_maHocVien > 0 && _maHocVien > 0)
-                    {
-                        return RedirectToAction("Index", "HocVien");
-                    }    
-                    else
-                    {
-                        ModelState.AddModelError("", "Có lỗi khi thêm chi tiết học viên");
-                    }    
                 }
                 return RedirectToAction("Index");
             }
@@ -198,6 +348,24 @@ namespace QuanLyTrungTam.Controllers
             {
                 return View();
             }
+        }
+
+        public void GetViewBagKhoaHoc(int? maKhoaHoc = null)
+        {
+            var dao = new KhoaHocDao();
+            ViewBag.MaKhoaHoc = new SelectList(dao.ListAll(), "MaKhoaHoc", "TenKhoaHoc", maKhoaHoc);
+        }
+
+        public void GetViewBagLopHoc(int? maLopHoc = null)
+        {
+            var dao = new LopHocDao();
+            ViewBag.MaLopHoc = new SelectList(dao.ListAll(), "MaLopHoc", "TenLopHoc", maLopHoc);
+        }
+
+        public void GetViewBagIdHocVien(int maHocVien)
+        {
+            var dao = new HocVienDao();
+            ViewBag.MaHocVien = dao.GetHocVienById(maHocVien);
         }
     }
 }
