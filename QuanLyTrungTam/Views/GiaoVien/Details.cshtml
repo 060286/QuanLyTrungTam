@@ -1,53 +1,61 @@
 ﻿@model Models.Framework.GiaoVien
 
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 
     var date = DateTime.Now.Year;
 }
 
-<br />
-<div class="modal-header bg-purple">
-    <h3 class="modal-title" >Thông tin giáo viên</h3>
+@*<br />
+    <div class="modal-header bg-purple">
+        <h3 class="modal-title" >Thông tin giáo viên</h3>
+    </div>*@
+
+<div class="modal-header bg-olive">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" style="font-size:25px; color:black">Chi tiết giáo viên</h4>
 </div>
 
-
-<div class="container" margin-top: 20px">
-    <div class="row">
-        <div class="col-md-3" style="margin-bottom: 10px">
-            <div>
-                <h3>Ảnh giáo viên</h3>
+<div class="modal-body form-horizontal">
+    <div class="container" margin-top: 20px">
+        <div class="row">
+            <div class="col-md-3" style="margin-bottom: 10px">
+                <div>
+                    <h3>Ảnh giáo viên</h3>
+                </div>
+                <img class="profile-user-img img-responsive" style="width:200px;height:auto" alt="User profile picture" src="~/Img/GiaoVien/@Model.HinhAnh" />
             </div>
-            <img class="profile-user-img img-responsive" style="width:200px;height:auto"  alt="User profile picture"  src="~/Img/GiaoVien/@Model.HinhAnh" />
-        </div>
-        <div class="col-md-9">
-            <h2>Thông tin giáo viên</h2>
-            <div class="col-md-6">
-                <h3 style="color:dodgerblue">Tên giáo viên : @Model.TenGiaoVien</h3>
-                <h4>Giới tính : @Model.GioiTinh</h4>
-                <h4>Ngày sinh : @Model.NgaySinh</h4>
-                <h4>Tham gia vào : @Model.NgayDangKy</h4>
-                <h4>Trình độ học vấn : @Model.MaTrinhDo</h4>
-                <h4>Số điện thoại : @Model.SDT</h4>
-            </div>
-            <div class="col-md-6">
-                <h4>Mức lương : @Model.MucLuong</h4>
-                <h4>Email : @Model.Email</h4>
-                <h4>Địa chỉ cư trú : @Model.DiaChi</h4>
-                <h4>Quốc tịch : @Model.QuocTich</h4>
-                <h4>Trạng thái : @(Model.TrangThai.GetValueOrDefault(false)? "Đang hoạt động" : "Đã nghỉ")</h4>
-                <h4>Tuổi hiện tại :  @(date - ((DateTime)Model.NgaySinh).Year)</h4>
-            </div>
-            <div class="col-md-12">
-                <h4>Ghi chú : @Model.GhiChu</h4>
+            <div class="col-md-9">
+                <h2>Thông tin giáo viên</h2>
+                <div class="col-md-6">
+                    <h3 style="color:dodgerblue">Tên giáo viên : @Model.TenGiaoVien</h3>
+                    <h4>Giới tính : @Model.GioiTinh</h4>
+                    <h4>Ngày sinh : @Model.NgaySinh</h4>
+                    <h4>Tham gia vào : @Model.NgayDangKy</h4>
+                    <h4>Trình độ học vấn : @Model.MaTrinhDo</h4>
+                    <h4>Số điện thoại : @Model.SDT</h4>
+                </div>
+                <div class="col-md-6">
+                    <h4>Mức lương : @Model.MucLuong</h4>
+                    <h4>Email : @Model.Email</h4>
+                    <h4>Địa chỉ cư trú : @Model.DiaChi</h4>
+                    <h4>Quốc tịch : @Model.QuocTich</h4>
+                    <h4>Trạng thái : @(Model.TrangThai.GetValueOrDefault(false)? "Đang hoạt động" : "Đã nghỉ")</h4>
+                    <h4>Tuổi hiện tại :  @(date - ((DateTime)Model.NgaySinh).Year)</h4>
+                </div>
+                <div class="col-md-12">
+                    <h4>Ghi chú : @Model.GhiChu</h4>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="modal-footer">
-    <p>
-        <a href="~/GiaoVien/Edit/@Model.MaGiaoVien" class="btn btn-success">Sửa thông tin</a>
-        <a href="~/GiaoVien/Index" class="btn btn-default">Quay lại</a>
-    </p>
+    <div class="modal-footer">
+        <p>
+            <a href="~/GiaoVien/Edit/@Model.MaGiaoVien" class="btn btn-success">Sửa thông tin</a>
+            <a href="~/GiaoVien/Index" class="btn btn-default">Quay lại</a>
+        </p>
+    </div>
 </div>

@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Linq;
 using System.Data.Entity;
+using QuanLyTrungTam.Models;
 
 namespace QuanLyTrungTam.Controllers
 {
@@ -94,7 +95,34 @@ namespace QuanLyTrungTam.Controllers
             return View();
         }
 
+        [HttpGet] 
+        public ActionResult CreateDetails()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateDetails(HoaDonDetails hoaDonDetails)
+        {
+            var hoaDonDao = new HoaDonDao();
+            var ctHDDao = new CT_HoaDonDao();
+            var lopHocDao = new LopHocDao();
+            var hocVienDao = new HocVienDao();
+
+            var hocVien = new HocVien();
+            var ctHD = new CT_HoaDon();
+            var lopHoc = new LopHoc();
+            var hoaDon = new HoaDon();
+
+
+
+
+
+            return RedirectToAction("Index");
+        }
+
         // GET: HoaDon/Create
+        [HttpGet]
         public ActionResult Create()
         {
             SetViewBagHoaDon();

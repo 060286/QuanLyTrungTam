@@ -270,7 +270,7 @@
                                         <th class="text-primary" style="font-size:18px">Hình ảnh</th>
                                         <th class="text-primary" style="font-size:18px">Mức lương</th>
                                         <th class="text-primary" style="font-size:18px">Giới Tính</th>
-                                        <th class="text-primary" style="font-size:18px">Ngày sinh</th>
+                                      
                                         <th class="text-primary" style="font-size:18px">Email</th>
                                         <th class="text-primary" style="font-size:18px">SĐT</th>
                                         <th class="text-primary" style="font-size:18px">Trạng thái</th>
@@ -290,20 +290,37 @@
                                                 </td>
                                                 <td class="text-center">@item.MucLuong</td>
                                                 <td class="text-center">@item.GioiTinh</td>
-                                                <td class="text-center">@item.NgaySinh</td>
+                                         
                                                 <td class="text-center">@item.Email</td>
                                                 <td class="text-center">@item.SDT</td>
                                                 <td class="text-center" style="color:green">@(item.TrangThai.GetValueOrDefault(false)? "Hoạt động" : "Khóa")</td>
                                                 <td>
-                                                    <a class="text-center btn btn-primary" href="/GiaoVien/Edit/@item.MaGiaoVien">Sửa &nbsp;</a>
-                                                    <a class="text-center btn btn-primary" href="/GiaoVien/Details/@item.MaGiaoVien">Chi tiết &nbsp;</a>
+                                                    <a class="text-center btn btn-primary" href="/GiaoVien/Edit/@item.MaGiaoVien"
+                                                       data-toggle="modal" data-target="#modal-capNhat-@item.MaGiaoVien"
+                                                       data-backdrop="static" data-keyboard="false">Sửa &nbsp;</a>
+                                                    <div class="modal fade" id="modal-capNhat-@item.MaGiaoVien">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <a class="text-center btn btn-primary" href="/GiaoVien/Details/@item.MaGiaoVien"
+                                                       data-toggle="modal" data-target="#modal-chiTiet-@item.MaGiaoVien"
+                                                       data-backdrop="static" data-keyboard="false">Chi tiết &nbsp;</a>
+                                                    <div class="modal fade" id="modal-chiTiet-@item.MaGiaoVien">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                     @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaGiaoVien }, new AjaxOptions
                                                {
                                                    Confirm = "Xóa bản ghi giáo viên",
                                                    OnComplete = "$('#row_" + item.MaGiaoVien + "').remove()",
                                                    HttpMethod = "Delete"
                                                },
-                                                    new { @class="btn btn-primary"})
+                                                    new { @class = "btn btn-primary" })
                                                 </td>
                                             </tr>
                                         }

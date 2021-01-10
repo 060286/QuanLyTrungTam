@@ -194,14 +194,15 @@
                                             <td>@item.MoTa</td>
                                             <td>@item.SoLuong</td>
                                             <td>
-                                                <a href="/KhoaHoc/Edit/@item.MaKhoaHoc" @*data-toggle="modal" data-target="#modal-update-@item.MaGiaoVien" data-backdrop="static" data-keyboard="false"*@>Sửa</a>
+                                                <a href="/KhoaHoc/Edit/@item.MaKhoaHoc" class="btn btn-primary" @*data-toggle="modal" data-target="#modal-update-@item.MaGiaoVien" data-backdrop="static" data-keyboard="false"*@>Sửa</a>
 
-                                                &nbsp;<a href="/KhoaHoc/Details/@item.MaKhoaHoc" @*data-toggle="modal" data-target="#modal-details-@item.MaGiaoVien" data-backdrop="static" data-keyboard="false"*@>Chi tiết &nbsp;</a>@Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaKhoaHoc }, new AjaxOptions
-{
-Confirm = "Bạn có muốn xóa khóa học này",
-OnComplete = "$('#row_" + item.MaKhoaHoc + "').remove()",
-HttpMethod = "Delete"
-})
+                                               <a href="/KhoaHoc/Details/@item.MaKhoaHoc" class="btn btn-primary" @*data-toggle="modal" data-target="#modal-details-@item.MaGiaoVien" data-backdrop="static" data-keyboard="false"*@>Chi tiết</a>
+                                                @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaKhoaHoc }, new AjaxOptions
+                                                {
+                                                Confirm = "Bạn có muốn xóa khóa học này",
+                                                OnComplete = "$('#row_" + item.MaKhoaHoc + "').remove()",
+                                                HttpMethod = "Delete"
+                                                },new { @class = "btn btn-primary"})
                                             </td>
                                         </tr>
                                     }
