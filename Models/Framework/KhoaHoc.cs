@@ -27,7 +27,7 @@ namespace Models.Framework
         public int? TinhTrang { get; set; }
 
         [Column(TypeName = "money")]
-        public decimal? GiaTien { get; set; }
+        public decimal GiaTien { get; set; } 
 
         [StringLength(100)]
         public string MoTa { get; set; }

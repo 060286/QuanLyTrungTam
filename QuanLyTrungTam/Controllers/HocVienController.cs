@@ -161,14 +161,18 @@ namespace QuanLyTrungTam.Controllers
             var hocVienDao = new HocVienDao().ViewDetails(id);
             GetViewBagIdHocVien(hocVienDao.MaHocVien);
 
+
             var hoaDonDao = new HoaDonDao();
             var ct_HoaDonDao = new CT_HoaDonDao();
+            var khoaHocDao = new KhoaHocDao();
 
             var hoaDon = new HoaDon();
             var ct_HD = new CT_HoaDon();
             var khoaHoc = new KhoaHoc();
 
-            hoaDon.TongTien = khoaHoc.GiaTien * entity.CT_HoaDon.SoLuong;
+            khoaHoc.GiaTien = khoaHocDao.GiaTienKhoaHoc(maKhoaHoc);
+          
+            hoaDon.TongTien = (khoaHoc.GiaTien * 1);
             hoaDon.TinhTrang = entity.HoaDon.TinhTrang;
             hoaDon.MaHocVien = hocVienDao.MaHocVien;
             hoaDon.NgayLap = DateTime.Now;
@@ -183,10 +187,33 @@ namespace QuanLyTrungTam.Controllers
 
             int checkCTHD = ct_HoaDonDao.Insert(ct_HD);
 
+            var khoaHocDaoEmail = new KhoaHocDao().ViewDetail(maKhoaHoc);
+            var hocVienDaoEmail = new HocVienDao().ViewDetails(id);
+
             if(checkHD > 0 && checkCTHD > 0)
             {
+                khoaHocDao.DangKyKhoaHoc(maKhoaHoc);
                 SetAlert("Thêm thành công", 1);
-                return RedirectToAction("Index", "HocVien");
+                
+                if (hocVienDao.Email == null)
+                {
+                    return RedirectToAction("Index", "HocVien");
+                }
+                else
+                {
+                    string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/Email/DangKyKhoaHoc.html"));
+
+                    content = content.Replace("{{TenKH}}", khoaHocDaoEmail.TenKhoaHoc.ToString());
+                    content = content.Replace("{{TenHV}}", hocVienDaoEmail.TenHocVien.ToString());
+                    content = content.Replace("{{NgaySinh}}", hocVienDaoEmail.NgaySinh.ToString());
+                    content = content.Replace("{{SDT}}", hocVienDaoEmail.SDT.ToString());
+                    content = content.Replace("{{DiaChi}}", hocVienDaoEmail.DiaChi.ToString());
+                    content = content.Replace("{{NgayDangKy}}", hocVienDaoEmail.NgayDangKy.ToString());
+
+                    new MailHelper().SendMail(hocVienDao.Email, "Chào mừng em đã tham gia vào đại gia đình Đan Thanh!", content);
+                    //SetAlert("")
+                    return RedirectToAction("Index", "HocVien");
+                }
             }
             else
             {

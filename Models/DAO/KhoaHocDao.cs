@@ -28,6 +28,21 @@ namespace Models.DAO
             _context.SaveChanges();
             return entity.MaKhoaHoc;
         }
+
+        public decimal GiaTienKhoaHoc(int id)
+        {
+            var giaTien = _context.KhoaHocs.Where(x => x.MaKhoaHoc == 1).Sum(x => x.GiaTien);
+
+            return giaTien;
+        }    
+
+        public void DangKyKhoaHoc(int id)
+        {
+            var khoaHoc = _context.KhoaHocs.FirstOrDefault(x => x.MaKhoaHoc == id);
+            khoaHoc.SoLuong--;
+            _context.SaveChanges();
+        }
+
         // THêm danh mục khóa học
         public int Insert(DanhMucKhoaHoc entity)
         {
