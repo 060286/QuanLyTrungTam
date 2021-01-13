@@ -20,9 +20,9 @@ namespace Models.Framework
 
         public int? MaHocVien { get; set; }
 
-        public double? KetQua { get; set; }
-
         public int? MaLopHoc { get; set; }
+
+        public double? KetQua { get; set; }
 
         public virtual HocVien HocVien { get; set; }
 

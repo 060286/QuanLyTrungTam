@@ -92,7 +92,7 @@ namespace QuanLyTrungTam.Controllers
         {
             var hoaDon = new HoaDonDao().ViewDetail(id);
 
-            return View();
+            return View(hoaDon);
         }
 
         [HttpGet] 

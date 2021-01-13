@@ -142,8 +142,6 @@ namespace Models.DAO
             return entity.MaHocVien;
         }
 
-        
-
         public HocVien ViewDetails(int id)
         {
             return context.HocViens.Find(id);

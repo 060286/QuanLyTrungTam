@@ -9,24 +9,33 @@ namespace Models.Framework
     [Table("ThoiKhoaBieu")]
     public partial class ThoiKhoaBieu
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ThoiKhoaBieu()
-        {
-            KhoaHocs = new HashSet<KhoaHoc>();
-        }
-
         [Key]
         public int MaTKB { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime? TuanBatDau { get; set; }
+        //[Column(TypeName = "date")]
+        //public DateTime? TuanBatDau { get; set; }
 
         public int? ThoiGianHoc { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime? TuanKetThuc { get; set; }
+        //[Column(TypeName = "date")]
+        //public DateTime? TuanKetThuc { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KhoaHoc> KhoaHocs { get; set; }
+        public bool ThuHai { get; set; } = false;
+
+        public int? MaKhoaHoc { get; set; }
+
+        public bool ThuBa { get; set; } = false;
+
+        public bool ThuTu { get; set; } = false;
+
+        public bool ThuNam { get; set; } = false;
+
+        public bool ThuSau { get; set; } = false;
+
+        public bool ThuBay { get; set; } = false;
+
+        public bool ChuNhat { get; set; } = false;
+
+        public virtual KhoaHoc KhoaHoc { get; set; }
     }
 }

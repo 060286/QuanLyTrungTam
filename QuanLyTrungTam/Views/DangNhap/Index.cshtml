@@ -5,68 +5,108 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>DangNhap</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.MaTaiKhoan)
+<section class="content-header">
+    <h1 class="page-header">
+        @ViewBag.Title
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>Tác vụ</a></li>
+        <li class="active">@ViewBag.Title</li>
+    </ol>
+</section>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TenNguoiDung, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TenNguoiDung, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TenNguoiDung, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<section class="content">
+    <div class="row">
+       
+        <div class="col-md-9">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#activity" data-toggle="tab">Thông tin</a></li>
+                    <li><a href="#settings" data-toggle="tab">Đổi mật khẩu</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="active tab-pane" id="activity">
+                        @using (Html.BeginForm("Update", "DangNhap", FormMethod.Post, new { @class = "form-horizontal" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            @Html.HiddenFor(model => model.MaTaiKhoan, new { @class = "form-control" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TenNguoiDung, htmlAttributes: new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-6">
+                                    @Html.EditorFor(model => model.TenNguoiDung, new { @class = "form-control" })
+                                </div>
+                            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TaiKhoan, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TaiKhoan, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TaiKhoan, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TaiKhoan, htmlAttributes: new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-6">
+                                    @Html.DisplayFor(model => model.TaiKhoan, new { @class = "form-control" })
+                                </div>
+                            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaVaiTro, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MaVaiTro, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MaVaiTro, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MatKhau, htmlAttributes: new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-6">
+                                    @Html.DisplayFor(model => model.MatKhau, new { @class = "form-control " })
+                                </div>
+                            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MatKhau, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MaVaiTro, htmlAttributes: new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-6">
+                                    @Html.EditorFor(model => model.MaVaiTro, new { @class = "form-control " })
+                                </div>
+                            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TrangThai, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.TrangThai)
-                    @Html.ValidationMessageFor(model => model.TrangThai, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-6">
+                                    <button type="submit" class="btn btn-danger">Cập nhật</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="tab-pane" id="settings">
+                        @using (Html.BeginForm("ChangePassword", "DangNhap", FormMethod.Post, new { @class = "form-horizontal" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            @Html.HiddenFor(m => m.MaTaiKhoan)
+                            <div class="form-group">
+                                @Html.Label("Mật khẩu hiện tại", new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-6">
+                                    @Html.Password("MatKhauCu")
+                                    @*@ViewData["SaiMatKhau"]*@
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Mật khẩu mới", new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-6">
+                                    @Html.Password("MatKhauMoi")
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Nhập lại mật khẩu mới", new { @class = "col-sm-3 control-label" })
+                                <div class="col-sm-6">
+                                    @Html.Password("NhapLaiMK")
+                                    @*@ViewData["KhacMatKhau"]*@
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-6">
+                                    <button type="submit" class="btn btn-success">Lưu</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
     </div>
-}
+</section>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

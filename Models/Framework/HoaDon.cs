@@ -23,6 +23,8 @@ namespace Models.Framework
 
         public DateTime? NgayLap { get; set; }
 
+        public string GhiChu { get; set; }
+
         public bool? TinhTrang { get; set; }
 
         public int? MaKhoaHoc { get; set; }
@@ -30,7 +32,6 @@ namespace Models.Framework
         public int? MaLopHoc { get; set; }
 
         public int? MaHocVien { get; set; }
-
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CT_HoaDon> CT_HoaDon { get; set; }
