@@ -161,14 +161,20 @@ namespace QuanLyTrungTam.Controllers
             var hocVienDao = new HocVienDao().ViewDetails(id);
             GetViewBagIdHocVien(hocVienDao.MaHocVien);
 
+           
+
             var hoaDonDao = new HoaDonDao();
             var ct_HoaDonDao = new CT_HoaDonDao();
+            var khoaHocDao = new KhoaHocDao();
 
             var hoaDon = new HoaDon();
             var ct_HD = new CT_HoaDon();
             var khoaHoc = new KhoaHoc();
+            khoaHoc.GiaTien = khoaHocDao.GiaTienKhoaHoc(maKhoaHoc);
+          
 
-            hoaDon.TongTien = khoaHoc.GiaTien * entity.CT_HoaDon.SoLuong;
+
+            hoaDon.TongTien = (khoaHoc.GiaTien * 1);
             hoaDon.TinhTrang = entity.HoaDon.TinhTrang;
             hoaDon.MaHocVien = hocVienDao.MaHocVien;
             hoaDon.NgayLap = DateTime.Now;
@@ -185,6 +191,7 @@ namespace QuanLyTrungTam.Controllers
 
             if(checkHD > 0 && checkCTHD > 0)
             {
+                khoaHocDao.DangKyKhoaHoc(maKhoaHoc);
                 SetAlert("Thêm thành công", 1);
                 return RedirectToAction("Index", "HocVien");
             }
