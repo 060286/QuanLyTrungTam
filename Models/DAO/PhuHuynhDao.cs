@@ -24,6 +24,11 @@ namespace Models.DAO
             return entity.MaPhuHuynh;
         }
 
+        public IEnumerable<PhuHuynh> getTwoElementPH(int maHocVien)
+        {
+            return _context.PhuHuynhs.Where(x => x.MaHocVien == maHocVien);
+        }
+
         //public List<int> InsertList(PhuHuynh[] entity)
         //{
         //    List<int> list = new List<int>();

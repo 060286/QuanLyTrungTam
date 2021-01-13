@@ -12,6 +12,7 @@ namespace Models.Framework
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LopHoc()
         {
+            BangDiems = new HashSet<BangDiem>();
             HoaDons = new HashSet<HoaDon>();
         }
 
@@ -22,15 +23,14 @@ namespace Models.Framework
         [StringLength(100)]
         public string TenLopHoc { get; set; }
 
-      
-
         public bool? TinhTrang { get; set; }
-
-       
 
         public int? MaGiaoVien { get; set; }
 
         public int? MaKhoaHoc { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BangDiem> BangDiems { get; set; }
 
         public virtual GiaoVien GiaoVien { get; set; }
 

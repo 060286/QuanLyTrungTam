@@ -16,6 +16,12 @@ namespace Models.DAO
             _context = new eCenterDbContext();
         }
 
+        public DangNhap ViewDetails(int id)
+        {
+            return _context.DangNhaps.Find(id);
+        }
+
+
         public bool UpdateAccount(DangNhap entity)
         {
             try
