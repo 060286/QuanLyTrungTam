@@ -26,7 +26,41 @@ namespace QuanLyTrungTam.Controllers
         public ActionResult Details(int id)
         {
             var hocVienDao = new HocVienDao().ViewDetails(id);
+
             return View(hocVienDao);
+        }
+
+        public ActionResult ChiTiet(int id)
+        {
+            var ctHV = new ChiTietHocVienModel();
+
+            var dao = new HocVienDao().ViewDetails(id);
+
+            ctHV.TenHocVien = dao.TenHocVien;
+            ctHV.HocVien.TenHocVien = dao.TenHocVien;
+            ctHV.HocVien.HinhAnh = dao.HinhAnh;
+            ctHV.HocVien.MaHVDD = dao.MaHVDD;
+            ctHV.HocVien.Email = dao.Email;
+            ctHV.HocVien.GioiTinh = dao.GioiTinh;
+            ctHV.HocVien.DiaChi = dao.DiaChi;
+            ctHV.HocVien.NgayDangKy = dao.NgayDangKy;
+            ctHV.HocVien.NgaySinh = dao.NgaySinh;
+            ctHV.HocVien.GhiChu = dao.GhiChu;
+            ctHV.HocVien.Nguon = dao.Nguon;
+
+            var daoPH = new PhuHuynhDao().getTwoElementPH(id);
+
+            IEnumerable<PhuHuynh> listPH = daoPH;
+
+            foreach(var item in listPH)
+            {
+                ctHV.PhuHuynh.TenPhuHuynh = item.TenPhuHuynh;
+                ctHV.PhuHuynh.SDT = item.SDT;
+                ctHV.PhuHuynh.GioiTinh = item.GioiTinh;
+                ctHV.PhuHuynh.Email = item.Email;
+            }
+
+            return View(ctHV);
         }
 
         

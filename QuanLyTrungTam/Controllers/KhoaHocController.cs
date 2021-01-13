@@ -110,8 +110,8 @@ namespace QuanLyTrungTam.Controllers
         [HttpGet]
         public ActionResult CreateDetails()
         {
-            SetViewBagDMKHDetails();
-            SetViewBagGVDetails();
+            SetViewBagKH();
+            SetViewBagGV();
 
             return View();
         }
@@ -150,11 +150,17 @@ namespace QuanLyTrungTam.Controllers
 
                     //int idDM = _danhMucDao.Insert(danhMuc);
 
-                    // Thêm thời khóa biểu
-                    thoiKhoaBieu.TuanBatDau = khoaHocDetails.ThoiKhoaBieu.TuanBatDau;
-                    thoiKhoaBieu.TuanKetThuc = khoaHocDetails.ThoiKhoaBieu.TuanKetThuc;
+                    //// Thêm thời khóa biểu
+                    //thoiKhoaBieu.TuanBatDau = khoaHocDetails.ThoiKhoaBieu.TuanBatDau;
+                    //thoiKhoaBieu.TuanKetThuc = khoaHocDetails.ThoiKhoaBieu.TuanKetThuc;
                     thoiKhoaBieu.ThoiGianHoc = khoaHocDetails.ThoiKhoaBieu.ThoiGianHoc;
-
+                    thoiKhoaBieu.ThuHai = khoaHocDetails.ThoiKhoaBieu.ThuHai;
+                    thoiKhoaBieu.ThuBa = khoaHocDetails.ThoiKhoaBieu.ThuBa;
+                    thoiKhoaBieu.ThuTu = khoaHocDetails.ThoiKhoaBieu.ThuTu;
+                    thoiKhoaBieu.ThuNam = khoaHocDetails.ThoiKhoaBieu.ThuNam;
+                    thoiKhoaBieu.ThuSau = khoaHocDetails.ThoiKhoaBieu.ThuSau;
+                    thoiKhoaBieu.ThuBay = khoaHocDetails.ThoiKhoaBieu.ThuBay;
+                    thoiKhoaBieu.ChuNhat = khoaHocDetails.ThoiKhoaBieu.ChuNhat;
                     int idTKB = _tkbDao.Insert(thoiKhoaBieu);
 
                     if(idKH > 0 && idTKB > 0)
@@ -271,6 +277,17 @@ namespace QuanLyTrungTam.Controllers
             {
                 return RedirectToAction("Index", "KhoaHoc");
             }
+        }
+        [HttpGet]
+        public ActionResult CreateSchedule()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateSchedule(ThoiKhoaBieu tkb)
+        {
+            return RedirectToAction("Index", "KhoaHoc");
         }
 
         // GET: KhoaHoc/Delete/5

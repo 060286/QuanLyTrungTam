@@ -181,6 +181,7 @@
     </Compile>
     <Compile Include="Models\CartCourse.cs" />
     <Compile Include="Models\Center.cs" />
+    <Compile Include="Models\ChiTietHocVienModel.cs" />
     <Compile Include="Models\DangKy.cs" />
     <Compile Include="Models\HoaDonDetails.cs" />
     <Compile Include="Models\HocVienDetails.cs" />
@@ -319,7 +320,6 @@
     <Content Include="Views\KhoaHoc\TaoMoiVaSuaDanhMuc.cshtml" />
     <Content Include="Views\GiaoVien\ThemMoiTrinhDo.cshtml" />
     <Content Include="Views\HocVien\CreateDetails.cshtml" />
-    <Content Include="Views\KhoaHoc\CreateDetails.cshtml" />
     <Content Include="Views\KhoaHoc\testSearchByOld.cshtml" />
     <Content Include="Views\KhoaHoc\testSearchByQuatity.cshtml" />
     <Content Include="Views\KhoaHoc\testSearchByMoney.cshtml" />
@@ -332,6 +332,9 @@
     <Content Include="Views\HoaDon\Details.cshtml" />
     <Content Include="Views\HoaDon\Edit.cshtml" />
     <Content Include="Views\DangNhap\Index.cshtml" />
+    <Content Include="Views\KhoaHoc\CreateDetails.cshtml" />
+    <Content Include="Views\KhoaHoc\CreateSchedule.cshtml" />
+    <Content Include="Views\HocVien\ChiTiet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

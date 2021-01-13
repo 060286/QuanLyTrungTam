@@ -57,6 +57,9 @@ namespace Models.Framework
         [StringLength(100)]
         public string Nguon { get; set; }
 
+        [NotMapped]
+        public PhuHuynh PhuHuynh { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BangDiem> BangDiems { get; set; }
 
