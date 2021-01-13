@@ -30,6 +30,19 @@ namespace Models.DAO
             return model.OrderBy(x => x.MaHocVien).ToPagedList(page, pageSize);
         }
 
+        // This method find all id student in classmate
+        public List<int?> ListStudentInClassMate(string SearchStringByClass, int page, int pageSize)
+        {
+            List<int?> listMaHocVien = new List<int?>();
+
+            IQueryable<HoaDon> getListHocVien = context.HoaDons;
+            getListHocVien = getListHocVien.Where(x => x.MaLopHoc == int.Parse(SearchStringByClass));   // Find class mate
+
+            listMaHocVien = getListHocVien.Select(x => x.MaHocVien).ToList();
+
+            return listMaHocVien;
+        }
+
         //public IEnumerable<HocVien> testSearchByOld(string searchString, int page, int pageSize)
         //{
 
