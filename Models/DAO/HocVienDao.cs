@@ -68,6 +68,14 @@ namespace Models.DAO
             return model.OrderBy(x => x.MaHocVien).ToPagedList(page, pageSize);
         }
 
+        public string GetEmail(int id)
+        {
+            var model = context.HocViens.FirstOrDefault(x => x.MaHocVien == id);
+
+            string emailReturn = model.Email;
+            return emailReturn;
+        }
+
         public IEnumerable<HocVien> testSearchByEmail(string searchStringByEmail, int page, int pageSize)
         {
 

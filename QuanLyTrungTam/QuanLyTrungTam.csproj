@@ -234,6 +234,7 @@
     <Content Include="Assets\Admin\js\morris.min.js" />
     <Content Include="Assets\Admin\js\raphael.min.js" />
     <Content Include="Assets\Admin\js\startmin.js" />
+    <Content Include="Assets\Email\DangKyKhoaHoc.html" />
     <Content Include="Assets\Email\HocVien.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
