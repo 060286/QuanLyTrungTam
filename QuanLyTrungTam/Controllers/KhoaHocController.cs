@@ -12,10 +12,8 @@ namespace QuanLyTrungTam.Controllers
 {
     public class KhoaHocController : BaseController
     {
-        
-
         // GET: KhoaHoc
-        public ActionResult Index(string searchString,int page = 1 ,int pageSize = 10)
+        public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
         {
             eCenterDbContext _context = new eCenterDbContext();
             ViewBag.TongKhoaHoc = _context.KhoaHocs.Count();
@@ -27,8 +25,8 @@ namespace QuanLyTrungTam.Controllers
             var _modelKhoaHoc = _khoaHocDao.ListAllPaging(searchString, page, pageSize);
             ViewBag.SearchString = searchString;
 
-            
-            
+
+
             return View(_modelKhoaHoc);
         }
 
@@ -123,7 +121,7 @@ namespace QuanLyTrungTam.Controllers
         {
             try
             {
-                if(ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
                     // Create Data Access Object
                     var _khoaHocDao = new KhoaHocDao();
@@ -165,7 +163,7 @@ namespace QuanLyTrungTam.Controllers
                     thoiKhoaBieu.ChuNhat = khoaHocDetails.ThoiKhoaBieu.ChuNhat;
                     int idTKB = _tkbDao.Insert(thoiKhoaBieu);
 
-                    if(idKH > 0 && idTKB > 0)
+                    if (idKH > 0 && idTKB > 0)
                     {
                         return RedirectToAction("Index", "KhoaHoc");
                     }
@@ -231,7 +229,7 @@ namespace QuanLyTrungTam.Controllers
                     var _khoaHocDao = new KhoaHocDao();
 
                     int _maKhoaHoc = _khoaHocDao.Insert(khoaHoc);
-                    
+
                     if (_maKhoaHoc > 0)
                     {
                         return RedirectToAction("Index", "KhoaHoc");
@@ -250,6 +248,46 @@ namespace QuanLyTrungTam.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+
+        [HttpGet]
+        public ActionResult EditSchedule(int id)
+        {
+            var _tkb = new ThoiKhoaBieuDao().ViewDetail(id);
+
+            return View(_tkb);
+        }
+
+        [HttpPost]
+        public ActionResult EditSchedule(ThoiKhoaBieu tkb)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    var _tkbDao = new ThoiKhoaBieuDao();
+
+                    var res = _tkbDao.Update(tkb);
+                    if (res)
+                    {
+                        return RedirectToAction("Index", "KhoaHoc");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Cập nhật lỗi");
+                    }
+                }
+                return View(tkb);
+            }
+            catch
+            {
+                return RedirectToAction("Index", "KhoaHoc");
+            }
+        }
+
+
+
+
 
         // GET: KhoaHoc/Edit/5
         public ActionResult Edit(int id)
@@ -289,16 +327,39 @@ namespace QuanLyTrungTam.Controllers
                 return RedirectToAction("Index", "KhoaHoc");
             }
         }
+
         [HttpGet]
-        public ActionResult CreateSchedule()
+        public ActionResult CreateSchedule(int id)
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult CreateSchedule(ThoiKhoaBieu tkb)
+        public ActionResult CreateSchedule(ThoiKhoaBieu tkb, int id)
         {
-            return RedirectToAction("Index", "KhoaHoc");
+            // TODO: Add insert logic here
+            if (ModelState.IsValid)
+            {
+                tkb.MaKhoaHoc = id;
+
+                var thoiKhoaBieuDao = new ThoiKhoaBieuDao();
+
+                int maTKB = thoiKhoaBieuDao.Insert(tkb);
+
+                if (maTKB > 0)
+                {
+                    return RedirectToAction("Index", "KhoaHoc");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Thêm thất bại");
+                }
+            }
+            SetViewBagKH();
+            SetViewBagGV();
+            return View(tkb);
+
+
         }
 
         // GET: KhoaHoc/Delete/5
@@ -320,7 +381,6 @@ namespace QuanLyTrungTam.Controllers
             }
             catch
             {
-
                 return View();
             }
         }

@@ -14,8 +14,8 @@ namespace Models.Framework
 
         //[Column(TypeName = "date")]
         //public DateTime? TuanBatDau { get; set; }
-
-        public int? ThoiGianHoc { get; set; }
+        [DataType(DataType.Time)]
+        public string ThoiGianHoc { get; set; }
 
         //[Column(TypeName = "date")]
         //public DateTime? TuanKetThuc { get; set; }

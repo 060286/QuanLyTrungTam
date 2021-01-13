@@ -72,14 +72,20 @@ namespace QuanLyTrungTam.Controllers
             return View(ctHV);
         }
 
+        [HttpGet] 
+        public ActionResult GetSchedule(int id)
+        {
+            var dao = new ThoiKhoaBieuDao().ViewDetail(id);
+
+            return View();
+        }
+
         
         [HttpGet]
         public ActionResult CreateScore(int id)
         {
             GetViewBagLopHoc();
             var hocVienDao = new BangDiemDao().ViewDetail(id);
-
-            getId = id;
 
             return View(hocVienDao);
         }
