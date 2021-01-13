@@ -176,6 +176,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LopHocController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\DiemDanhController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -191,6 +192,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\DangKyKHViewModels.cs" />
     <Compile Include="ViewModels\GiaoVienViewModel.cs" />
+    <Compile Include="ViewModels\HocVienViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Admin\css\bootstrap-social.css" />
@@ -233,6 +235,7 @@
     <Content Include="Assets\Admin\js\morris.min.js" />
     <Content Include="Assets\Admin\js\raphael.min.js" />
     <Content Include="Assets\Admin\js\startmin.js" />
+    <Content Include="Assets\Email\DangKyKhoaHoc.html" />
     <Content Include="Assets\Email\HocVien.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -332,9 +335,12 @@
     <Content Include="Views\HoaDon\Details.cshtml" />
     <Content Include="Views\HoaDon\Edit.cshtml" />
     <Content Include="Views\DangNhap\Index.cshtml" />
+
     <Content Include="Views\KhoaHoc\CreateDetails.cshtml" />
     <Content Include="Views\KhoaHoc\CreateSchedule.cshtml" />
     <Content Include="Views\HocVien\ChiTiet.cshtml" />
+    <Content Include="Views\DiemDanh\Index.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -345,6 +351,7 @@
     <Folder Include="Img\HocVien\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\DangKyKH\" />
+    <Folder Include="Views\Điemanh\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

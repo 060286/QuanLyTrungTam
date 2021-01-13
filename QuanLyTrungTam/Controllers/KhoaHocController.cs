@@ -12,6 +12,8 @@ namespace QuanLyTrungTam.Controllers
 {
     public class KhoaHocController : BaseController
     {
+        
+
         // GET: KhoaHoc
         public ActionResult Index(string searchString,int page = 1 ,int pageSize = 10)
         {
@@ -186,16 +188,25 @@ namespace QuanLyTrungTam.Controllers
         }
 
         [HttpPost]
-        public JsonResult TaoMoiVaSuaDanhMuc(DanhMucKhoaHoc danhMuc)
+        public ActionResult TaoMoiVaSuaDanhMuc(DanhMucKhoaHoc danhMuc)
         {
             eCenterDbContext _context = new eCenterDbContext();
             var danhMucDao = new DanhMucKhoaHocDao();
 
-            int _maKhoaHoc = danhMucDao.Insert(danhMuc);
+            int _maDanhMuc = danhMucDao.Insert(danhMuc);
 
-            var modal = danhMucDao.GetById(_maKhoaHoc);
+            //var modal = danhMucDao.GetById(_maDanhMuc);
 
-            return Json(modal, JsonRequestBehavior.AllowGet);
+            if (_maDanhMuc > 0)
+            {
+                return RedirectToAction("Index", "KhoaHoc");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Thêm thất bại");
+            }
+
+            return View(danhMuc);
         }
 
         // GET: KhoaHoc/Create

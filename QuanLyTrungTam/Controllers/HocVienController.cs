@@ -7,16 +7,25 @@ using System.Web.Mvc;
 using QuanLyTrungTam.Models;
 using System.IO;
 using Common;
+using System.Linq;
+using QuanLyTrungTam.ViewModels;
+using OfficeOpenXml;
 
 namespace QuanLyTrungTam.Controllers
 {
     public class HocVienController : BaseController
     {
         public static int? getId;
+        private eCenterDbContext _context = new eCenterDbContext();
 
         // GET: HocVien
         public ActionResult Index(string searchString,int page = 1, int pageSize = 10)
         {
+            ViewBag.HocVienMoi = _context.HocViens.Where(x => x.NgayDangKy.Value.Month == DateTime.Now.Month).Count();
+            ViewBag.TongHocVien = _context.HocViens.Where(x => x.TrangThai == true).Count();
+            ViewBag.HocVienNam = _context.HocViens.Where(x => x.GioiTinh == "Nam" || x.GioiTinh == "nam").Count();
+            ViewBag.HocVienNu = _context.HocViens.Where(x => x.GioiTinh == "Nữ" || x.GioiTinh == "nữ").Count();
+
             var _daoHocVien = new HocVienDao();
             var _modelHocVien = _daoHocVien.ListAllPaging(searchString,page, pageSize);
             return View(_modelHocVien);
@@ -186,14 +195,18 @@ namespace QuanLyTrungTam.Controllers
             var hocVienDao = new HocVienDao().ViewDetails(id);
             GetViewBagIdHocVien(hocVienDao.MaHocVien);
 
+
             var hoaDonDao = new HoaDonDao();
             var ct_HoaDonDao = new CT_HoaDonDao();
+            var khoaHocDao = new KhoaHocDao();
 
             var hoaDon = new HoaDon();
             var ct_HD = new CT_HoaDon();
             var khoaHoc = new KhoaHoc();
 
-            hoaDon.TongTien = khoaHoc.GiaTien * entity.CT_HoaDon.SoLuong;
+            khoaHoc.GiaTien = khoaHocDao.GiaTienKhoaHoc(maKhoaHoc);
+          
+            hoaDon.TongTien = (khoaHoc.GiaTien * 1);
             hoaDon.TinhTrang = entity.HoaDon.TinhTrang;
             hoaDon.MaHocVien = hocVienDao.MaHocVien;
             hoaDon.NgayLap = DateTime.Now;
@@ -208,10 +221,33 @@ namespace QuanLyTrungTam.Controllers
 
             int checkCTHD = ct_HoaDonDao.Insert(ct_HD);
 
+            var khoaHocDaoEmail = new KhoaHocDao().ViewDetail(maKhoaHoc);
+            var hocVienDaoEmail = new HocVienDao().ViewDetails(id);
+
             if(checkHD > 0 && checkCTHD > 0)
             {
+                khoaHocDao.DangKyKhoaHoc(maKhoaHoc);
                 SetAlert("Thêm thành công", 1);
-                return RedirectToAction("Index", "HocVien");
+                
+                if (hocVienDao.Email == null)
+                {
+                    return RedirectToAction("Index", "HocVien");
+                }
+                else
+                {
+                    string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/Email/DangKyKhoaHoc.html"));
+
+                    content = content.Replace("{{TenKH}}", khoaHocDaoEmail.TenKhoaHoc.ToString());
+                    content = content.Replace("{{TenHV}}", hocVienDaoEmail.TenHocVien.ToString());
+                    content = content.Replace("{{NgaySinh}}", hocVienDaoEmail.NgaySinh.ToString());
+                    content = content.Replace("{{SDT}}", hocVienDaoEmail.SDT.ToString());
+                    content = content.Replace("{{DiaChi}}", hocVienDaoEmail.DiaChi.ToString());
+                    content = content.Replace("{{NgayDangKy}}", hocVienDaoEmail.NgayDangKy.ToString());
+
+                    new MailHelper().SendMail(hocVienDao.Email, "Chào mừng em đã tham gia vào đại gia đình Đan Thanh!", content);
+                    //SetAlert("")
+                    return RedirectToAction("Index", "HocVien");
+                }
             }
             else
             {
@@ -400,6 +436,69 @@ namespace QuanLyTrungTam.Controllers
         {
             var dao = new HocVienDao();
             ViewBag.MaHocVien = dao.GetHocVienById(maHocVien);
+        }
+
+        public void DanhSachHocVien()
+        {
+            List<HocVienViewModels> hocVienList = _context.HocViens.Select(x => new HocVienViewModels
+            {
+                MaHocVien = x.MaHocVien,
+                TenHocVien = x.TenHocVien,
+                GioiTinh = x.GioiTinh,
+                NgaySinh = x.NgaySinh,
+                NgayDangKy = x.NgayDangKy,
+                Email = x.Email,
+                SDT = x.SDT,
+                GhiChu = x.GhiChu,
+                DiaChi = x.DiaChi,
+                TrangThai = x.TrangThai
+            }).ToList();
+
+            ExcelPackage pck = new ExcelPackage();
+            ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Report");
+
+            ws.Cells["A1"].Value = "Communication";
+            ws.Cells["A2"].Value = "Com1";
+
+            ws.Cells["A2"].Value = "Báo cáo";
+            ws.Cells["B2"].Value = "Báo cáo 1";
+
+            ws.Cells["A3"].Value = "Date";
+            ws.Cells["B3"].Value = string.Format("{0:dd MMMM yyyy} at {0:H: mm tt}", DateTimeOffset.Now);
+
+            ws.Cells["A6"].Value = "Mã giáo vien";
+            ws.Cells["B6"].Value = "Tên giáo viên";
+            ws.Cells["C6"].Value = "Giới tính";
+            ws.Cells["D6"].Value = "Ngày sinh";
+            ws.Cells["E6"].Value = "Ngày đăng ký";
+            ws.Cells["F6"].Value = "Email";
+            ws.Cells["G6"].Value = "Số điện thoại";
+            ws.Cells["H6"].Value = "Ghi chú";
+            ws.Cells["K6"].Value = "Địa chỉ";
+            ws.Cells["I6"].Value = "Trạng thái";
+            int rowStart = 7;
+            foreach (var item in hocVienList)
+            {
+                ws.Cells[string.Format("A{0}", rowStart)].Value = item.MaHocVien;
+                ws.Cells[string.Format("B{0}", rowStart)].Value = item.TenHocVien;
+                ws.Cells[string.Format("C{0}", rowStart)].Value = item.GioiTinh;
+                ws.Cells[string.Format("D{0}", rowStart)].Value = item.NgaySinh;
+                ws.Cells[string.Format("E{0}", rowStart)].Value = item.NgayDangKy;
+                ws.Cells[string.Format("F{0}", rowStart)].Value = item.Email;
+                ws.Cells[string.Format("G{0}", rowStart)].Value = item.SDT;
+                ws.Cells[string.Format("H{0}", rowStart)].Value = item.GhiChu;
+                ws.Cells[string.Format("K{0}", rowStart)].Value = item.DiaChi;
+                ws.Cells[string.Format("I{0}", rowStart)].Value = item.TrangThai;
+                rowStart++;
+            }
+
+
+            ws.Cells["A:AZ"].AutoFitColumns();
+            Response.Clear();
+            Response.ContentType = "aplication/vnd.openxmlformats-officedocument.spreedsheetml.sheet";
+            Response.AddHeader("content-disposition", "attachment: filename" + "HocVienReport.xlsx");
+            Response.BinaryWrite(pck.GetAsByteArray());
+            Response.End();
         }
     }
 }
