@@ -39,38 +39,38 @@ namespace QuanLyTrungTam.Controllers
             return View(hocVienDao);
         }
 
-        public ActionResult ChiTiet(int id)
-        {
-            var ctHV = new ChiTietHocVienModel();
+        //public ActionResult ChiTiet(int id)
+        //{
+        //    var ctHV = new ChiTietHocVienModel();
 
-            var dao = new HocVienDao().ViewDetails(id);
+        //    var dao = new HocVienDao().ViewDetails(id);
 
-            ctHV.TenHocVien = dao.TenHocVien;
-            ctHV.HocVien.TenHocVien = dao.TenHocVien;
-            ctHV.HocVien.HinhAnh = dao.HinhAnh;
-            ctHV.HocVien.MaHVDD = dao.MaHVDD;
-            ctHV.HocVien.Email = dao.Email;
-            ctHV.HocVien.GioiTinh = dao.GioiTinh;
-            ctHV.HocVien.DiaChi = dao.DiaChi;
-            ctHV.HocVien.NgayDangKy = dao.NgayDangKy;
-            ctHV.HocVien.NgaySinh = dao.NgaySinh;
-            ctHV.HocVien.GhiChu = dao.GhiChu;
-            ctHV.HocVien.Nguon = dao.Nguon;
+        //    ctHV.TenHocVien = dao.TenHocVien;
+        //    ctHV.HocVien.TenHocVien = dao.TenHocVien;
+        //    ctHV.HocVien.HinhAnh = dao.HinhAnh;
+        //    ctHV.HocVien.MaHVDD = dao.MaHVDD;
+        //    ctHV.HocVien.Email = dao.Email;
+        //    ctHV.HocVien.GioiTinh = dao.GioiTinh;
+        //    ctHV.HocVien.DiaChi = dao.DiaChi;
+        //    ctHV.HocVien.NgayDangKy = dao.NgayDangKy;
+        //    ctHV.HocVien.NgaySinh = dao.NgaySinh;
+        //    ctHV.HocVien.GhiChu = dao.GhiChu;
+        //    ctHV.HocVien.Nguon = dao.Nguon;
 
-            var daoPH = new PhuHuynhDao().getTwoElementPH(id);
+        //    var daoPH = new PhuHuynhDao().getTwoElementPH(id);
 
-            IEnumerable<PhuHuynh> listPH = daoPH;
+        //    IEnumerable<PhuHuynh> listPH = daoPH;
 
-            foreach(var item in listPH)
-            {
-                ctHV.PhuHuynh.TenPhuHuynh = item.TenPhuHuynh;
-                ctHV.PhuHuynh.SDT = item.SDT;
-                ctHV.PhuHuynh.GioiTinh = item.GioiTinh;
-                ctHV.PhuHuynh.Email = item.Email;
-            }
+        //    foreach(var item in listPH)
+        //    {
+        //        ctHV.PhuHuynh.TenPhuHuynh = item.TenPhuHuynh;
+        //        ctHV.PhuHuynh.SDT = item.SDT;
+        //        ctHV.PhuHuynh.GioiTinh = item.GioiTinh;
+        //        ctHV.PhuHuynh.Email = item.Email;
+        //    }
 
-            return View(ctHV);
-        }
+        //    return View(ctHV);
+        //}
 
         [HttpGet] 
         public ActionResult GetSchedule(int id)
@@ -306,8 +306,6 @@ namespace QuanLyTrungTam.Controllers
                         // Thêm học viên
                         int _maHocVien = _daoHocVien.Insert(hocVien);
 
-                        List<PhuHuynh> listPH = new List<PhuHuynh>();
-
                         for (int i = 0; i < 2; i++)
                         {
                             var _phuHuynh = new PhuHuynh();
@@ -505,6 +503,27 @@ namespace QuanLyTrungTam.Controllers
             Response.AddHeader("content-disposition", "attachment: filename" + "HocVienReport.xlsx");
             Response.BinaryWrite(pck.GetAsByteArray());
             Response.End();
+        }
+
+        public ActionResult ChiTietHocVien(int id)
+        {
+            var hocVienDao = new HocVienDao().ViewDetails(id);
+
+            var details = new HocVienDetailsViewModels();
+
+            details.MaHocVien = hocVienDao.MaHocVien;
+            details.TenHocVien = hocVienDao.TenHocVien;
+            details.NgayDangKy = hocVienDao.NgaySinh;
+            details.NgayDangKy = hocVienDao.NgayDangKy;
+            details.SDT = hocVienDao.SDT;
+            details.Nguon = hocVienDao.Nguon;
+            details.HinhAnh = hocVienDao.HinhAnh;
+            details.GioiTinh = hocVienDao.GioiTinh;
+            details.GhiChu = hocVienDao.GhiChu;
+
+            ViewBag.MaHocVien = details.MaHocVien;
+
+            return View(details);
         }
     }
 }

@@ -49,6 +49,8 @@ namespace QuanLyTrungTam.ViewModels
 
         public bool ThuBay { get; set; } 
 
-        public bool ChuNhat { get; set; } 
+        public bool ChuNhat { get; set; }
+
+        public string ThoiGianHoc { get; set; }
     }
 }

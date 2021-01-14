@@ -29,6 +29,11 @@ namespace Models.DAO
             return _context.PhuHuynhs.Where(x => x.MaHocVien == maHocVien);
         }
 
+        //public PhuHuynh getParentByIdStudent(int id)
+        //{
+        //    return _context.PhuHuynhs.;
+        //}
+
         //public List<int> InsertList(PhuHuynh[] entity)
         //{
         //    List<int> list = new List<int>();
@@ -60,6 +65,11 @@ namespace Models.DAO
             {
                 return false;
             }
+        }
+
+        public List<PhuHuynh> GetListParents(int id)
+        {
+            return _context.PhuHuynhs.Where(x => x.MaHocVien == id).ToList();
         }
     }
 }
