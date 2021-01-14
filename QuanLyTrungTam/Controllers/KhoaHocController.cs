@@ -2,6 +2,7 @@
 using Models.DAO;
 using Models.Framework;
 using QuanLyTrungTam.Models;
+using QuanLyTrungTam.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -415,6 +416,38 @@ namespace QuanLyTrungTam.Controllers
             eCenterDbContext _context = new eCenterDbContext();
             List<DanhMucKhoaHoc> listDanhMucKhoaHoc = _context.DanhMucKhoaHocs.ToList();
             return View(listDanhMucKhoaHoc);
+        }
+
+        public ActionResult ChiTietKhoaHoc(int id)
+        {
+            var details = new KhoaHocDetailsViewModels();
+
+            var khoaHocDao = new KhoaHocDao().ViewDetail(id);
+            var tkbDao = new ThoiKhoaBieuDao().getScheduleByCourse(khoaHocDao.MaKhoaHoc);
+
+            details.MaKhoaHoc = khoaHocDao.MaKhoaHoc;
+            details.TenKhoaHoc = khoaHocDao.TenKhoaHoc;
+            details.GiaTien = khoaHocDao.GiaTien;
+            details.SoLuong = khoaHocDao.SoLuong.GetValueOrDefault(0);
+            details.NgayBatDau = khoaHocDao.NgayBatDau.GetValueOrDefault(DateTime.Now);
+            details.NgayKetThuc = khoaHocDao.NgayKetThuc.GetValueOrDefault(DateTime.Now);
+            details.TinhTrang = khoaHocDao.TinhTrang.GetValueOrDefault(0);
+            details.Mota = khoaHocDao.MoTa;
+            details.SoTuan = khoaHocDao.SoTuan.GetValueOrDefault(8);
+            details.LuaTuoiPhuHop = khoaHocDao.LuaTuoiPhuHop.GetValueOrDefault(18);
+            details.MaDanhMuc = khoaHocDao.MaDanhMuc.GetValueOrDefault(1);
+
+
+            details.MaTKB = tkbDao.MaTKB;
+            details.ThuBa = tkbDao.ThuBa;
+            details.ThuTu = tkbDao.ThuTu;
+            details.ThuNam = tkbDao.ThuNam;
+            details.ThuSau = tkbDao.ThuSau;
+            details.ThuHai = tkbDao.ThuHai;
+            details.ThuBay = tkbDao.ThuBay;
+            details.ChuNhat = tkbDao.ChuNhat;
+
+            return View(details);
         }
 
     }

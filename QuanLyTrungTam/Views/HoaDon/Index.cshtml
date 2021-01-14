@@ -208,13 +208,13 @@
                                     @foreach (var item in Model)
                                     {
 
-                                        if (item.MaHoaDon % 2 == 0)
+                                        if (item.TinhTrang == true)
                                         {
                                             <tr id="row_@item.MaHoaDon" style="background-color: #FFFFFF" class="table-hover">
                                                 <td>@item.MaHoaDon</td>
                                                 <td>@item.TongTien.GetValueOrDefault(0)</td>
                                                 <td>@item.NgayLap.GetValueOrDefault(DateTime.Now)</td>
-                                                <td style="color:green">@(item.TinhTrang.GetValueOrDefault(false)? "Đã thanh toán" : "Chưa thanh toán")</td>
+                                                <td style="color:green">Đã thanh toán</td>
                                                 <td>
                                                     <a href="/HoaDon/Edit/@item.MaHoaDon" 
                                                        @*data-toggle="modal" data-target="#modal-update-@item.MaGiaoVien" 
@@ -240,7 +240,7 @@ HttpMethod = "Delete"
                                                 <td>@item.TongTien.GetValueOrDefault(0)</td>
                                                 <td>@item.NgayLap.GetValueOrDefault(DateTime.Now)</td>
                                                 @*<td>@item.TinhTrang.GetValueOrDefault(false)? "Đã thanh toán" "Chưa thanh toán" </td>*@
-                                                <td style="color:green">@(item.TinhTrang.GetValueOrDefault(false)? "Đã thanh toán" : "Chưa thanh toán")</td>
+                                                <td style="color:green">Chưa thanh toán</td>
                                                 <td>
                                                     <a href="/HoaDon/Edit/@item.MaHoaDon" class="btn btn-primary">Sửa</a>
 
