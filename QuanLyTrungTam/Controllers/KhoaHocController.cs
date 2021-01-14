@@ -446,6 +446,7 @@ namespace QuanLyTrungTam.Controllers
             details.ThuHai = tkbDao.ThuHai;
             details.ThuBay = tkbDao.ThuBay;
             details.ChuNhat = tkbDao.ChuNhat;
+            details.ThoiGianHoc = tkbDao.ThoiGianHoc;
 
             return View(details);
         }
