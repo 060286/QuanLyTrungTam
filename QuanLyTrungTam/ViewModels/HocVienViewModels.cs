@@ -50,6 +50,6 @@ namespace QuanLyTrungTam.ViewModels
         [StringLength(100)]
         public string Nguon { get; set; }
 
-        public List<PhuHuynh> PhuHuynh { get; set; }
+         
     }
 }
