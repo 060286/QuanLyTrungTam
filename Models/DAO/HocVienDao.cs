@@ -185,5 +185,13 @@ namespace Models.DAO
                 return false;
             }
         }
+
+        //public int getFristCourse(int maHocVien)
+        //{
+        //    var model = context.HocViens.Find(maHocVien);
+
+            
+        //    return
+        //}
     }
 }

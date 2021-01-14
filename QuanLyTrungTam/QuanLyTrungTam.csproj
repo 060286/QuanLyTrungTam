@@ -193,6 +193,7 @@
     <Compile Include="ViewModels\DangKyKHViewModels.cs" />
     <Compile Include="ViewModels\GiaoVienViewModel.cs" />
     <Compile Include="ViewModels\HocVienViewModels.cs" />
+    <Compile Include="ViewModels\KhoaHocDetailsViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Admin\css\bootstrap-social.css" />
@@ -335,12 +336,12 @@
     <Content Include="Views\HoaDon\Details.cshtml" />
     <Content Include="Views\HoaDon\Edit.cshtml" />
     <Content Include="Views\DangNhap\Index.cshtml" />
-
     <Content Include="Views\KhoaHoc\CreateDetails.cshtml" />
     <Content Include="Views\KhoaHoc\CreateSchedule.cshtml" />
     <Content Include="Views\HocVien\ChiTiet.cshtml" />
     <Content Include="Views\DiemDanh\Index.cshtml" />
-
+    <Content Include="Views\KhoaHoc\EditSchedule.cshtml" />
+    <Content Include="Views\KhoaHoc\ChiTietKhoaHoc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,17 +1,17 @@
 ﻿@model Models.Framework.ThoiKhoaBieu
 
 @{
-    ViewBag.Title = "CreateSchedule";
-    Layout = null;
+    ViewBag.Title = "EditSchedule";
+    Layout =null;
 }
-
 
 <div class="modal-header bg-olive">
     <button type="button" class="close" data-dismiss="modal">
         <span aria-hidden="true">&times;</span>
     </button>
-    <h4 class="modal-title" style="font-size:25px">Tạo thời khóa biểu</h4>
+    <h4 class="modal-title" style="font-size:25px; color:black">Chi tiết giáo viên</h4>
 </div>
+
 
 <div class="modal-body form-horizontal">
     @using (Html.BeginForm())
@@ -19,15 +19,11 @@
         @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
+        <h4>ThoiKhoaBieu</h4>
+        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.MaTKB)
 
-        <div class="form-group">
-            @Html.HiddenFor(model => model.MaKhoaHoc, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.HiddenFor(model => model.MaKhoaHoc, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MaKhoaHoc, "", new { @class = "text-danger" })
-            </div>
-        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.ThoiGianHoc, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -45,14 +41,6 @@
                 </div>
             </div>
         </div>
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.MaKhoaHoc, "MaKhoaHoc", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MaKhoaHoc", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.MaKhoaHoc, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.ThuBa, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -115,11 +103,21 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-1" style="margin-left:500px;margin-right:15px">
-                <input type="submit" value="Create" class="btn btn-default" />
+            @Html.HiddenFor(model => model.MaKhoaHoc, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.HiddenFor(model => model.MaKhoaHoc)
+                    @Html.ValidationMessageFor(model => model.MaKhoaHoc, "", new { @class = "text-danger" })
+                </div>
             </div>
-            <div class="col-md-1" >
-                <a class="btn btn-danger" href="~/KhoaHoc/Index">Hủy bỏ</a>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-1" style="margin-left:500px;margin-right:15px">
+                <input type="submit" value="Cập nhật" class="btn btn-success" />
+            </div>
+            <div class="col-md-1">
+                <a href="/KhoaHoc/Index" class="btn btn-danger">Hủy bỏ</a>
             </div>
         </div>
     </div>

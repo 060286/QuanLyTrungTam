@@ -2,6 +2,7 @@
 using Models.DAO;
 using Models.Framework;
 using QuanLyTrungTam.Models;
+using QuanLyTrungTam.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,8 @@ namespace QuanLyTrungTam.Controllers
 {
     public class KhoaHocController : BaseController
     {
-        
-
         // GET: KhoaHoc
-        public ActionResult Index(string searchString,int page = 1 ,int pageSize = 10)
+        public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
         {
             eCenterDbContext _context = new eCenterDbContext();
             ViewBag.TongKhoaHoc = _context.KhoaHocs.Count();
@@ -27,8 +26,8 @@ namespace QuanLyTrungTam.Controllers
             var _modelKhoaHoc = _khoaHocDao.ListAllPaging(searchString, page, pageSize);
             ViewBag.SearchString = searchString;
 
-            
-            
+
+
             return View(_modelKhoaHoc);
         }
 
@@ -123,7 +122,7 @@ namespace QuanLyTrungTam.Controllers
         {
             try
             {
-                if(ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
                     // Create Data Access Object
                     var _khoaHocDao = new KhoaHocDao();
@@ -165,7 +164,7 @@ namespace QuanLyTrungTam.Controllers
                     thoiKhoaBieu.ChuNhat = khoaHocDetails.ThoiKhoaBieu.ChuNhat;
                     int idTKB = _tkbDao.Insert(thoiKhoaBieu);
 
-                    if(idKH > 0 && idTKB > 0)
+                    if (idKH > 0 && idTKB > 0)
                     {
                         return RedirectToAction("Index", "KhoaHoc");
                     }
@@ -231,7 +230,7 @@ namespace QuanLyTrungTam.Controllers
                     var _khoaHocDao = new KhoaHocDao();
 
                     int _maKhoaHoc = _khoaHocDao.Insert(khoaHoc);
-                    
+
                     if (_maKhoaHoc > 0)
                     {
                         return RedirectToAction("Index", "KhoaHoc");
@@ -250,6 +249,46 @@ namespace QuanLyTrungTam.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+
+        [HttpGet]
+        public ActionResult EditSchedule(int id)
+        {
+            var _tkb = new ThoiKhoaBieuDao().ViewDetail(id);
+
+            return View(_tkb);
+        }
+
+        [HttpPost]
+        public ActionResult EditSchedule(ThoiKhoaBieu tkb)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    var _tkbDao = new ThoiKhoaBieuDao();
+
+                    var res = _tkbDao.Update(tkb);
+                    if (res)
+                    {
+                        return RedirectToAction("Index", "KhoaHoc");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Cập nhật lỗi");
+                    }
+                }
+                return View(tkb);
+            }
+            catch
+            {
+                return RedirectToAction("Index", "KhoaHoc");
+            }
+        }
+
+
+
+
 
         // GET: KhoaHoc/Edit/5
         public ActionResult Edit(int id)
@@ -289,16 +328,39 @@ namespace QuanLyTrungTam.Controllers
                 return RedirectToAction("Index", "KhoaHoc");
             }
         }
+
         [HttpGet]
-        public ActionResult CreateSchedule()
+        public ActionResult CreateSchedule(int id)
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult CreateSchedule(ThoiKhoaBieu tkb)
+        public ActionResult CreateSchedule(ThoiKhoaBieu tkb, int id)
         {
-            return RedirectToAction("Index", "KhoaHoc");
+            // TODO: Add insert logic here
+            if (ModelState.IsValid)
+            {
+                tkb.MaKhoaHoc = id;
+
+                var thoiKhoaBieuDao = new ThoiKhoaBieuDao();
+
+                int maTKB = thoiKhoaBieuDao.Insert(tkb);
+
+                if (maTKB > 0)
+                {
+                    return RedirectToAction("Index", "KhoaHoc");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Thêm thất bại");
+                }
+            }
+            SetViewBagKH();
+            SetViewBagGV();
+            return View(tkb);
+
+
         }
 
         // GET: KhoaHoc/Delete/5
@@ -320,7 +382,6 @@ namespace QuanLyTrungTam.Controllers
             }
             catch
             {
-
                 return View();
             }
         }
@@ -355,6 +416,38 @@ namespace QuanLyTrungTam.Controllers
             eCenterDbContext _context = new eCenterDbContext();
             List<DanhMucKhoaHoc> listDanhMucKhoaHoc = _context.DanhMucKhoaHocs.ToList();
             return View(listDanhMucKhoaHoc);
+        }
+
+        public ActionResult ChiTietKhoaHoc(int id)
+        {
+            var details = new KhoaHocDetailsViewModels();
+
+            var khoaHocDao = new KhoaHocDao().ViewDetail(id);
+            var tkbDao = new ThoiKhoaBieuDao().getScheduleByCourse(khoaHocDao.MaKhoaHoc);
+
+            details.MaKhoaHoc = khoaHocDao.MaKhoaHoc;
+            details.TenKhoaHoc = khoaHocDao.TenKhoaHoc;
+            details.GiaTien = khoaHocDao.GiaTien;
+            details.SoLuong = khoaHocDao.SoLuong.GetValueOrDefault(0);
+            details.NgayBatDau = khoaHocDao.NgayBatDau.GetValueOrDefault(DateTime.Now);
+            details.NgayKetThuc = khoaHocDao.NgayKetThuc.GetValueOrDefault(DateTime.Now);
+            details.TinhTrang = khoaHocDao.TinhTrang.GetValueOrDefault(0);
+            details.Mota = khoaHocDao.MoTa;
+            details.SoTuan = khoaHocDao.SoTuan.GetValueOrDefault(8);
+            details.LuaTuoiPhuHop = khoaHocDao.LuaTuoiPhuHop.GetValueOrDefault(18);
+            details.MaDanhMuc = khoaHocDao.MaDanhMuc.GetValueOrDefault(1);
+
+
+            details.MaTKB = tkbDao.MaTKB;
+            details.ThuBa = tkbDao.ThuBa;
+            details.ThuTu = tkbDao.ThuTu;
+            details.ThuNam = tkbDao.ThuNam;
+            details.ThuSau = tkbDao.ThuSau;
+            details.ThuHai = tkbDao.ThuHai;
+            details.ThuBay = tkbDao.ThuBay;
+            details.ChuNhat = tkbDao.ChuNhat;
+
+            return View(details);
         }
 
     }

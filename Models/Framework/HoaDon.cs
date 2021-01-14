@@ -25,7 +25,7 @@ namespace Models.Framework
 
         public string GhiChu { get; set; }
 
-        public bool? TinhTrang { get; set; }
+        public bool TinhTrang { get; set; } = false;
 
         public int? MaKhoaHoc { get; set; }
 

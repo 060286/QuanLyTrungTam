@@ -1,0 +1,39 @@
+﻿@model QuanLyTrungTam.ViewModels.KhoaHocDetailsViewModels
+
+@{
+    ViewBag.Title = "ChiTietKhoaHoc";
+    Layout = null;
+}
+
+<h2>ChiTietKhoaHoc</h2>
+
+<div>
+    <h4>KhoaHocDetailsViewModels</h4>
+    <hr />
+    <dl class="dl-horizontal">
+    </dl>
+</div>
+<h4>@Model.MaKhoaHoc</h4>
+<h4>@Model.TenKhoaHoc</h4>
+<h4>@Model.GiaTien</h4>
+<h4>@Model.SoLuong</h4>
+<h4>@Model.NgayBatDau</h4>
+<h4>@Model.NgayKetThuc</h4>
+<h4>@Model.TinhTrang</h4>
+<h4>@Model.Mota</h4>
+<h4>@Model.SoTuan</h4>
+<h4>@Model.LuaTuoiPhuHop</h4>
+<h4>@Model.MaDanhMuc</h4>
+
+<p>@Model.MaTKB</p>
+<p>@Model.ThuHai</p>
+<p>@Model.ThuBa</p>
+<p>@Model.ThuTu</p>
+<p>@Model.ThuNam</p>
+<p>@Model.ThuSau</p>
+<p>@Model.ThuBa</p>
+<p>@Model.ChuNhat</p>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
