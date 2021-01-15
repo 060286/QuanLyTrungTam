@@ -525,6 +525,13 @@ namespace QuanLyTrungTam.Controllers
 
             return View(details);
         }
+
+        public ActionResult GetBillByStudent(int id)
+        {
+            var list = new HocVienDao().getListBillByStudent(id);
+
+            return View(list);
+        }
     }
 }
 

@@ -5,12 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>GetCourseByTeacher</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+<div class="row" style="margin-top:50px">
+    <h2>Giáo viên : @ViewBag.TenGiaoVien </h2>
+    <h3>Danh sách khóa học giáo viên chịu trách nhiệm</h3>
+</div>
+
+
+
+<table class="table table-responsive table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.DanhMucKhoaHoc.TenDanhMuc)
@@ -83,12 +86,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.LuaTuoiPhuHop)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MaKhoaHoc }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MaKhoaHoc }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MaKhoaHoc })
-        </td>
     </tr>
 }
 
 </table>
+<div class="col-md-1">
+    <a class="btn btn-danger" href="/GiaoVien/Index">Quay lại</a>
+</div>
+
+

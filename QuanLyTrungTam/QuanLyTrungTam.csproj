@@ -346,6 +346,7 @@
     <Content Include="Views\HocVien\ChiTietHocVien.cshtml" />
     <Content Include="Views\GiaoVien\GetCourseByTeacher.cshtml" />
     <Content Include="Views\KhoaHoc\EditCategoryCourse.cshtml" />
+    <Content Include="Views\HocVien\GetBillByStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

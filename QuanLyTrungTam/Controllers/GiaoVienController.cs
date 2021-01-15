@@ -385,7 +385,8 @@ namespace QuanLyTrungTam.Controllers
         {
             var list = new GiaoVienDao().getListCourseByTeacher(id);
 
-
+            var model = new GiaoVienDao().ViewDetail(id);
+            ViewBag.TenGiaoVien = model.TenGiaoVien;
 
             return View(list);
         }

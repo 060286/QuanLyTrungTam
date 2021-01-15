@@ -193,5 +193,10 @@ namespace Models.DAO
             
         //    return
         //}
+
+        public IEnumerable<HoaDon> getListBillByStudent(int id)
+        {
+            return context.HoaDons.Where(x => x.MaHocVien == id).ToList();
+        }
     }
 }

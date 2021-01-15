@@ -218,7 +218,7 @@ namespace QuanLyTrungTam.Controllers
         }
 
 
-        public void ExportToExcel()
+        public void DanhSachHoaDon()
         {
             List<HoaDon> hoaDonList = db.HoaDons.Select(x => new HoaDon
             {
