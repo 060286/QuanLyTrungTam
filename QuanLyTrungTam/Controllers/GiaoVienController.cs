@@ -381,5 +381,14 @@ namespace QuanLyTrungTam.Controllers
             Response.End();
         }
 
+        public ActionResult GetCourseByTeacher(int id)
+        {
+            var list = new GiaoVienDao().getListCourseByTeacher(id);
+
+
+
+            return View(list);
+        }
+
     }
 }

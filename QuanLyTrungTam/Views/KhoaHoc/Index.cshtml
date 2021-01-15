@@ -294,7 +294,17 @@
                             <tr>
                                 <td> @item.MaDanhMuc</td>
                                 <td style="color: green">@item.TenDanhMuc</td>
-                                <td>Sửa</td>
+                                <td>
+                                    <a href="/KhoaHoc/EditCategoryCourse/@item.MaDanhMuc" class="btn btn-primary"
+                                       data-toggle="modal" data-target="#modal-capNhatDanhmuc-@item.MaDanhMuc"
+                                       data-backdrop="static" data-keyboard="false">Sửa</a>
+                                    <div class="modal fade" id="modal-capNhatDanhmuc-@item.MaDanhMuc">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                         }
                     </tbody>

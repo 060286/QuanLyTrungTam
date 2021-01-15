@@ -344,6 +344,8 @@
     <Content Include="Views\KhoaHoc\EditSchedule.cshtml" />
     <Content Include="Views\KhoaHoc\ChiTietKhoaHoc.cshtml" />
     <Content Include="Views\HocVien\ChiTietHocVien.cshtml" />
+    <Content Include="Views\GiaoVien\GetCourseByTeacher.cshtml" />
+    <Content Include="Views\KhoaHoc\EditCategoryCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

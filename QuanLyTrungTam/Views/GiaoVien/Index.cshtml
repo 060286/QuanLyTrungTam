@@ -268,7 +268,7 @@
                                         <th class="text-primary" style="font-size:18px">Mã giáo viên</th>
                                         <th class="text-primary" style="font-size:18px">Tên Giáo Viên</th>
                                         <th class="text-primary" style="font-size:18px">Hình ảnh</th>
-                                        <th class="text-primary" style="font-size:18px">Mức lương</th>
+                                        <th class="text-primary" style="font-size:18px">Danh sách Khóa học</th>
                                         <th class="text-primary" style="font-size:18px">Giới Tính</th>
                                       
                                         <th class="text-primary" style="font-size:18px">Email</th>
@@ -288,7 +288,10 @@
                                                 <td>
                                                     <img src="~/Img/GiaoVien/@item.HinhAnh" width="80" height="auto" />
                                                 </td>
-                                                <td class="text-center">@item.MucLuong</td>
+                                                <td class="text-center">
+                                                    <a href="/GiaoVien/GetCourseByTeacher/@item.MaGiaoVien" 
+                                                       class="btn btn-success">Xem</a>
+                                                </td>
                                                 <td class="text-center">@item.GioiTinh</td>
                                          
                                                 <td class="text-center">@item.Email</td>

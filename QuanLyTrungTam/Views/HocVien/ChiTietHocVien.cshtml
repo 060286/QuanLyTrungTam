@@ -3,142 +3,82 @@
 @using Models.DAO
 @{
     ViewBag.Title = "ChiTietHocVien";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 
     int id = ViewBag.MaHocVien;
 
     IEnumerable<PhuHuynh> list = new PhuHuynhDao().getTwoElementPH(id);
 }
 
-<h2>ChiTietHocVien</h2>
 
-<div>
-    <h4>HocVienDetailsViewModels</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TenHocVien)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenHocVien)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MatKhau)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MatKhau)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TaiKhoan)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TaiKhoan)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HinhAnh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HinhAnh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MaHVDD)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MaHVDD)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GioiTinh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GioiTinh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SDT)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SDT)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DiaChi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DiaChi)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NgayDangKy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NgayDangKy)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NgaySinh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NgaySinh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GhiChu)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GhiChu)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TrangThai)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TrangThai)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Nguon)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Nguon)
-        </dd>
-
-    </dl>
+<div class="modal-header bg-olive">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" style="font-size:25px; color:black">Chi tiết học viên</h4>
 </div>
-@foreach(var item in list)
-{
-    <h3>@item.MaPhuHuynh</h3>
-    <h3>@item.TenPhuHuynh</h3>
-    <h3>@item.GioiTinh</h3>
-    <h3>@item.SDT</h3>
-    <h3>@item.DiaChi</h3>
-}
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaHocVien }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="modal-body form-horizontal">
+    <div class="container" margin-top: 20px">
+        <div class="row">
+            <div class="col-lg-12" style="margin-bottom: 10px">
+                <div class="col-md-3">
+                    <h3>Ảnh học viên</h3>
+                </div>
+                <img class="profile-user-img img-responsive col-md-9" style="width:150px;height:auto" alt="User profile picture" src="~/Img/HocVien/@Model.HinhAnh" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Thông tin học viên</h3>
+
+                <div class="col-md-6">
+                    <h3 style="color:dodgerblue">Tên học viên : @Model.TenHocVien</h3>
+                    <h4>Giới tính : @Model.GioiTinh</h4>
+                    <h4>Ngày sinh : @Model.NgaySinh</h4>
+                    <h4>Địa chỉ : @Model.DiaChi</h4>
+                    <h4>Số điện thoại : @Model.SDT</h4>
+                    <h4>Tham gia vào : @Model.NgayDangKy</h4>
+                </div>
+                <div class="col-md-6">
+                    <h4>Email : @Model.Email</h4>
+                    <h4>Địa chỉ cư trú : @Model.DiaChi</h4>
+
+                    <h4>Trạng thái : @(Model.TrangThai.GetValueOrDefault(false)? "Đang hoạt động" : "Đã nghỉ")</h4>
+                    <h4>Nguồn : @Model.Nguon</h4>
+                </div>
+                <div class="col-md-12">
+                    <h4>Ghi chú : @Model.GhiChu</h4>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <h3>Thông tin phụ huynh</h3>
+        <hr />
+        @foreach (var item in list)
+        {
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>Tên phụ huynh : @item.TenPhuHuynh</h4>
+                </div>
+                <div class="col-md-2">
+                    <h4>Giới tính : @item.GioiTinh</h4>
+                </div>
+                <div class="col-md-4">
+                    <h4>Số điện thoại: @item.SDT</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>Địa chỉ : @item.DiaChi</h4>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="modal-footer">
+        <p>
+            @*<a href="~/GiaoVien/Edit/@Model.MaGiaoVien" class="btn btn-success">Sửa thông tin</a>*@
+            <a href="~/GiaoVien/Index" class="btn btn-default">Quay lại</a>
+        </p>
+    </div>
+</div>

@@ -114,10 +114,6 @@ namespace QuanLyTrungTam.Controllers
             var lopHoc = new LopHoc();
             var hoaDon = new HoaDon();
 
-
-
-
-
             return RedirectToAction("Index");
         }
 
@@ -167,7 +163,7 @@ namespace QuanLyTrungTam.Controllers
         public ActionResult Edit(int id)
         {
             SetViewBagHoaDon();
-            var _hocVien = new HocVienDao().ViewDetails(id);
+            var _hocVien = new HoaDonDao().ViewDetail(id);
 
             return View(_hocVien);
         }
