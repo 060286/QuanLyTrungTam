@@ -1,4 +1,5 @@
 ﻿using Models.Framework;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,17 @@ namespace Models.DAO
         public TrinhDoDao()
         {
             _context = new eCenterDbContext();
+        }
+
+        public IEnumerable<TrinhDo> ListAllPaging(string searchString, int page, int pageSize)
+        {
+            IQueryable<TrinhDo> model = _context.TrinhDoes;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                model = model.Where(x => x.TenTrinhDo.Contains(searchString) || x.TenTrinhDo.Contains(searchString));
+            }
+
+            return model.OrderBy(x => x.MaTrinhDo).ToPagedList(page, pageSize);
         }
 
         public List<TrinhDo> ListAll()
@@ -57,6 +69,23 @@ namespace Models.DAO
             catch (Exception ex)
             {
                 return false;
+            }
+        }
+
+        public bool Delete(int maTrinhDo)
+        {
+          
+            try
+            {
+                var _trinhDo = _context.TrinhDoes.Find(maTrinhDo);
+                _context.TrinhDoes.Remove(_trinhDo);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+                throw ex;
             }
         }
     }

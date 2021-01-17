@@ -171,11 +171,25 @@ namespace QuanLyTrungTam.Controllers
 
         // POST: HoaDon/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(HoaDon _hoaDon)
         {
             try
             {
                 // TODO: Add update logic here
+                var _hoaDonDao = new HoaDonDao();
+
+                var res = _hoaDonDao.Update(_hoaDon);
+                if (res)
+                {
+
+
+                    return RedirectToAction("Index", "HoaDon");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Cập nhật lỗi");
+                }
+
                 SetViewBagHoaDon();
                 return RedirectToAction("Index");
             }
@@ -186,18 +200,19 @@ namespace QuanLyTrungTam.Controllers
         }
 
         // GET: HoaDon/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete()
         {
             return View();
         }
 
         // POST: HoaDon/Delete/5
         [HttpDelete]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
                 // TODO: Add delete logic here
+                new HoaDonDao().Delete(id);
 
                 return RedirectToAction("Index");
             }
@@ -230,6 +245,33 @@ namespace QuanLyTrungTam.Controllers
                 MaKhoaHoc = x.MaKhoaHoc,
             }).ToList();
 
+        }
+
+        public ActionResult ChiTietHoaDon(int id)
+        {
+            var hoaDonDao = new HoaDonDao().ViewDetail(id);
+
+            var ctHDDao = new HoaDonDao().getBill(id);
+
+            var details = new HoaDonViewModels();
+
+            details.MaHoaDon = hoaDonDao.MaHoaDon;
+            details.MaHocVien = hoaDonDao.MaHocVien;
+            details.MaKhoaHoc = hoaDonDao.MaKhoaHoc;
+            details.MaLopHoc = hoaDonDao.MaLopHoc;
+            if(ctHDDao!= null)
+            {
+               details.SoLuong = ctHDDao.SoLuong;
+            }
+            else
+            {
+                details.SoLuong = 0;
+            }
+            details.TinhTrang = hoaDonDao.TinhTrang;
+            details.TongTien = hoaDonDao.TongTien;
+
+            ViewBag.MaHoaDon = details.MaHoaDon;
+            return View(details);
         }
     }
 }

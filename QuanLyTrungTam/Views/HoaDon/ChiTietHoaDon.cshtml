@@ -1,0 +1,91 @@
+﻿@model QuanLyTrungTam.ViewModels.HoaDonViewModels
+
+@{
+    ViewBag.Title = "ChiTietHoaDon";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ChiTietHoaDon</h2>
+
+<div>
+    <h4>HoaDonViewModels</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MaHoaDon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaHoaDon)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TongTien)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TongTien)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayLap)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayLap)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GhiChu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GhiChu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TinhTrang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TinhTrang)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaKhoaHoc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaKhoaHoc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaLopHoc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaLopHoc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaHocVien)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaHocVien)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoLuong)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoLuong)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
