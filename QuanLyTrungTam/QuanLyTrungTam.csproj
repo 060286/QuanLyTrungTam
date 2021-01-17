@@ -192,6 +192,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\DangKyKHViewModels.cs" />
     <Compile Include="ViewModels\GiaoVienViewModel.cs" />
+    <Compile Include="ViewModels\HoaDonViewModels.cs" />
     <Compile Include="ViewModels\HocVienDetailsViewModels.cs" />
     <Compile Include="ViewModels\HocVienViewModels.cs" />
     <Compile Include="ViewModels\KhoaHocDetailsViewModels.cs" />

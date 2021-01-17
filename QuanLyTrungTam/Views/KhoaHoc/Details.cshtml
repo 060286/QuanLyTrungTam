@@ -2,82 +2,85 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>KhoaHoc</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DanhMucKhoaHoc.TenDanhMuc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DanhMucKhoaHoc.TenDanhMuc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TenKhoaHoc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenKhoaHoc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TinhTrang)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TinhTrang)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MoTa)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MoTa)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MaGiaoVien)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MaGiaoVien)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SoTuan)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SoTuan)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LuaTuoiPhuHop)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LuaTuoiPhuHop)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model=>model.SoLuong)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model=>model.SoLuong)
-        </dd>
-
-    </dl>
+<div class="modal-header bg-olive">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" style="font-size:25px">Chi tiết khóa học</h4>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaKhoaHoc }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="modal-body form-horizontal" style="flex:auto">
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.DanhMucKhoaHoc.TenDanhMuc)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DanhMucKhoaHoc.TenDanhMuc)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TenKhoaHoc)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TenKhoaHoc)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TinhTrang)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TinhTrang)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.MoTa)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MoTa)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.MaGiaoVien)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MaGiaoVien)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SoTuan)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SoTuan)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LuaTuoiPhuHop)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LuaTuoiPhuHop)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SoLuong)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SoLuong)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        <a class="btn btn-danger" href="/KhoaHoc/Index">Quay lại</a>
+    </p>
+</div>
