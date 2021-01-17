@@ -2,65 +2,34 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
-
-<h2>Details</h2>
-
-<div>
-    <h4>HoaDon</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TongTien)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TongTien)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NgayLap)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NgayLap)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TinhTrang)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TinhTrang)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MaKhoaHoc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MaKhoaHoc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MaLopHoc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MaLopHoc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MaHocVien)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MaHocVien)
-        </dd>
-
-    </dl>
+<div class="modal-header bg-olive">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" style="font-size:25px; color:black">Chi tiết hóa đơn</h4>
 </div>
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="modal-body form-horizontal">
+    <div class="container" margin-top: 20px">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 style="color:dodgerblue">Thông tin hóa đơn</h3>
+                <div class="col-md-6">
+                    <h4>Hóa đơn : @Model.MaHoaDon</h4>
+                    <h4>Khóa học : @Model.MaKhoaHoc</h4>
+                    <h4>Lớp học: @Model.MaLopHoc</h4>
+                    <h4>Học viên: @Model.MaHocVien</h4>
+                    <h4>Tổng tiền: @Model.TongTien VNĐ</h4>
+
+                </div>
+                <div class="col-md-6">
+                    <h4>Tình Trạng: @Model.TinhTrang</h4>
+                    <h4>Ghi chú: @Model.GhiChu</h4>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

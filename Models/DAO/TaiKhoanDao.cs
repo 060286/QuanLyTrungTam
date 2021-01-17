@@ -1,5 +1,6 @@
 ﻿//using Microsoft.Analytics.Interfaces;
 //using Microsoft.Analytics.Types.Sql;
+using Common1;
 using Models.Framework;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace Models
                         join b in context.VaiTroes on a.MaVaiTro equals b.MaVaiTro
                         join c in context.ChucNangs on a.MaChucNang equals c.MaChucNang
                         where b.MaVaiTro == user.MaVaiTro
-                        select new 
+                        select new
                         {
                             MaVaiTro = a.MaVaiTro,
                             MaChucNang = a.MaChucNang
@@ -61,21 +62,36 @@ namespace Models
             {
                 return 0;
             }
-            else 
+            else
             {
-                if(result.TrangThai == false)
+                //if(isLoginAdmin == true)
+                //{
+                //    {
+                //        if (result.MaVaiTro == CommonConstants.ADMIN_GROUP || result.MaVaiTro == CommonConstants.USER_GROUP)
+                //        {
+                //            if (result.MatKhau == matKhau)
+                //            {
+                //                return 1;
+                //            }
+                //            else
+                //                return -1;
+                //        }
+                //    }
+                //    return 2;
+                //}
+
+                if (result.TrangThai == false)
                 {
                     return -1;
-                }    
+                }
                 else
                 {
-                    if (result.MatKhau == matKhau) 
+                    if (result.MatKhau == matKhau)
                         return 1;
-                    else 
+                    else
                         return -2;
                 }
-                
-            }   
+            }
         }
 
 
@@ -91,5 +107,5 @@ namespace Models
             return context.DangNhaps.SingleOrDefault(x => x.TaiKhoan == taiKhoan);
         }
     }
-    
+
 }

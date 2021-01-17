@@ -451,5 +451,30 @@ namespace QuanLyTrungTam.Controllers
             return View(details);
         }
 
+        [HttpGet]
+        public ActionResult EditCategoryCourse(int id)
+        {
+            var model = new DanhMucKhoaHocDao().ViewDetails(id);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult EditCategoryCourse(DanhMucKhoaHoc _danhMuc)
+        {
+            var _dao = new DanhMucKhoaHocDao();
+
+            var res = _dao.Update(_danhMuc);
+            if (res)
+            {
+                return RedirectToAction("Index", "KhoaHoc");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Cập nhật lỗi");
+            }
+        
+            return View(_danhMuc);
+        }
     }
 }

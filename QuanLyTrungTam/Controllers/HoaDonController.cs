@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using System.Linq;
 using System.Data.Entity;
 using QuanLyTrungTam.Models;
+using QuanLyTrungTam.ViewModels;
 
 namespace QuanLyTrungTam.Controllers
 {
@@ -114,10 +115,6 @@ namespace QuanLyTrungTam.Controllers
             var lopHoc = new LopHoc();
             var hoaDon = new HoaDon();
 
-
-
-
-
             return RedirectToAction("Index");
         }
 
@@ -167,7 +164,7 @@ namespace QuanLyTrungTam.Controllers
         public ActionResult Edit(int id)
         {
             SetViewBagHoaDon();
-            var _hocVien = new HocVienDao().ViewDetails(id);
+            var _hocVien = new HoaDonDao().ViewDetail(id);
 
             return View(_hocVien);
         }
@@ -222,15 +219,17 @@ namespace QuanLyTrungTam.Controllers
         }
 
 
-        public void ExportToExcel()
+        public void DanhSachHoaDon()
         {
-            List<HoaDon> hoaDonList = db.HoaDons.Select(x => new HoaDon
+            List<HoaDonViewModels> hoaDonList = db.HoaDons.Select(x => new HoaDonViewModels
             {
                 MaHoaDon = x.MaHoaDon,
                 NgayLap = x.NgayLap,
                 TinhTrang = x.TinhTrang,
-                MaHocVien = x.MaHocVien
+                MaHocVien = x.MaHocVien,
+                MaKhoaHoc = x.MaKhoaHoc,
             }).ToList();
+
         }
     }
 }

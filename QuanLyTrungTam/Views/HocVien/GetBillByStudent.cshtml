@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Models.Framework.HoaDon>
+
+@{
+    ViewBag.Title = "GetBillByStudent";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row" style="margin-top:50px">
+    <h2>Giáo viên : @ViewBag.TenHocVien </h2>
+    <h3>Danh sách hóa đơn của học vien</h3>
+</div>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HocVien.TenHocVien)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LopHoc.TenLopHoc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TongTien)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayLap)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GhiChu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TinhTrang)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaKhoaHoc)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HocVien.TenHocVien)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LopHoc.TenLopHoc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TongTien)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayLap)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GhiChu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TinhTrang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaKhoaHoc)
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+<a class="btn btn-danger" href="/HocVien/Index" style="margin-bottom:50px">Quay lại</a>

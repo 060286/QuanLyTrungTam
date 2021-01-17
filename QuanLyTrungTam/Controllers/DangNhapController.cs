@@ -18,9 +18,11 @@ namespace QuanLyTrungTam.Controllers
        
 
         // GET: DangNhap
-        public ActionResult Index(DangNhap dn)
+        public ActionResult Index(UserLogin userLogin)
         {
-            return View(dn);
+            var model = new DangNhapDao().ViewDetails(userLogin.UserId);
+
+            return View(model);
         }
 
         [ValidateAntiForgeryToken]

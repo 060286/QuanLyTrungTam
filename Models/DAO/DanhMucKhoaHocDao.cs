@@ -32,5 +32,26 @@ namespace Models.DAO
         {
             return _context.DanhMucKhoaHocs.SingleOrDefault(x => x.MaDanhMuc == maDanhMuc);
         }
+
+        public bool Update(DanhMucKhoaHoc entity)
+        {
+            try
+            {
+                var _danhMucKhoaHoc = _context.DanhMucKhoaHocs.Find(entity.MaDanhMuc);
+                _danhMucKhoaHoc.TenDanhMuc = entity.TenDanhMuc;
+                
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public DanhMucKhoaHoc ViewDetails(int id)
+        {
+            return _context.DanhMucKhoaHocs.Find(id);
+        }
     }
 }

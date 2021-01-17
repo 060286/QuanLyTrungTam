@@ -46,6 +46,11 @@ namespace Models
             return _context.GiaoViens.SingleOrDefault(x=>x.TenGiaoVien == tenGiaoVien);
         }
 
+        public IEnumerable<KhoaHoc> getListCourseByTeacher(int id)
+        {
+            return _context.KhoaHocs.Where(x => x.MaGiaoVien == id).ToList();
+        }
+
         // Sắp xếp thứ tự tăng dần
         public IEnumerable<GiaoVien> ListAllPaging(string searchString,int page, int pageSize)
         {

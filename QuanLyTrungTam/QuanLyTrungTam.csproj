@@ -192,6 +192,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\DangKyKHViewModels.cs" />
     <Compile Include="ViewModels\GiaoVienViewModel.cs" />
+    <Compile Include="ViewModels\HoaDonViewModels.cs" />
     <Compile Include="ViewModels\HocVienDetailsViewModels.cs" />
     <Compile Include="ViewModels\HocVienViewModels.cs" />
     <Compile Include="ViewModels\KhoaHocDetailsViewModels.cs" />
@@ -344,6 +345,9 @@
     <Content Include="Views\KhoaHoc\EditSchedule.cshtml" />
     <Content Include="Views\KhoaHoc\ChiTietKhoaHoc.cshtml" />
     <Content Include="Views\HocVien\ChiTietHocVien.cshtml" />
+    <Content Include="Views\GiaoVien\GetCourseByTeacher.cshtml" />
+    <Content Include="Views\KhoaHoc\EditCategoryCourse.cshtml" />
+    <Content Include="Views\HocVien\GetBillByStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

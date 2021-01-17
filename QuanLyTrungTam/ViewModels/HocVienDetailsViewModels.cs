@@ -10,8 +10,6 @@ namespace QuanLyTrungTam.ViewModels
 {
     public class HocVienDetailsViewModels
     {
-       
-
         [Key]
         public int MaHocVien { get; set; }
 
