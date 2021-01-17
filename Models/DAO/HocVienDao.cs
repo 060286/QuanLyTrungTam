@@ -171,13 +171,27 @@ namespace Models.DAO
             }
         }
 
-        public bool Delete(int maGiaoVien)
+        public bool Delete(int maHocVien)
         {
             try
             {
-                var _hocVien = context.HocViens.Find(maGiaoVien);
-                context.HocViens.Remove(_hocVien);
-                context.SaveChanges();
+                var _hocVien = context.HocViens.Find(maHocVien);
+                var list = context.BangDiems.Where(x => x.MaHocVien == maHocVien).ToList();
+                if (list.Count() > 0)
+                {
+                    for (int i = 0; i < list.Count(); i++)
+                    {
+                        context.BangDiems.Remove(list[i]);
+                    }
+                    context.HocViens.Remove(_hocVien);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    context.HocViens.Remove(_hocVien);
+                    context.SaveChanges();
+                }   
+                
                 return true;
             }
             catch (Exception ex)
