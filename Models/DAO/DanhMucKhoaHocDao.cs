@@ -19,7 +19,7 @@ namespace Models.DAO
 
         public List<DanhMucKhoaHoc> ListAll()
         {
-            return _context.DanhMucKhoaHocs.ToList();
+            return _context.DanhMucKhoaHocs.Where(x=>x.TinhTrang == true).ToList();
         }
 
         public IEnumerable<DanhMucKhoaHoc> ListAllPaging(string  searchString,int page, int pageSize)
@@ -70,7 +70,8 @@ namespace Models.DAO
             try
             {
                 var _danhMuc = _context.DanhMucKhoaHocs.Find(_maDanhMuc);
-                _context.DanhMucKhoaHocs.Remove(_danhMuc);
+                //_context.DanhMucKhoaHocs.Remove(_danhMuc);
+                _danhMuc.TinhTrang = false;
                 _context.SaveChanges();
                 return true;
             }

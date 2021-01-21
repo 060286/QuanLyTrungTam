@@ -21,6 +21,8 @@ namespace Models.Framework
         [StringLength(100)]
         public string TenDanhMuc { get; set; }
 
+        public bool TinhTrang { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KhoaHoc> KhoaHocs { get; set; }
     }

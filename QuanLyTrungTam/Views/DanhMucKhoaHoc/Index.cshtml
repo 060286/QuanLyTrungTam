@@ -38,20 +38,24 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                        <tr id="row_@item.MaDanhMuc">
-                                            <td>@item.MaDanhMuc</td>
-                                            <td>@item.TenDanhMuc</td>
-                                            <td>
-                                                <a href="/DanhMucKhoaHoc/Edit/@item.MaDanhMuc">Sửa</a>
-                                                <a href="/DanhMucKhoaHoc/Details/@item.MaDanhMuc">Chi tiết</a>
-                                                @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaDanhMuc }, new AjaxOptions
-                                           {
-                                               Confirm = "Bạn có muốn xóa giáo viên này",
-                                               OnComplete = "$('#row_" + item.MaDanhMuc + "').remove()",
-                                               HttpMethod = "Delete"
-                                           })
-                                            </td>
-                                        </tr>
+                                        if (item.TinhTrang == true)
+                                        {
+                                            <tr id="row_@item.MaDanhMuc">
+                                                <td>@item.MaDanhMuc</td>
+                                                <td>@item.TenDanhMuc</td>
+                                                <td>
+                                                    <a href="/DanhMucKhoaHoc/Edit/@item.MaDanhMuc">Sửa</a>
+                                                    <a href="/DanhMucKhoaHoc/Details/@item.MaDanhMuc">Chi tiết</a>
+                                                    @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaDanhMuc }, new AjaxOptions
+                                               {
+                                                   Confirm = "Bạn có muốn xóa giáo viên này",
+                                                   OnComplete = "$('#row_" + item.MaDanhMuc + "').remove()",
+                                                   HttpMethod = "Delete"
+                                               })
+                                                </td>
+                                            </tr>
+                                        }
+
                                     }
                                 </tbody>
                             </table>

@@ -1,5 +1,6 @@
 ﻿using Models.DAO;
 using Models.Framework;
+using QuanLyTrungTam.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace QuanLyTrungTam.Controllers
     public class TrinhDoController : Controller
     {
         // GET: TrinhDo
+        [HasCredential(Roles = "Xem_TrinhDo")]
         public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
         {
             var trinhDoDao = new TrinhDoDao();
@@ -36,29 +38,22 @@ namespace QuanLyTrungTam.Controllers
         [HttpPost]
         public ActionResult Create(TrinhDo trinhDo)
         {
-            try
-            {
-                // TODO: Add insert logic here
-                if (ModelState.IsValid)
-                {
-                    var trinhDoDao = new TrinhDoDao();
+            // TODO: Add insert logic here
+            var trinhDoDao = new TrinhDoDao();
 
-                    int maTrinhDo = trinhDoDao.Insert(trinhDo);
-                    if (maTrinhDo > 0)
-                    {
-                        return RedirectToAction("Index", "DanhMucHoaDon");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Thêm thất bại");
-                    }
-                }
-                return View(trinhDo);
-            }
-            catch
+            int maTrinhDo = trinhDoDao.Insert(trinhDo);
+            if (maTrinhDo > 0)
             {
-                return View();
+                return RedirectToAction("Index", "DanhMucHoaDon");
             }
+            else
+            {
+                ModelState.AddModelError("", "Thêm thất bại");
+            }
+
+            return View(trinhDo);
+
+
         }
 
         // GET: TrinhDo/Edit/5
@@ -75,7 +70,7 @@ namespace QuanLyTrungTam.Controllers
             try
             {
                 // TODO: Add update logic here
-                if(ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
                     var _trinhDoDao = new TrinhDoDao();
 

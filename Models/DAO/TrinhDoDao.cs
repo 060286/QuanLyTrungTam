@@ -79,6 +79,7 @@ namespace Models.DAO
             {
                 var _trinhDo = _context.TrinhDoes.Find(maTrinhDo);
                 _context.TrinhDoes.Remove(_trinhDo);
+                _trinhDo.TinhTrang = false;
                 _context.SaveChanges();
                 return true;
             }

@@ -176,21 +176,24 @@ namespace Models.DAO
             try
             {
                 var _hocVien = context.HocViens.Find(maHocVien);
-                var list = context.BangDiems.Where(x => x.MaHocVien == maHocVien).ToList();
-                if (list.Count() > 0)
-                {
-                    for (int i = 0; i < list.Count(); i++)
-                    {
-                        context.BangDiems.Remove(list[i]);
-                    }
-                    context.HocViens.Remove(_hocVien);
-                    context.SaveChanges();
-                }
-                else
-                {
-                    context.HocViens.Remove(_hocVien);
-                    context.SaveChanges();
-                }   
+                //var list = context.BangDiems.Where(x => x.MaHocVien == maHocVien).ToList();
+                //if (list.Count() > 0)
+                //{
+                //    for (int i = 0; i < list.Count(); i++)
+                //    {
+                //        context.BangDiems.Remove(list[i]);
+                //    }
+                //    context.HocViens.Remove(_hocVien);
+                //    context.SaveChanges();
+                //}
+                //else
+                //{
+                //    context.HocViens.Remove(_hocVien);
+                //    context.SaveChanges();
+                //}   
+
+                _hocVien.TrangThai = false;
+                context.SaveChanges();
                 
                 return true;
             }

@@ -100,7 +100,7 @@ namespace Models.DAO
             try
             {
                 var _hoaDon = _context.HoaDons.Find(id);
-                _context.HoaDons.Remove(_hoaDon);
+                _hoaDon.TinhTrang = false;
                 _context.SaveChanges();
                 return true;
             }

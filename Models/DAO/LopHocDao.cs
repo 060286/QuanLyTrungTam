@@ -20,8 +20,16 @@ namespace Models.DAO
         public int Insert(LopHoc entity)
         {
             _context.LopHocs.Add(entity);
+
+            entity.MaLopHoc = idMax() + 1;
+
             _context.SaveChanges();
             return entity.MaLopHoc;
+        }
+
+        public int idMax()
+        {
+            return _context.LopHocs.Max(x => x.MaLopHoc);
         }
 
         public List<LopHoc> ListAll()
@@ -124,7 +132,8 @@ namespace Models.DAO
             try
             {
                 var _lopHoc = _context.LopHocs.Find(id);
-                _context.LopHocs.Remove(_lopHoc);
+                //_context.LopHocs.Remove(_lopHoc);
+                _lopHoc.TinhTrang = false;
                 _context.SaveChanges();
                 return true;
             }

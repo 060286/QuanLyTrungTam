@@ -163,7 +163,8 @@ namespace Models.DAO
             try
             {
                 var _khoaHoc = _context.KhoaHocs.Find(id);
-                _context.KhoaHocs.Remove(_khoaHoc);
+                //_context.KhoaHocs.Remove(_khoaHoc);
+                _khoaHoc.TinhTrang = false;
                 _context.SaveChanges();
                 return true;
             }

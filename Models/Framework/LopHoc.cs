@@ -17,7 +17,6 @@ namespace Models.Framework
         }
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MaLopHoc { get; set; }
 
         [StringLength(100)]

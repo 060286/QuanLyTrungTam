@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Linq;
 using System.Data.Entity;
 using QuanLyTrungTam.Models;
 using QuanLyTrungTam.ViewModels;
@@ -19,7 +18,7 @@ namespace QuanLyTrungTam.Controllers
     {
         private eCenterDbContext db = new eCenterDbContext();
         // GET: HoaDon
-        [HasCredential(Roles = "Xem_HoaDon")]
+        //[HasCredential(Roles = "Xem_HoaDon")]
         public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
         {
             ViewBag.Current = DateTime.UtcNow;
@@ -88,10 +87,15 @@ namespace QuanLyTrungTam.Controllers
             ViewBag.MaHocVien = new SelectList(daoHocVien.ListAll(), "MaHocVien", "TenHocVien", maHocVien);
         }
 
+
         // GET: HoaDon/Details/5
         public ActionResult Details(int id)
         {
             var hoaDon = new HoaDonDao().ViewDetail(id);
+
+            ViewBag.TenHocVien = new HocVienDao().ViewDetails(hoaDon.MaHocVien.GetValueOrDefault(0)).TenHocVien;
+            ViewBag.TenLopHoc = new LopHocDao().ViewDetail(hoaDon.MaLopHoc.GetValueOrDefault(0)).TenLopHoc;
+            ViewBag.TenKhoaHoc = new KhoaHocDao().ViewDetail(hoaDon.MaKhoaHoc.GetValueOrDefault(0)).TenKhoaHoc;
 
             return View(hoaDon);
         }

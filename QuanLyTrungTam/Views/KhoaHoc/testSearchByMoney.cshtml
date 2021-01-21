@@ -192,33 +192,36 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                        <tr id="row_@item.MaKhoaHoc">
-                                            <td>@item.MaKhoaHoc</td>
-                                            <td>@item.TenKhoaHoc</td>
-                                            <td>@item.SoTuan</td>
-                                            <td>@item.LuaTuoiPhuHop</td>
-                                            <td>@item.MoTa</td>
-                                            <td>@item.SoLuong</td>
-                                            <td>
-                                                <a class="text-center btn btn-primary" href="/GiaoVien/Edit/@item.MaGiaoVien"
-                                                   data-toggle="modal" data-target="#modal-capNhat-@item.MaGiaoVien"
-                                                   data-backdrop="static" data-keyboard="false">Sửa &nbsp;</a>
-                                                <div class="modal fade" id="modal-capNhat-@item.MaGiaoVien">
-                                                    <div class="modal-dialog modal-lg">
-                                                        <div class="modal-content">
+                                        if (item.TinhTrang == true)
+                                        {
+                                            <tr id="row_@item.MaKhoaHoc">
+                                                <td>@item.MaKhoaHoc</td>
+                                                <td>@item.TenKhoaHoc</td>
+                                                <td>@item.SoTuan</td>
+                                                <td>@item.LuaTuoiPhuHop</td>
+                                                <td>@item.MoTa</td>
+                                                <td>@item.SoLuong</td>
+                                                <td>
+                                                    <a class="text-center btn btn-primary" href="/GiaoVien/Edit/@item.MaGiaoVien"
+                                                       data-toggle="modal" data-target="#modal-capNhat-@item.MaGiaoVien"
+                                                       data-backdrop="static" data-keyboard="false">Sửa &nbsp;</a>
+                                                    <div class="modal fade" id="modal-capNhat-@item.MaGiaoVien">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                                <a href="/KhoaHoc/Details/@item.MaKhoaHoc" class="btn btn-primary" @*data-toggle="modal" data-target="#modal-details-@item.MaGiaoVien" data-backdrop="static" data-keyboard="false"*@>Chi tiết</a>
-                                                @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaKhoaHoc }, new AjaxOptions
-                                                {
-                                                Confirm = "Bạn có muốn xóa khóa học này",
-                                                OnComplete = "$('#row_" + item.MaKhoaHoc + "').remove()",
-                                                HttpMethod = "Delete"
-                                                }, new { @class = "btn btn-primary" })
-                                            </td>
-                                        </tr>
+                                                    <a href="/KhoaHoc/Details/@item.MaKhoaHoc" class="btn btn-primary" @*data-toggle="modal" data-target="#modal-details-@item.MaGiaoVien" data-backdrop="static" data-keyboard="false"*@>Chi tiết</a>
+                                                    @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaKhoaHoc }, new AjaxOptions
+                                                    {
+                                                    Confirm = "Bạn có muốn xóa khóa học này",
+                                                    OnComplete = "$('#row_" + item.MaKhoaHoc + "').remove()",
+                                                    HttpMethod = "Delete"
+                                                    }, new { @class = "btn btn-primary" })
+                                                </td>
+                                            </tr>
+                                        }
                                     }
                                 </tbody>
                             </table>

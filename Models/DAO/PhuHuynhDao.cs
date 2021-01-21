@@ -70,6 +70,7 @@ namespace Models.DAO
         public List<PhuHuynh> GetListParents(int id)
         {
             return _context.PhuHuynhs.Where(x => x.MaHocVien == id).ToList();
+
         }
     }
 }
