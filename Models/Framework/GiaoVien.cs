@@ -12,6 +12,7 @@ namespace Models.Framework
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public GiaoVien()
         {
+            KhoaHocs = new HashSet<KhoaHoc>();
             LopHocs = new HashSet<LopHoc>();
         }
 
@@ -48,8 +49,7 @@ namespace Models.Framework
         [StringLength(100)]
         public string GhiChu { get; set; }
 
-        [StringLength(10)]
-        public string MaTrinhDo { get; set; }
+        public int? MaTrinhDo { get; set; }
 
         public string DiaChi { get; set; }
 
@@ -60,9 +60,12 @@ namespace Models.Framework
 
         public virtual GV_DiemDanh GV_DiemDanh { get; set; }
 
+        public virtual TrinhDo TrinhDo { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KhoaHoc> KhoaHocs { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LopHoc> LopHocs { get; set; }
-
-        public virtual TrinhDo TrinhDo { get; set; }
     }
 }

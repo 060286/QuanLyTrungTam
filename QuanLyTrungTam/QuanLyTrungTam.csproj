@@ -168,6 +168,7 @@
     <Compile Include="Controllers\CartCourseController.cs" />
     <Compile Include="Controllers\DangKyKHController.cs" />
     <Compile Include="Controllers\DangNhapController.cs" />
+    <Compile Include="Controllers\DanhMucKhoaHocController.cs" />
     <Compile Include="Controllers\GiaoVienController.cs" />
     <Compile Include="Controllers\HoaDonController.cs" />
     <Compile Include="Controllers\HocVienController.cs" />
@@ -177,6 +178,7 @@
     <Compile Include="Controllers\LopHocController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\DiemDanhController.cs" />
+    <Compile Include="Controllers\TrinhDoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -244,6 +246,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Error.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -348,6 +351,15 @@
     <Content Include="Views\GiaoVien\GetCourseByTeacher.cshtml" />
     <Content Include="Views\KhoaHoc\EditCategoryCourse.cshtml" />
     <Content Include="Views\HocVien\GetBillByStudent.cshtml" />
+    <Content Include="Views\DanhMucKhoaHoc\Edit.cshtml" />
+    <Content Include="Views\DanhMucKhoaHoc\Create.cshtml" />
+    <Content Include="Views\DanhMucKhoaHoc\Index.cshtml" />
+    <Content Include="Views\DanhMucKhoaHoc\Details.cshtml" />
+    <Content Include="Views\TrinhDo\Index.cshtml" />
+    <Content Include="Views\TrinhDo\Details.cshtml" />
+    <Content Include="Views\TrinhDo\Create.cshtml" />
+    <Content Include="Views\TrinhDo\Edit.cshtml" />
+    <Content Include="Views\HoaDon\ChiTietHoaDon.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

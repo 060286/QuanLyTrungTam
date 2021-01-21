@@ -1,6 +1,7 @@
 ﻿using Models.Framework;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -23,7 +24,7 @@ namespace QuanLyTrungTam.ViewModels
 
         public decimal GiaTien { get; set; }
 
-        public int TinhTrang { get; set; }
+        public bool? TinhTrang { get; set; }
 
         public string Mota { get; set; }
 
@@ -51,6 +52,7 @@ namespace QuanLyTrungTam.ViewModels
 
         public bool ChuNhat { get; set; }
 
+        [DataType(DataType.Time)]
         public string ThoiGianHoc { get; set; }
     }
 }

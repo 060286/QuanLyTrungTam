@@ -1,0 +1,78 @@
+﻿@model PagedList.IPagedList<Models.Framework.DanhMucKhoaHoc>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page-content">
+    <!-- Page Header-->
+    <div class="page-header no-margin-bottom">
+        <div class="container-fluid">
+            <h2 class="h5 no-margin-bottom">Danh Sách Giáo Viên</h2>
+        </div>
+    </div>
+    <!-- Breadcrumb-->
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Danh Mục Khóa Học</li>
+        </ul>
+    </div>
+    <section class="no-padding-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="block margin-bottom-sm">
+                        <div class="title"><strong>Basic Table</strong></div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Mã Danh Muc</th>
+                                        <th>Tên Danh Mục</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        if (item.TinhTrang == true)
+                                        {
+                                            <tr id="row_@item.MaDanhMuc">
+                                                <td>@item.MaDanhMuc</td>
+                                                <td>@item.TenDanhMuc</td>
+                                                <td>
+                                                    <a href="/DanhMucKhoaHoc/Edit/@item.MaDanhMuc">Sửa</a>
+                                                    <a href="/DanhMucKhoaHoc/Details/@item.MaDanhMuc">Chi tiết</a>
+                                                    @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaDanhMuc }, new AjaxOptions
+                                               {
+                                                   Confirm = "Bạn có muốn xóa giáo viên này",
+                                                   OnComplete = "$('#row_" + item.MaDanhMuc + "').remove()",
+                                                   HttpMethod = "Delete"
+                                               })
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    }
+                                </tbody>
+                            </table>
+                            <br />
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="footer__block block no-margin-bottom">
+            <div class="container-fluid text-center">
+                <!-- Please do not remove the backlink to us unless you support us at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+                <p class="no-margin-bottom">2020 &copy; Your company. Design by <a href="https://bootstrapious.com/p/bootstrap-4-dark-admin">Bootstrapious</a>.</p>
+            </div>
+        </div>
+    </footer>
+</div>

@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Linq;
 using System.Data.Entity;
 using QuanLyTrungTam.Models;
 using QuanLyTrungTam.ViewModels;
@@ -19,7 +18,7 @@ namespace QuanLyTrungTam.Controllers
     {
         private eCenterDbContext db = new eCenterDbContext();
         // GET: HoaDon
-        [HasCredential(Roles = "Xem_HoaDon")]
+        //[HasCredential(Roles = "Xem_HoaDon")]
         public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
         {
             ViewBag.Current = DateTime.UtcNow;
@@ -88,10 +87,15 @@ namespace QuanLyTrungTam.Controllers
             ViewBag.MaHocVien = new SelectList(daoHocVien.ListAll(), "MaHocVien", "TenHocVien", maHocVien);
         }
 
+
         // GET: HoaDon/Details/5
         public ActionResult Details(int id)
         {
             var hoaDon = new HoaDonDao().ViewDetail(id);
+
+            ViewBag.TenHocVien = new HocVienDao().ViewDetails(hoaDon.MaHocVien.GetValueOrDefault(0)).TenHocVien;
+            ViewBag.TenLopHoc = new LopHocDao().ViewDetail(hoaDon.MaLopHoc.GetValueOrDefault(0)).TenLopHoc;
+            ViewBag.TenKhoaHoc = new KhoaHocDao().ViewDetail(hoaDon.MaKhoaHoc.GetValueOrDefault(0)).TenKhoaHoc;
 
             return View(hoaDon);
         }
@@ -171,11 +175,25 @@ namespace QuanLyTrungTam.Controllers
 
         // POST: HoaDon/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(HoaDon _hoaDon)
         {
             try
             {
                 // TODO: Add update logic here
+                var _hoaDonDao = new HoaDonDao();
+
+                var res = _hoaDonDao.Update(_hoaDon);
+                if (res)
+                {
+
+
+                    return RedirectToAction("Index", "HoaDon");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Cập nhật lỗi");
+                }
+
                 SetViewBagHoaDon();
                 return RedirectToAction("Index");
             }
@@ -186,18 +204,19 @@ namespace QuanLyTrungTam.Controllers
         }
 
         // GET: HoaDon/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete()
         {
             return View();
         }
 
         // POST: HoaDon/Delete/5
         [HttpDelete]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
                 // TODO: Add delete logic here
+                new HoaDonDao().Delete(id);
 
                 return RedirectToAction("Index");
             }
@@ -230,6 +249,33 @@ namespace QuanLyTrungTam.Controllers
                 MaKhoaHoc = x.MaKhoaHoc,
             }).ToList();
 
+        }
+
+        public ActionResult ChiTietHoaDon(int id)
+        {
+            var hoaDonDao = new HoaDonDao().ViewDetail(id);
+
+            var ctHDDao = new HoaDonDao().getBill(id);
+
+            var details = new HoaDonViewModels();
+
+            details.MaHoaDon = hoaDonDao.MaHoaDon;
+            details.MaHocVien = hoaDonDao.MaHocVien;
+            details.MaKhoaHoc = hoaDonDao.MaKhoaHoc;
+            details.MaLopHoc = hoaDonDao.MaLopHoc;
+            if(ctHDDao!= null)
+            {
+               details.SoLuong = ctHDDao.SoLuong;
+            }
+            else
+            {
+                details.SoLuong = 0;
+            }
+            details.TinhTrang = hoaDonDao.TinhTrang;
+            details.TongTien = hoaDonDao.TongTien;
+
+            ViewBag.MaHoaDon = details.MaHoaDon;
+            return View(details);
         }
     }
 }

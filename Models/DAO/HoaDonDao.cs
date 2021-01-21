@@ -15,6 +15,12 @@ namespace Models.DAO
             _context = new eCenterDbContext();
         }
 
+        public CT_HoaDon getBill(int id)
+        {
+            return _context.CT_HoaDon.FirstOrDefault(x => x.MaHoaDon == id);
+        }
+
+
         public int Insert(HoaDon entity)
         {
             _context.HoaDons.Add(entity);
@@ -93,8 +99,8 @@ namespace Models.DAO
         {
             try
             {
-                var _giaoVien = _context.HoaDons.Find(id);
-                _context.HoaDons.Remove(_giaoVien);
+                var _hoaDon = _context.HoaDons.Find(id);
+                _hoaDon.TinhTrang = false;
                 _context.SaveChanges();
                 return true;
             }

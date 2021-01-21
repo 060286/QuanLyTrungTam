@@ -28,7 +28,7 @@ namespace Models.Framework
         [Column(TypeName = "date")]
         public DateTime? NgayKetThuc { get; set; }
 
-        public int? TinhTrang { get; set; }
+        public bool? TinhTrang { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime? NgayBatDau { get; set; }

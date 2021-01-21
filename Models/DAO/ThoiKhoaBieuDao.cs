@@ -30,6 +30,11 @@ namespace Models.DAO
             return _context.ThoiKhoaBieux.Find(id);
         }
 
+        public ThoiKhoaBieu ViewDetailsByMaKhoaHoc(int id)
+        {
+            return _context.ThoiKhoaBieux.FirstOrDefault(x => x.MaKhoaHoc == id);
+        }
+
         public ThoiKhoaBieu getScheduleByCourse(int id)
         {
             return _context.ThoiKhoaBieux.FirstOrDefault(x => x.MaKhoaHoc == id);

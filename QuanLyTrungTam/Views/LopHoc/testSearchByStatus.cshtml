@@ -113,39 +113,43 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                        <tr id="row_@item.MaLopHoc">
-                                            <td>@item.MaLopHoc</td>
-                                            <td>@item.TenLopHoc</td>
-                                            <td>@(item.TinhTrang.GetValueOrDefault(false)? "Đang hoạt động" : "Ngừng hoạt động")</td>
-                                            <td>
-                                                <a href="/LopHoc/Edit/@item.MaLopHoc" data-toggle="modal"
-                                                   data-target="#modal-capNhat-@item.MaLopHoc" data-backdrop="static"
-                                                   data-keyboard="false" class="btn btn-primary">Sửa</a>
-                                                <div class="modal fade" id="modal-capNhat-@item.MaLopHoc">
-                                                    <div class="modal-dialog modal-lg">
-                                                        <div class="modal-content">
+                                        if (item.TinhTrang == true)
+                                        {
+                                            <tr id="row_@item.MaLopHoc">
+                                                <td>@item.MaLopHoc</td>
+                                                <td>@item.TenLopHoc</td>
+                                                <td>@(item.TinhTrang.GetValueOrDefault(false)? "Đang hoạt động" : "Ngừng hoạt động")</td>
+                                                <td>
+                                                    <a href="/LopHoc/Edit/@item.MaLopHoc" data-toggle="modal"
+                                                       data-target="#modal-capNhat-@item.MaLopHoc" data-backdrop="static"
+                                                       data-keyboard="false" class="btn btn-primary">Sửa</a>
+                                                    <div class="modal fade" id="modal-capNhat-@item.MaLopHoc">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                                <a href="/LopHoc/Details/@item.MaLopHoc" data-toggle="modal"
-                                                   data-target="#modal-chiTiet-@item.MaLopHoc" data-backdrop="static"
-                                                   data-keyboard="false" class="btn btn-primary">Chi tiết </a>
-                                                <div class="modal fade" id="modal-chiTiet-@item.MaLopHoc">
-                                                    <div class="modal-dialog modal-lg">
-                                                        <div class="modal-content">
+                                                    <a href="/LopHoc/Details/@item.MaLopHoc" data-toggle="modal"
+                                                       data-target="#modal-chiTiet-@item.MaLopHoc" data-backdrop="static"
+                                                       data-keyboard="false" class="btn btn-primary">Chi tiết </a>
+                                                    <div class="modal fade" id="modal-chiTiet-@item.MaLopHoc">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaLopHoc }, new AjaxOptions
-                                           {
-                                               Confirm = "Bạn có muốn xóa lớp học này",
-                                               OnComplete = "$('#row_" + item.MaLopHoc + "').remove()",
-                                               HttpMethod = "Delete"
-                                           },
-                                                new { @class = "btn btn-primary" })
-                                            </td>
-                                        </tr>
+                                                    @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaLopHoc }, new AjaxOptions
+                                               {
+                                                   Confirm = "Bạn có muốn xóa lớp học này",
+                                                   OnComplete = "$('#row_" + item.MaLopHoc + "').remove()",
+                                                   HttpMethod = "Delete"
+                                               },
+                                                    new { @class = "btn btn-primary" })
+                                                </td>
+                                            </tr>
+                                        }
+
                                     }
                                 </tbody>
                             </table>

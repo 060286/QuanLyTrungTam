@@ -60,18 +60,18 @@ namespace Models
                 model = model.Where(x => x.TenGiaoVien.Contains(searchString) || x.TenGiaoVien.Contains(searchString));
             }
 
-            return model.OrderBy(x=>x.MaGiaoVien).ToPagedList(page,pageSize);
+            return model.Where(i => i.TrangThai == true).OrderBy(x=>x.MaGiaoVien).ToPagedList(page,pageSize);
         }
 
         // Sắp xeeps theo thứ tự giảm dần
-        public IEnumerable<GiaoVien> ListAllOrderByDescending(/*string  searchString,*/int page,int pageSize)
+        public IEnumerable<GiaoVien> ListAllOrderByDescending(string  searchString,int page,int pageSize)
         {
             IQueryable<GiaoVien> model = _context.GiaoViens;
-            //if (!string.IsNullOrEmpty(searchString))
-            //{
-            //    model = model.Where(x => x.TenGiaoVien.Contains(searchString) || x.TenGiaoVien.Contains(searchString));
-            //}
-            return model.OrderByDescending(x => x.MaGiaoVien).ToPagedList(page, pageSize);
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                model = model.Where(x => x.TenGiaoVien.Contains(searchString) || x.TenGiaoVien.Contains(searchString));
+            }
+            return model.Where(i=>i.TrangThai == true).OrderByDescending(x => x.MaGiaoVien).ToPagedList(page, pageSize);
         }
         // Search by Gender
         public IEnumerable<GiaoVien> ListAllPagingByGender(string searchStringByGender, int page, int pageSize)
@@ -154,7 +154,7 @@ namespace Models
                 var _giaoVien = _context.GiaoViens.Find(entity.MaGiaoVien);
                 _giaoVien.TenGiaoVien = entity.TenGiaoVien;
                 _giaoVien.GioiTinh = entity.GioiTinh;
-                _giaoVien.HinhAnh = entity.HinhAnh;
+                //_giaoVien.HinhAnh = entity.HinhAnh;
                 _giaoVien.NgaySinh = entity.NgaySinh;
                 _giaoVien.Email = entity.Email;
                 _giaoVien.SDT = entity.SDT;

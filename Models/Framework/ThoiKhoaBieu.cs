@@ -12,29 +12,26 @@ namespace Models.Framework
         [Key]
         public int MaTKB { get; set; }
 
-        //[Column(TypeName = "date")]
-        //public DateTime? TuanBatDau { get; set; }
+        [Required]
+        [StringLength(50)]
         [DataType(DataType.Time)]
         public string ThoiGianHoc { get; set; }
 
-        //[Column(TypeName = "date")]
-        //public DateTime? TuanKetThuc { get; set; }
+        public bool ThuHai { get; set; }
 
-        public bool ThuHai { get; set; } = false;
+        public bool ThuBa { get; set; }
+
+        public bool ThuTu { get; set; }
+
+        public bool ThuNam { get; set; }
+
+        public bool ThuSau { get; set; }
+
+        public bool ThuBay { get; set; }
+
+        public bool ChuNhat { get; set; }
 
         public int? MaKhoaHoc { get; set; }
-
-        public bool ThuBa { get; set; } = false;
-
-        public bool ThuTu { get; set; } = false;
-
-        public bool ThuNam { get; set; } = false;
-
-        public bool ThuSau { get; set; } = false;
-
-        public bool ThuBay { get; set; } = false;
-
-        public bool ChuNhat { get; set; } = false;
 
         public virtual KhoaHoc KhoaHoc { get; set; }
     }

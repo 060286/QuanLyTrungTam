@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using Models.Framework;
@@ -12,11 +13,14 @@ namespace QuanLyTrungTam.Models
 
         //public DanhMucKhoaHoc DanhMucKhoaHoc { get; set; }
 
-        public ThoiKhoaBieu ThoiKhoaBieu { get; set; }
-
         public int MaGiaoVien { get; set; }
 
         public int MaDanhMuc { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        [DataType(DataType.Time)]
+        public string ThoiGianHoc { get; set; } 
 
         public bool ThuHai { get; set; }
 

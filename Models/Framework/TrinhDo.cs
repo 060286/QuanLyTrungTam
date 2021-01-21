@@ -9,6 +9,12 @@ namespace Models.Framework
     [Table("TrinhDo")]
     public partial class TrinhDo
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TrinhDo()
+        {
+            GiaoViens = new HashSet<GiaoVien>();
+        }
+
         [Key]
         public int MaTrinhDo { get; set; }
 
@@ -18,6 +24,9 @@ namespace Models.Framework
         [StringLength(100)]
         public string GhiChu { get; set; }
 
-        public virtual GiaoVien GiaoVien { get; set; }
+        public bool TinhTrang { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GiaoVien> GiaoViens { get; set; }
     }
 }

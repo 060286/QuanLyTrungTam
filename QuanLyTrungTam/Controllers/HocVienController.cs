@@ -386,7 +386,7 @@ namespace QuanLyTrungTam.Controllers
                     var res = _daoGiaoVien.Update(hocVien);
                     if (res)
                     {
-                        return RedirectToAction("Index", "GiaoVien");
+                        return RedirectToAction("Index", "HocVien");
                     }
                     else
                     {

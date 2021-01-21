@@ -14,7 +14,7 @@
 </div>
 
 <div class="modal-body form-horizontal">
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Create","LopHoc",FormMethod.Post))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })

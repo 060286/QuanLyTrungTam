@@ -11,7 +11,7 @@
     enctype = "multipart/form-data"
 }))
 {
-    <div class="modal-header bg-olive" >
+    <div class="modal-header bg-olive">
         <button type="button" class="close" data-dismiss="modal">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -52,7 +52,7 @@
                     @Html.LabelFor(model => model.HinhAnh, htmlAttributes: new { @class = "control-label col-md-4" })
                     <div class="col-md-8">
                         @*@Html.EditorFor(model => model.HinhAnh, new { htmlAttributes = new { @class = "form-control" , type = "file", required ="required"} })
-                        @Html.ValidationMessageFor(model => model.HinhAnh, "", new { @class = "text-danger" })*@
+                            @Html.ValidationMessageFor(model => model.HinhAnh, "", new { @class = "text-danger" })*@
                         <input type="file" name="HinhAnh" id="HinhAnh" required />
                     </div>
                 </div>
@@ -103,18 +103,6 @@
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.GhiChu, htmlAttributes: new { @class = "control-label col-md-4" })
-                    <div class="col-md-8">
-                        @Html.EditorFor(model => model.GhiChu, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.GhiChu, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="form-group">
                     @Html.LabelFor(model => model.DiaChi, htmlAttributes: new { @class = "control-label col-md-4" })
                     <div class="col-md-8">
                         @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
@@ -122,6 +110,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
                     @Html.LabelFor(model => model.TrangThai, htmlAttributes: new { @class = "control-label col-md-4" })
@@ -132,6 +123,18 @@
                     </div>
                 </div>
             </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.GhiChu, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.GhiChu,10,96, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.GhiChu, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="modal-footer">
@@ -139,7 +142,7 @@
                 <button type="submit" value="Create" class="btn bg-olive btn-success">Thêm Mới</button>
             </div>
             <div class="col-md-1">
-                <a class="btn btn-danger" href="~/HocVien/Index">Hủy bỏ</a>
+                <a class="btn btn-danger" href="~/GiaoVien/Index">Hủy bỏ</a>
             </div>
         </div>
     </div>

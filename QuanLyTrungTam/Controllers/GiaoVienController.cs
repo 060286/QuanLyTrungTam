@@ -31,7 +31,7 @@ namespace QuanLyTrungTam.Controllers
             return View(_modelGiaoVien);
         }
 
-        public ActionResult testListAllPagingOrderByDescending(int page = 1, int pageSize = 10)
+        public ActionResult testListAllPagingOrderByDescending(string searchString, int page = 1, int pageSize = 10)
         {
             ViewBag.TongGiaoVien = db.GiaoViens.Count();
             ViewBag.NhanVienNam = db.GiaoViens.Where(x => x.GioiTinh == "Nam").Count();
@@ -39,7 +39,7 @@ namespace QuanLyTrungTam.Controllers
             ViewBag.TongTienLuong = db.GiaoViens.Sum(x => x.MucLuong).ToString();
 
             var _daoGiaoVien = new GiaoVienDao();
-            var _modelGiaoVien = _daoGiaoVien.ListAllOrderByDescending(page, pageSize);
+            var _modelGiaoVien = _daoGiaoVien.ListAllOrderByDescending(searchString, page, pageSize);
 
             return View(_modelGiaoVien);
         }
@@ -210,30 +210,24 @@ namespace QuanLyTrungTam.Controllers
         [HttpPost]
         public ActionResult ThemMoiTrinhDo(TrinhDo trinhDo)
         {
-            maTrinhDo = db.TrinhDoes.Max(x => x.MaTrinhDo);
+            var trinhDoDao = new GiaoVienDao();
 
-            if (ModelState.IsValid)
+            //trinhDo.MaTrinhDo = maTrinhDo + 1;
+
+            int _maTrinhDo = trinhDoDao.InsertTrinhDo(trinhDo);
+
+            if (_maTrinhDo > 0)
             {
-                var trinhDoDao = new GiaoVienDao();
-
-                //trinhDo.MaTrinhDo = maTrinhDo + 1;
-
-                int _maTrinhDo = trinhDoDao.InsertTrinhDo(trinhDo);
-
-                if (_maTrinhDo > 0)
-                {
-                    SetAlert("Thêm thành công", 1);
-                    return RedirectToAction("Index", "GiaoVien");
-                }
-                else
-                {
-                    SetAlert("Thêm thất bại", 3);
-                    //ModelState.AddModelError("", "Thêm thất bại");
-                }
+                SetAlert("Thêm thành công", 1);
+                return RedirectToAction("Index", "GiaoVien");
             }
+            else
+            {
+                SetAlert("Thêm thất bại", 3);
+                //ModelState.AddModelError("", "Thêm thất bại");
+            }
+
             return View(trinhDo);
-
-
         }
 
         [HttpGet]

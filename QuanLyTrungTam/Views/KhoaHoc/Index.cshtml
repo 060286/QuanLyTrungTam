@@ -16,20 +16,33 @@
         <div class="container-fluid">
             <h2 class="h2 no-margin-bottom">Mục Quản Lý Khóa học</h2>
         </div>
-    </div>
-
-    <a class="btn btn-success" href="@Url.Action("Create","KhoaHoc")" data-toggle="modal" data-target="#modal-themMoiDMKH" data-backdrop="static" data-keyboard="false">Thêm khóa học</a>
-    <div class="modal fade" id="modal-themMoiDMKH">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+        <div class="container-fluid">
+            <a class="btn btn-success" href="@Url.Action("Create","KhoaHoc")"
+               data-toggle="modal" data-target="#modal-themMoiDMKH" data-backdrop="static"
+               data-keyboard="false">Thêm khóa học</a>
+            <div class="modal fade" id="modal-themMoiDMKH">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <a class="btn btn-primary" href="@Url.Action("TaoMoiVaSuaDanhMuc","KhoaHoc")" data-toggle="modal" data-target="#modal-themMoi" data-backdrop="static" data-keyboard="false">Thêm danh mục khóa học</a>
-    <div class="modal fade" id="modal-themMoi">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+            <a class="btn btn-success" href="@Url.Action("CreateDetails","KhoaHoc")"
+               data-toggle="modal" data-target="#modal-themMoiCTDMKH"
+               data-backdrop="static" data-keyboard="false">Thêm chi tiết khóa học</a>
+            <div class="modal fade" id="modal-themMoiCTDMKH">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                    </div>
+                </div>
+            </div>
+
+            <a class="btn btn-success" href="@Url.Action("TaoMoiVaSuaDanhMuc","KhoaHoc")" data-toggle="modal" data-target="#modal-themMoi" data-backdrop="static" data-keyboard="false">Thêm danh mục khóa học</a>
+            <div class="modal fade" id="modal-themMoi">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -38,7 +51,7 @@
     <br />
     <br />
     <!-- Breadcrumb-->
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin-top:-50px">
         <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="~/Home/Index">Trang chủ</a></li>
             <li class="breadcrumb-item active">Khóa học</li>
@@ -62,7 +75,7 @@
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
-                <div class="panel panel-primary">
+                <div class="panel panel-yellow">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
@@ -77,7 +90,7 @@
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
-                <div class="panel panel-primary">
+                <div class="panel panel-danger">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
@@ -92,7 +105,7 @@
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
-                <div class="panel panel-primary">
+                <div class="panel panel-success">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
@@ -202,73 +215,77 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                        <tr id="row_@item.MaKhoaHoc">
-                                            <td>@item.MaKhoaHoc</td>
-                                            <td>@item.TenKhoaHoc</td>
-                                            <td>@item.SoTuan</td>
-                                            <td>@item.LuaTuoiPhuHop</td>
-                                            <td>@item.MoTa</td>
-                                            <td>@item.SoLuong</td>
-                                            <td>
-                                                <a href="/KhoaHoc/CreateSchedule/@item.MaKhoaHoc" class="btn btn-primary"
-                                                   data-toggle="modal" data-target="#modal-khoaBieu-@item.MaKhoaHoc"
-                                                   data-backdrop="static" data-keyboard="false">Khởi tạo</a>
-                                                <div class="modal fade" id="modal-khoaBieu-@item.MaKhoaHoc">
-                                                    <div class="modal-dialog modal-lg">
-                                                        <div class="modal-content">
+                                        if (item.TinhTrang == true)
+                                        {
+                                            <tr id="row_@item.MaKhoaHoc">
+                                                <td>@item.MaKhoaHoc</td>
+                                                <td>@item.TenKhoaHoc</td>
+                                                <td>@item.SoTuan</td>
+                                                <td>@item.LuaTuoiPhuHop</td>
+                                                <td>@item.MoTa</td>
+                                                <td>@item.SoLuong</td>
+                                                <td>
+                                                    <a href="/KhoaHoc/CreateSchedule/@item.MaKhoaHoc" class="btn btn-primary"
+                                                       data-toggle="modal" data-target="#modal-khoaBieu-@item.MaKhoaHoc"
+                                                       data-backdrop="static" data-keyboard="false">Khởi tạo</a>
+                                                    <div class="modal fade" id="modal-khoaBieu-@item.MaKhoaHoc">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                                <a href="/KhoaHoc/EditSchedule/@item.MaKhoaHoc" class="btn btn-primary"
-                                                   data-toggle="modal" data-target="#modal-editTKB-@item.MaKhoaHoc"
-                                                   data-backdrop="static" data-keyboard="false">Cập nhật</a>
-                                                <div class="modal fade" id="modal-editTKB-@item.MaKhoaHoc">
-                                                    <div class="modal-dialog modal-lg">
-                                                        <div class="modal-content">
+                                                    <a href="/KhoaHoc/EditSchedule/@item.MaKhoaHoc" class="btn btn-primary"
+                                                       data-toggle="modal" data-target="#modal-editTKB-@item.MaKhoaHoc"
+                                                       data-backdrop="static" data-keyboard="false">Cập nhật</a>
+                                                    <div class="modal fade" id="modal-editTKB-@item.MaKhoaHoc">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </td>   
-                                            <td>
-                                                <a href="/KhoaHoc/Edit/@item.MaKhoaHoc" class="btn btn-primary"
-                                                   data-toggle="modal" data-target="#modal-capNhat-@item.MaKhoaHoc"
-                                                   data-backdrop="static" data-keyboard="false">Sửa</a>
-                                                <div class="modal fade" id="modal-capNhat-@item.MaKhoaHoc">
-                                                    <div class="modal-dialog modal-lg">
-                                                        <div class="modal-content">
+                                                </td>
+                                                <td>
+                                                    <a href="/KhoaHoc/Edit/@item.MaKhoaHoc" class="btn btn-primary"
+                                                       data-toggle="modal" data-target="#modal-capNhat-@item.MaKhoaHoc"
+                                                       data-backdrop="static" data-keyboard="false">Sửa</a>
+                                                    <div class="modal fade" id="modal-capNhat-@item.MaKhoaHoc">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                                <a href="/KhoaHoc/ChiTietKhoaHoc/@item.MaKhoaHoc" class="btn btn-primary"
-                                                   data-toggle="modal" data-target="#modal-ctkh-@item.MaKhoaHoc"
-                                                   data-backdrop="static" data-keyboard="false">Chi Tiết</a>
-                                                <div class="modal fade" id="modal-ctkh-@item.MaKhoaHoc">
-                                                    <div class="modal-dialog modal-lg">
-                                                        <div class="modal-content">
+                                                    <a href="/KhoaHoc/ChiTietKhoaHoc/@item.MaKhoaHoc" class="btn btn-primary"
+                                                       data-toggle="modal" data-target="#modal-ctkh-@item.MaKhoaHoc"
+                                                       data-backdrop="static" data-keyboard="false">Chi Tiết</a>
+                                                    <div class="modal fade" id="modal-ctkh-@item.MaKhoaHoc">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                                <a href="/KhoaHoc/Details/@item.MaKhoaHoc" class="btn btn-primary"
-                                                   data-toggle="modal" data-target="#modal-ctkhQuick-@item.MaKhoaHoc"
-                                                   data-backdrop="static" data-keyboard="false">Xem nhanh</a>
-                                                <div class="modal fade" id="modal-ctkhQuick-@item.MaKhoaHoc">
-                                                    <div class="modal-dialog modal-lg">
-                                                        <div class="modal-content">
+                                                    <a href="/KhoaHoc/Details/@item.MaKhoaHoc" class="btn btn-primary"
+                                                       data-toggle="modal" data-target="#modal-ctkhQuick-@item.MaKhoaHoc"
+                                                       data-backdrop="static" data-keyboard="false">Xem nhanh</a>
+                                                    <div class="modal fade" id="modal-ctkhQuick-@item.MaKhoaHoc">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                                @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaKhoaHoc }, new AjaxOptions
-                                                {
-                                                Confirm = "Bạn có muốn xóa khóa học này",
-                                                OnComplete = "$('#row_" + item.MaKhoaHoc + "').remove()",
-                                                HttpMethod = "Delete"
-                                                }, new { @class = "btn btn-primary" })
-                                            </td>
-                                        </tr>
+                                                    @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaKhoaHoc }, new AjaxOptions
+                                                    {
+                                                    Confirm = "Bạn có muốn xóa khóa học này",
+                                                    OnComplete = "$('#row_" + item.MaKhoaHoc + "').remove()",
+                                                    HttpMethod = "Delete"
+                                                    }, new { @class = "btn btn-primary" })
+                                                </td>
+                                            </tr>
+                                        }
+
                                     }
                                 </tbody>
                             </table>
