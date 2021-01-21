@@ -1,7 +1,8 @@
-namespace Models.Framework
+﻿namespace Models.Framework
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -18,40 +19,53 @@ namespace Models.Framework
         }
 
         [Key]
+        [DisplayName("Mã học viên")]
         public int MaHocVien { get; set; }
 
         [StringLength(100)]
+        [DisplayName("Tên học viên")]
         public string TenHocVien { get; set; }
 
         [StringLength(100)]
+        [DisplayName("Mật khẩu")]
         public string MatKhau { get; set; }
 
         [StringLength(100)]
+        [DisplayName("Tài khoản")]
         public string TaiKhoan { get; set; }
 
+        [DisplayName("Hình ảnh")]
         public string HinhAnh { get; set; }
 
         public int? MaHVDD { get; set; }
 
         [StringLength(50)]
+        [DisplayName("Giới tính")]
         public string GioiTinh { get; set; }
 
+        [DisplayName("Số điện thoại")]
         public int? SDT { get; set; }
 
         [StringLength(100)]
+        [DisplayName("Email")]
         public string Email { get; set; }
 
         [StringLength(200)]
+        [DisplayName("Địa chỉ")]
         public string DiaChi { get; set; }
 
         [Column(TypeName = "date")]
+        [DisplayName("Ngày đăng ký")]
         public DateTime? NgayDangKy { get; set; }
 
         [Column(TypeName = "date")]
+        [DisplayName("Ngày sinh")]
         public DateTime? NgaySinh { get; set; }
 
+        [DisplayName("Ghi chú")]
         public string GhiChu { get; set; }
 
+        [DisplayName("Trạng thái")]
         public bool? TrangThai { get; set; }
 
         [StringLength(100)]

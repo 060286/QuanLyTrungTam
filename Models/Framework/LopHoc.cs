@@ -1,7 +1,8 @@
-namespace Models.Framework
+﻿namespace Models.Framework
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -17,15 +18,20 @@ namespace Models.Framework
         }
 
         [Key]
+        [DisplayName("Mã lớp học")]
         public int MaLopHoc { get; set; }
 
         [StringLength(100)]
+        [DisplayName("Tên lớp hoc")]
         public string TenLopHoc { get; set; }
 
+        [DisplayName("Tình trạng")]
         public bool? TinhTrang { get; set; }
 
+        [DisplayName("Mã giáo viên")]
         public int? MaGiaoVien { get; set; }
 
+        [DisplayName("Mã khóa học")]
         public int? MaKhoaHoc { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

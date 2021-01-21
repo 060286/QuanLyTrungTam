@@ -1,7 +1,8 @@
-namespace Models.Framework
+﻿namespace Models.Framework
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -16,21 +17,29 @@ namespace Models.Framework
         }
 
         [Key]
+        [DisplayName("Mã hóa đơn")]
         public int MaHoaDon { get; set; }
 
         [Column(TypeName = "money")]
+        [DisplayName("Tổng tiền")]
         public decimal? TongTien { get; set; }
 
+        [DisplayName("Ngày lập")]
         public DateTime? NgayLap { get; set; }
 
+        [DisplayName("Ghi chú")]
         public string GhiChu { get; set; }
-
+        
+        [DisplayName("Trạng thái")]
         public bool TinhTrang { get; set; } = true;
 
+        [DisplayName("Mã khóa học")]
         public int? MaKhoaHoc { get; set; }
 
+        [DisplayName("Mã lớp học")]
         public int? MaLopHoc { get; set; }
 
+        [DisplayName("Mã học viên" )]
         public int? MaHocVien { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
