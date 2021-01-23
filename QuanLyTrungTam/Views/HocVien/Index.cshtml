@@ -151,7 +151,7 @@
                                                 <td>@item.MaHocVien</td>
                                                 <td>@item.TenHocVien</td>
                                                 <td>
-                                                    <img src="~/Img/HocVien/@item.HinhAnh" width="80" height="auto" />
+                                                    <img src="~/Img/HocVien/@item.HinhAnh" width="80" height="100" />
                                                 </td>
                                                 <td>@item.GioiTinh</td>
 
@@ -182,6 +182,7 @@
                                                     </div>
                                                 </td>
                                                 <td>
+                                                    <a href="/HocVien/GetBillByStudent/@item.MaHocVien" class="text-center btn btn-primary">Xem</a>
                                                     <a class="text-center btn btn-primary" href="/HocVien/Edit/@item.MaHocVien"
                                                        data-toggle="modal" data-target="#modal-capNhat-@item.MaHocVien"
                                                        data-backdrop="static" data-keyboard="false">Sửa &nbsp;</a>

@@ -13,7 +13,7 @@
 
 
 
-<table class="table table-responsive table-hover">
+<table class="table table-responsive table-bordered">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.DanhMucKhoaHoc.TenDanhMuc)
@@ -51,43 +51,56 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DanhMucKhoaHoc.TenDanhMuc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenKhoaHoc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SoLuong)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NgayKetThuc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TinhTrang)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NgayBatDau)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GiaTien)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MoTa)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaGiaoVien)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SoTuan)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LuaTuoiPhuHop)
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DanhMucKhoaHoc.TenDanhMuc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenKhoaHoc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayKetThuc)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.TinhTrang)
+                </td>*@
+            @if (item.TinhTrang == true)
+            {
+                <td>
+                    <h5 class="text-success" style="margin-top:-5px">Đang hoạt động</h5>
+                </td>
+            }
+            else
+            {
+                <td>
+                    <h5 class="text-danger" style="margin-top:-5px">Ngừng hoạt động</h5>
+                </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayBatDau)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GiaTien)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MoTa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaGiaoVien)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoTuan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LuaTuoiPhuHop)
+            </td>
+        </tr>
+    }
 
 </table>
 <div class="col-md-1">

@@ -215,5 +215,11 @@ namespace Models.DAO
         {
             return context.HoaDons.Where(x => x.MaHocVien == id).ToList();
         }
+
+        public decimal TotalMoney(int id)
+        {
+            decimal? model = context.HoaDons.Where(x => x.MaHocVien == id).Select(i => i.TongTien).Sum();
+            return model.GetValueOrDefault(0);
+        }
     }
 }

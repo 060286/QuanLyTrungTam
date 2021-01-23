@@ -530,6 +530,9 @@ namespace QuanLyTrungTam.Controllers
         {
             var list = new HocVienDao().getListBillByStudent(id);
 
+            ViewBag.TenHocVien = new HocVienDao().ViewDetails(id).TenHocVien;
+            ViewBag.TongTien = new HocVienDao().TotalMoney(id);
+
             return View(list);
         }
     }
