@@ -61,6 +61,7 @@ namespace Models.DAO
 
                 _lopHoc.TenTrinhDo = entity.TenTrinhDo;
                 _lopHoc.GhiChu = entity.GhiChu;
+                _lopHoc.TinhTrang = entity.TinhTrang;
 
                 _context.SaveChanges();
 

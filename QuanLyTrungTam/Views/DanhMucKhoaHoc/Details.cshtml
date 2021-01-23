@@ -2,26 +2,39 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
-
-<h2>Details</h2>
-
-<div>
-    <h4>DanhMucKhoaHoc</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TenDanhMuc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenDanhMuc)
-        </dd>
-
-    </dl>
+<div class="modal-header bg-olive">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" style="font-size:25px; color:black">Chi tiết Danh mục khóa học</h4>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaDanhMuc }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="modal-body form-horizontal">
+    <div class="container" margin-top: 20px">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <h3>Tên danh mục : @Model.TenDanhMuc</h3>
+                </div>
+                <div class="col-md-4">
+                    @if(Model.TinhTrang == true)
+                    {
+                        <h3>Trạng thái : Hoạt động</h3>
+                    }
+                    else
+                    {
+                        <h3>Trạng thái : Ngưng hoạt động</h3>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <p>
+
+            <a href="~/DanhMucKhoaHoc/Index" class="btn btn-default">Quay lại</a>
+        </p>
+    </div>
+</div>

@@ -28,10 +28,10 @@
         [DisplayName("Tình trạng")]
         public bool? TinhTrang { get; set; }
 
-        [DisplayName("Mã giáo viên")]
+        [DisplayName("Chọn giáo viên")]
         public int? MaGiaoVien { get; set; }
 
-        [DisplayName("Mã khóa học")]
+        [DisplayName("Chọn khóa học")]
         public int? MaKhoaHoc { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

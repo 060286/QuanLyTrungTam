@@ -50,6 +50,7 @@ namespace Models.DAO
             {
                 var _danhMucKhoaHoc = _context.DanhMucKhoaHocs.Find(entity.MaDanhMuc);
                 _danhMucKhoaHoc.TenDanhMuc = entity.TenDanhMuc;
+                _danhMucKhoaHoc.TinhTrang = entity.TinhTrang;
 
                 _context.SaveChanges();
                 return true;

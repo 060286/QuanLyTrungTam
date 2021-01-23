@@ -69,6 +69,7 @@
         public bool? TrangThai { get; set; }
 
         [StringLength(100)]
+        [DisplayName("Nguồn")]
         public string Nguon { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

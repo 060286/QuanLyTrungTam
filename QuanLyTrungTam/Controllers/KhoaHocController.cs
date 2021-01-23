@@ -100,6 +100,10 @@ namespace QuanLyTrungTam.Controllers
         public ActionResult Details(int id)
         {
             var _khoaHoc = new KhoaHocDao().ViewDetail(id);
+
+            _khoaHoc.GiaTien.ToString("0.#");
+
+
             return View(_khoaHoc);
         }
 
@@ -419,6 +423,7 @@ namespace QuanLyTrungTam.Controllers
             details.MaKhoaHoc = khoaHocDao.MaKhoaHoc;
             details.TenKhoaHoc = khoaHocDao.TenKhoaHoc;
             details.GiaTien = khoaHocDao.GiaTien;
+            details.GiaTien.ToString("0.#");
             details.SoLuong = khoaHocDao.SoLuong.GetValueOrDefault(0);
             details.NgayBatDau = khoaHocDao.NgayBatDau.GetValueOrDefault(DateTime.Now);
             details.NgayKetThuc = khoaHocDao.NgayKetThuc.GetValueOrDefault(DateTime.Now);

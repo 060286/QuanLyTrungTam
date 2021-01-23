@@ -1,6 +1,6 @@
 ﻿@model PagedList.IPagedList<Models.Framework.DanhMucKhoaHoc>
-@using PagedList.Mvc;
 
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,51 +11,103 @@
     <!-- Page Header-->
     <div class="page-header no-margin-bottom">
         <div class="container-fluid">
-            <h2 class="h5 no-margin-bottom">Danh Sách Giáo Viên</h2>
+            <h2 class="h2 no-margin-bottom">Mục Quản Lý Danh Mục Khóa Học</h2>
+        </div>
+        <div class="container-fluid">
+            <div class="row" style="margin-left:2px">
+                <a class="btn btn-success" href="@Url.Action("Create","DanhMucKhoaHoc")" data-toggle="modal" data-target="#modal-themMoi" data-backdrop="static" data-keyboard="false">Thêm danh mục khóa học</a>
+                <div class="modal fade" id="modal-themMoi">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+
+
+    <br />
+    <br />
     <!-- Breadcrumb-->
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin-top:-50px">
         <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item active">Danh Mục Khóa Học</li>
+            <li class="breadcrumb-item"><a href="~/Home/Index">Trang chủ</a></li>
+            <li class="breadcrumb-item active">Danh mục khóa học</li>
         </ul>
     </div>
+    <div class="container"  >
+        @using (Html.BeginForm("Index", "DanhMucKhoaHoc", FormMethod.Get))
+        {
+            <div class="row">
+                <div class="col-md-12" style="margin-bottom:20px">
+                    <div class="col-md-2">
+                        <input type="text" style="height:30px" value="@ViewBag.SearchString" name="searchString" placeholder="Tìm kiếm theo tên danh mục khóa học" />
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-outline btn-primary btn-sm" type="submit">Tìm kiếm</button>
+                    </div>
+                </div>
+                <br />
+            </div>
+        }
+    </div>
+
     <section class="no-padding-top">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="block margin-bottom-sm">
-                        <div class="title"><strong>Basic Table</strong></div>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Mã Danh Muc</th>
-                                        <th>Tên Danh Mục</th>
+                                        <th>Mã Doanh mục</th>
+                                        <th>Tên Doanh Mục</th>
+                                        <th>Tình trạng</th>
+                                        <th>Chức năng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
+
                                         if (item.TinhTrang == true)
                                         {
-                                            <tr id="row_@item.MaDanhMuc">
+                                            <tr id="row_@item.MaDanhMuc" style="background-color: #FFFFFF" class="table-hover">
                                                 <td>@item.MaDanhMuc</td>
                                                 <td>@item.TenDanhMuc</td>
+                                                <td>@item.TinhTrang</td>
                                                 <td>
-                                                    <a href="/DanhMucKhoaHoc/Edit/@item.MaDanhMuc">Sửa</a>
-                                                    <a href="/DanhMucKhoaHoc/Details/@item.MaDanhMuc">Chi tiết</a>
+                                                    <a href="/DanhMucKhoaHoc/Edit/@item.MaDanhMuc" data-toggle="modal"
+                                                       data-target="#modal-capNhat-@item.MaDanhMuc" data-backdrop="static"
+                                                       data-keyboard="false" class="btn btn-primary">Sửa</a>
+                                                    <div class="modal fade" id="modal-capNhat-@item.MaDanhMuc">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <a href="/DanhMucKhoaHoc/Details/@item.MaDanhMuc" data-toggle="modal"
+                                                       data-target="#modal-chiTiet-@item.MaDanhMuc" data-backdrop="static"
+                                                       data-keyboard="false" class="btn btn-primary">Chi tiết </a>
+                                                    <div class="modal fade" id="modal-chiTiet-@item.MaDanhMuc">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaDanhMuc }, new AjaxOptions
-                                               {
-                                                   Confirm = "Bạn có muốn xóa giáo viên này",
-                                                   OnComplete = "$('#row_" + item.MaDanhMuc + "').remove()",
-                                                   HttpMethod = "Delete"
-                                               })
+                                                        {
+                                                        Confirm = "Bạn có muốn xóa danh mục khóa học này",
+                                                        OnComplete = "$('#row_" + item.MaDanhMuc + "').remove()",
+                                                        HttpMethod = "Delete"
+                                                        }, new { @class = "btn btn-primary" })
                                                 </td>
                                             </tr>
                                         }
-
                                     }
                                 </tbody>
                             </table>
@@ -67,12 +119,8 @@
             </div>
         </div>
     </section>
-    <footer class="footer">
-        <div class="footer__block block no-margin-bottom">
-            <div class="container-fluid text-center">
-                <!-- Please do not remove the backlink to us unless you support us at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
-                <p class="no-margin-bottom">2020 &copy; Your company. Design by <a href="https://bootstrapious.com/p/bootstrap-4-dark-admin">Bootstrapious</a>.</p>
-            </div>
-        </div>
-    </footer>
 </div>
+
+
+
+
