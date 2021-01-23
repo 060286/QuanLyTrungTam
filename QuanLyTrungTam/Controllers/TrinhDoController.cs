@@ -44,7 +44,7 @@ namespace QuanLyTrungTam.Controllers
             int maTrinhDo = trinhDoDao.Insert(trinhDo);
             if (maTrinhDo > 0)
             {
-                return RedirectToAction("Index", "DanhMucHoaDon");
+                return RedirectToAction("Index", "TrinhDo");
             }
             else
             {

@@ -381,6 +381,8 @@ namespace QuanLyTrungTam.Controllers
 
             var model = new GiaoVienDao().ViewDetail(id);
             ViewBag.TenGiaoVien = model.TenGiaoVien;
+            ViewBag.LuongHangThang = model.MucLuong.Value.ToString("#,##").Replace(',', '.');
+           
 
             return View(list);
         }

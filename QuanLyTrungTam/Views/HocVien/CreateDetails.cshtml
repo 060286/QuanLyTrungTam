@@ -83,7 +83,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.HocVien.NgaySinh, htmlAttributes: new { @class = "control-label col-md-4" })
                         <div class="col-md-8">
-                            @Html.EditorFor(model => model.HocVien.NgaySinh, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.HocVien.NgaySinh, new { htmlAttributes = new { @class = "form-control" , @type = "date" } })
                             @Html.ValidationMessageFor(model => model.HocVien.NgaySinh, "", new { @class = "text-danger" })
                         </div>
                     </div>

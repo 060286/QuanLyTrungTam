@@ -49,7 +49,7 @@ namespace QuanLyTrungTam.Controllers
                     int maHoaDon = danhMucDao.Insert(danhMuc);
                     if (maHoaDon > 0)
                     {
-                        return RedirectToAction("Index", "DanhMucHoaDon");
+                        return RedirectToAction("Index", "DanhMucKhoaHoc");
                     }
                     else
                     {
