@@ -1,89 +1,74 @@
-﻿using Models.Framework;
+﻿using Models.DAO;
+using Models.Framework;
+using QuanLyTrungTam.Common;
+using QuanLyTrungTam.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace QuanLyTrungTam.Controllers
 {
     public class DangNhapController : Controller
     {
+        private eCenterDbContext _context = new eCenterDbContext();
+
+       
+
         // GET: DangNhap
-        public ActionResult Index(DangNhap dn)
+        public ActionResult Index(UserLogin userLogin)
         {
-            return View(dn);
+            var model = new DangNhapDao().ViewDetails(userLogin.UserId);
+
+            return View(model);
         }
 
-        // GET: DangNhap/Details/5
-        public ActionResult Details(int id)
+        [ValidateAntiForgeryToken]
+        public ActionResult Update(DangNhap dn)
         {
-            return View();
-        }
+            var dangNhapDao = new DangNhapDao();
 
-        // GET: DangNhap/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+            var dangNhap = new DangNhap();
 
-        // POST: DangNhap/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
+            var check = dangNhapDao.UpdateAccount(dn);
+
+            if(check)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                return RedirectToAction("Logout", "Login");
             }
-            catch
-            {
-                return View();
-            }
+            return View("Index");
         }
 
-        // GET: DangNhap/Edit/5
-        public ActionResult Edit(int id)
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(DangNhap model, FormCollection collection)
         {
-            return View();
-        }
-
-        // POST: DangNhap/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
+            var matKhauCu = collection["MatKhauCu"];
+            var matKhauMoi = collection["MatKhauMoi"];
+            var nhaplaiMK = collection["NhapLaiMK"];
+            var encryptedMd5Pas = Encryptor.MD5Hash(matKhauCu);
+            var newPass = Encryptor.MD5Hash(matKhauMoi);
+            var dao = new DangNhapDao();
+            model = dao.ViewDetails(model.MaTaiKhoan);
+            if (model.MatKhau == encryptedMd5Pas)
             {
-                // TODO: Add update logic here
+                if (matKhauMoi == nhaplaiMK)
+                {
+                    var nhanvien = _context.DangNhaps.Find(model.MaTaiKhoan);
+                    nhanvien.MatKhau = newPass;
 
-                return RedirectToAction("Index");
+                    _context.SaveChanges();
+
+                    return RedirectToAction("Logout", "Login");
+
+                }
+                else
+                    return RedirectToAction("Index", "Home");
             }
-            catch
+            else
             {
-                return View();
-            }
-        }
-
-        // GET: DangNhap/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: DangNhap/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
+                return RedirectToAction("Index", "Home");
             }
         }
     }

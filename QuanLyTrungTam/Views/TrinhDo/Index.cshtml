@@ -1,0 +1,126 @@
+﻿@model PagedList.IPagedList<Models.Framework.TrinhDo>
+
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page-content">
+    <!-- Page Header-->
+    <div class="page-header no-margin-bottom">
+        <div class="container-fluid">
+            <h2 class="h2 no-margin-bottom">Mục Quản Lý Trình Độ</h2>
+        </div>
+        <div class="container-fluid">
+            <div class="row" style="margin-left:2px">
+                <a class="btn btn-success" href="@Url.Action("Create","TrinhDo")" data-toggle="modal" data-target="#modal-themMoi" data-backdrop="static" data-keyboard="false">Thêm trình độ</a>
+                <div class="modal fade" id="modal-themMoi">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <br />
+    <br />
+    <!-- Breadcrumb-->
+    <div class="container-fluid" style="margin-top:-50px">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Home/Index">Trang chủ</a></li>
+            <li class="breadcrumb-item active">Danh mục trình độ</li>
+        </ul>
+    </div>
+    <div class="container" >
+        @using (Html.BeginForm("Index", "TrinhDo", FormMethod.Get))
+        {
+            <div class="row">
+                <div class="col-md-12" style="margin-bottom:10px">
+                    <div class="col-md-2">
+                        <input type="text" style="height:30px" value="@ViewBag.SearchString" name="searchString" placeholder="Tìm kiếm theo tên trình độ" />
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-outline btn-primary btn-sm" type="submit">Tìm kiếm</button>
+                    </div>
+                </div>
+                <br />
+            </div>
+        }
+    </div>
+
+    <section class="no-padding-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="block margin-bottom-sm">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Mã trình độ</th>
+                                        <th>Tên trình độ</th>
+                                        <th>Tình trạng</th>
+                                        <th>Chức năng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+
+                                        if (item.TinhTrang == true)
+                                        {
+                                            <tr id="row_@item.MaTrinhDo" style="background-color: #FFFFFF" class="table-hover">
+                                                <td>@item.MaTrinhDo</td>
+                                                <td>@item.TenTrinhDo</td>
+                                                <td>@item.TinhTrang</td>
+                                                <td>
+                                                    <a href="/TrinhDo/Edit/@item.MaTrinhDo" data-toggle="modal"
+                                                       data-target="#modal-capNhat-@item.MaTrinhDo" data-backdrop="static"
+                                                       data-keyboard="false" class="btn btn-primary">Sửa</a>
+                                                    <div class="modal fade" id="modal-capNhat-@item.MaTrinhDo">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <a href="/TrinhDo/Details/@item.MaTrinhDo" data-toggle="modal"
+                                                       data-target="#modal-chiTiet-@item.MaTrinhDo" data-backdrop="static"
+                                                       data-keyboard="false" class="btn btn-primary">Chi tiết </a>
+                                                    <div class="modal fade" id="modal-chiTiet-@item.MaTrinhDo">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaTrinhDo }, new AjaxOptions
+                                                        {
+                                                        Confirm = "Bạn có muốn xóa trình độ này",
+                                                        OnComplete = "$('#row_" + item.MaTrinhDo + "').remove()",
+                                                        HttpMethod = "Delete"
+                                                        }, new { @class = "btn btn-primary" })
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                            <br />
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+

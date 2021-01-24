@@ -1,0 +1,71 @@
+﻿@model QuanLyTrungTam.ViewModels.KhoaHocDetailsViewModels
+
+@{
+    ViewBag.Title = "ChiTietKhoaHoc";
+    Layout = null;
+}
+
+<div class="modal-header bg-olive">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" style="font-size:25px; color:black">Chi tiết khóa học</h4>
+</div>
+
+<div class="modal-body form-horizontal">
+    <div class="container" margin-top: 20px">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 style="color:dodgerblue">Thông tin khóa học</h3>
+                <div class="col-md-6">
+                    <h4>Khóa học : @Model.MaKhoaHoc</h4>
+                    <h4>Tên khóa học : @Model.TenKhoaHoc</h4>
+                    <h4>Giá tiền: @Model.GiaTien VNĐ</h4>
+                    <h4>Số lượng: @Model.SoLuong</h4>
+                    <h4>Ngày bắt đầu: @Model.NgayBatDau</h4>
+                    <h4>Ngày kết thúc: @Model.NgayKetThuc</h4>
+                </div>
+                <div class="col-md-6">
+                    <h4>Tình Trạng: @Model.TinhTrang</h4>
+                    <h4>Mô tả: @Model.Mota</h4>
+                    <h4>Số tuần: @Model.SoTuan</h4>
+                    <h4>Lứa tuổi phù hợp: @Model.LuaTuoiPhuHop</h4>
+                    <h4>Mã danh mục: @Model.MaDanhMuc</h4>
+                </div>
+                <div class="col-md-12">
+                    <h3>Thời khóa biểu khóa học ( Thời gian học @(Model.ThoiGianHoc) ) </h3>
+                </div>
+                <div class="col-md-1">
+                    <h5>Thứ 2: @(Model.ThuHai?"Học":"Nghỉ")</h5>
+                </div>
+                <div class="col-md-1">
+                    <h5>Thứ 3: @(Model.ThuBa?"Học":"Nghỉ")</h5>
+                </div>
+                <div class="col-md-1">
+                    <h5>Thứ 4: @(Model.ThuTu?"Học":"Nghỉ")</h5>
+                </div>
+                <div class="col-md-1">
+                    <h5>Thứ 5: @(Model.ThuNam?"Học":"Nghỉ")</h5>
+                </div>
+                <div class="col-md-1">
+                    <h5>Thứ 6: @(Model.ThuSau?"Học":"Nghỉ")</h5>
+                </div>
+                <div class="col-md-1">
+                    <h5>Thứ 7: @(Model.ThuBay?"Học":"Nghỉ")</h5>
+                </div>
+                <div class="col-md-1">
+                    <h5>Chủ nhật: @(Model.ChuNhat?"Học":"Nghỉ")</h5>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <p>
+            @*<a href="~/GiaoVien/Edit/@Model.MaGiaoVien" class="btn btn-success">Sửa thông tin</a>*@
+            <a href="~/KhoaHoc/Index" class="btn btn-default">Quay lại</a>
+        </p>
+    </div>
+</div>
+

@@ -41,7 +41,7 @@
 
     <div class="container">
         <div class="container">
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-6 col-md-6">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <div class="row">
@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-6 col-md-6">
                 <div class="panel panel-green">
                     <div class="panel-heading">
                         <div class="row">
@@ -71,7 +71,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-6 col-md-6">
                 <div class="panel panel-yellow">
                     <div class="panel-heading">
                         <div class="row">
@@ -87,21 +87,17 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="row">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-red">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-support fa-4x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">@ViewBag.HocVienNam</div>
-                                        @*<div class="huge">@QuanLyTrungTam.Common.Format.FormatCurrencyVND(ViewBag.TongTienLuong)</div>*@
-                                        <div>Học viên nam </div>
-                                    </div>
-                                </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="panel panel-red">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-support fa-4x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">@ViewBag.HocVienNam</div>
+                                @*<div class="huge">@QuanLyTrungTam.Common.Format.FormatCurrencyVND(ViewBag.TongTienLuong)</div>*@
+                                <div>Học viên nam </div>
                             </div>
                         </div>
                     </div>
@@ -112,9 +108,9 @@
 
     @using (Html.BeginForm("Index", "HocVien", FormMethod.Get))
     {
-        <div class="row">
+        <div class="row" style="margin-bottom:20px;margin-left:120px">
             <div class="col-sm-12">
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <input type="text" value="@ViewBag.SearchString" name="searchString" placeholder="Tìm kiếm theo tên..." />
                 </div>
                 <div class="col-md-4">
@@ -129,15 +125,13 @@
                 <div class="col-sm-12">
                     <div class="block margin-bottom-sm">
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table table-striped table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>STT</th>
                                         <th>Tên Học Viên</th>
                                         <th>Hình ảnh</th>
                                         <th>Giới Tính</th>
-
-
                                         <th>Trạng thái</th>
                                         <th>Đăng ký</th>
                                         <th>Nhập điểm</th>
@@ -147,52 +141,71 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                        <tr id="row_@item.MaHocVien">
-                                            <td>@item.MaHocVien</td>
-                                            <td>@item.TenHocVien</td>
-                                            <td>
-                                                <img src="~/Img/HocVien/@item.HinhAnh" width="80" height="auto" />
-                                            </td>
-                                            <td>@item.GioiTinh</td>
+                                        if (item.TrangThai == true)
+                                        {
+                                            <tr id="row_@item.MaHocVien">
+                                                <td>@item.MaHocVien</td>
+                                                <td>@item.TenHocVien</td>
+                                                <td>
+                                                    <img src="~/Img/HocVien/@item.HinhAnh" width="80" height="100" />
+                                                </td>
+                                                <td>@item.GioiTinh</td>
 
 
-                                            @*<td>@item.TrangThai</td>*@
-                                            <td>@(item.TrangThai.GetValueOrDefault(false)? "Hoạt động" : "Khóa")</td>
-                                            <td>
-                                                <a href="/HocVien/AddCourse/@item.MaHocVien"
-                                                   class="btn bg-maroon btn-success" data-toggle="modal"
-                                                   data-target="#modal-dangKyKhoaHoc-@item.MaHocVien"
-                                                   data-backdrop="static" data-keyboard="false">Đăng ký khóa học</a>
-                                                <div class="modal fade" id="modal-dangKyKhoaHoc-@item.MaHocVien">
-                                                    <div class="modal-dialog modal-lg">
-                                                        <div class="modal-content">
+                                                @*<td>@item.TrangThai</td>*@
+                                                <td>@(item.TrangThai.GetValueOrDefault(false)? "Hoạt động" : "Khóa")</td>
+                                                <td>
+                                                    <a href="/HocVien/AddCourse/@item.MaHocVien"
+                                                       class="btn bg-maroon btn-success" data-toggle="modal"
+                                                       data-target="#modal-dangKyKhoaHoc-@item.MaHocVien"
+                                                       data-backdrop="static" data-keyboard="false">Đăng ký khóa học</a>
+                                                    <div class="modal fade" id="modal-dangKyKhoaHoc-@item.MaHocVien">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <a href="/HocVien/CreateScore/@item.MaHocVien" class="btn btn-info"
-                                                   data-toggle="modal" data-target="#modal-nhapDiemHocVien-@item.MaHocVien"
-                                                   data-backdrop="static" data-keyboard="false">Nhập điểm</a>
-                                                <div class="modal fade" id="modal-nhapDiemHocVien-@item.MaHocVien">
-                                                    <div class="modal-dialog modal-lg">
-                                                        <div class="modal-content">
+                                                </td>
+                                                <td>
+                                                    <a href="/HocVien/CreateScore/@item.MaHocVien" class="btn btn-info"
+                                                       data-toggle="modal" data-target="#modal-nhapDiemHocVien-@item.MaHocVien"
+                                                       data-backdrop="static" data-keyboard="false">Nhập điểm</a>
+                                                    <div class="modal fade" id="modal-nhapDiemHocVien-@item.MaHocVien">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <a href="/HocVien/Edit/@item.MaHocVien" class="btn btn-primary">Sửa</a>
-                                                <a href="/HocVien/Details/@item.MaHocVien" class="btn btn-primary">Chi tiết</a>
-                                                @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaHocVien, @class = "btn btn-primary" }, new AjaxOptions
-                                           {
-                                               Confirm = "Bạn có muốn xóa học viên này, dữ liệu sẽ bị xóa vĩnh viễn",
-                                               OnComplete = "$('#row_" + item.MaHocVien + "').remove()",
-                                               HttpMethod = "Delete"
-                                           }
-                                           , new { @class = "btn btn-primary" })
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                <td>
+                                                    <a href="/HocVien/GetBillByStudent/@item.MaHocVien" class="text-center btn btn-primary">Xem</a>
+                                                    <a class="text-center btn btn-primary" href="/HocVien/Edit/@item.MaHocVien"
+                                                       data-toggle="modal" data-target="#modal-capNhat-@item.MaHocVien"
+                                                       data-backdrop="static" data-keyboard="false">Sửa &nbsp;</a>
+                                                    <div class="modal fade" id="modal-capNhat-@item.MaHocVien">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <a href="/HocVien/ChiTietHocVien/@item.MaHocVien" class="btn btn-primary"
+                                                       data-toggle="modal" data-target="#modal-chiTiet-@item.MaHocVien"
+                                                       data-backdrop="static" data-keyboard="false">Chi tiết</a>
+                                                    <div class="modal fade" id="modal-chiTiet-@item.MaHocVien">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content"></div>
+                                                        </div>
+                                                    </div>
+                                                    @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaHocVien, @class = "btn btn-primary" }, new AjaxOptions
+                                               {
+                                                   Confirm = "Bạn có muốn xóa học viên này, dữ liệu sẽ bị xóa vĩnh viễn",
+                                                   OnComplete = "$('#row_" + item.MaHocVien + "').remove()",
+                                                   HttpMethod = "Delete"
+                                               }
+                                               , new { @class = "btn btn-primary" })
+                                                </td>
+                                            </tr>
+                                        }
                                     }
                                 </tbody>
                             </table>

@@ -1,0 +1,106 @@
+﻿@model IEnumerable<Models.Framework.HoaDon>
+@using Models.DAO;
+@{
+    ViewBag.Title = "GetBillByStudent";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var list = new KhoaHocDao().ListAll();
+}
+
+
+
+<div class="row" style="margin-top:50px">
+    <div class="col-md-6">
+        <h2>Học Viên : @ViewBag.TenHocVien </h2>
+    </div>
+    <div class="col-md-6">
+        <h3>Tổng tiền : @ViewBag.TongTien</h3>
+    </div>
+    
+    <div class="col-md-6">
+        <h3 style="margin-left:-300px">Danh sách hóa đơn của học viên</h3>
+    </div>
+</div>
+
+
+<table class="table table-responsive table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HocVien.TenHocVien)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LopHoc.TenLopHoc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TongTien)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayLap)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GhiChu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TinhTrang)
+        </th>
+        <th>
+            @Html.DisplayName("Tên khóa học")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.HocVien.TenHocVien)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.LopHoc.TenLopHoc)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TongTien)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NgayLap)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.GhiChu)
+    </td>
+    @*<td>
+            @Html.DisplayFor(modelItem => item.TinhTrang)
+        </td>*@
+
+    @if (item.TinhTrang == true)
+    {
+        <td>
+            <h5 class="text-success" style="margin-top:-5px">Đã thanh toán</h5>
+        </td>
+    }
+    else
+    {
+        <td>
+            <h5 class="text-danger" style="margin-top:-5px">Chưa thanh toán</h5>
+        </td>
+    }
+
+    @*<td>
+        @Html.DisplayFor(modelItem => item.MaKhoaHoc )
+    </td>*@
+
+    @for(int i = 0; i < list.Count(); i++)
+    {
+        if(list[i].MaKhoaHoc == item.MaKhoaHoc)
+        {
+            <td>
+                <h5>@list[i].TenKhoaHoc</h5>
+            </td>
+        }
+    }
+</tr>
+    }
+
+</table>
+
+
+<a class="btn btn-danger" href="/HocVien/Index" style="margin-bottom:50px">Quay lại</a>

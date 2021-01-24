@@ -1,0 +1,49 @@
+﻿@model Models.Framework.TrinhDo
+
+@{
+    ViewBag.Title = "Details";
+    Layout = null;
+}
+<div class="modal-header bg-olive">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" style="font-size:25px; color:black">Chi tiết Trình độ</h4>
+</div>
+
+<div class="modal-body form-horizontal">
+    <div class="container" margin-top: 20px">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <h3>Tên trình độ : @Model.TenTrinhDo</h3>
+                </div>
+                <div class="col-md-4">
+
+                    @if (Model.TinhTrang == true)
+                    {
+                        <h3>Trạng thái : Hoạt động</h3>
+                    }
+                    else
+                    {
+                        <h3>Trạng thái : Ngưng hoạt động</h3>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <h3>Ghi chú : @Model.GhiChu</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal-footer">
+        <p>
+
+            <a href="~/TrinhDo/Index" class="btn btn-default">Quay lại</a>
+        </p>
+    </div>
+</div>

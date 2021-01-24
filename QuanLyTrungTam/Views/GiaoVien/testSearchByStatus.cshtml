@@ -120,42 +120,50 @@
                                         <th>Giới Tính</th>
                                         <th>Email</th>
                                         <th>SĐT</th>
-                                        <th>Trạng thái</th>
+                                        <th >Trạng thái</th>
+                                        <th >Xem</th>
                                         <th>Chức năng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                        <tr id="row_@item.MaGiaoVien">
-                                            <td>@item.MaGiaoVien</td>
-                                            <td>@item.TenGiaoVien</td>
-                                            <td>
-                                                <img src="~/Img/GiaoVien/@item.HinhAnh" width="80" height="auto" />
-                                            </td>
-                                            <td>@item.GioiTinh</td>
-                                            <td>@item.Email</td>
-                                            <td>@item.SDT</td>
-                                            <td>@(item.TrangThai.GetValueOrDefault(false)? "Hoạt động" : "Khóa")</td>
-                                            <td>
-                                                <a class="text-center btn btn-primary" href="/GiaoVien/Edit/@item.MaGiaoVien"
-                                                   data-toggle="modal" data-target="#modal-capNhat-@item.MaGiaoVien"
-                                                   data-backdrop="static" data-keyboard="false">Sửa &nbsp;</a>
-                                                <div class="modal fade" id="modal-capNhat-@item.MaGiaoVien">
-                                                    <div class="modal-dialog modal-lg">
-                                                        <div class="modal-content">
+                                        if (item.TrangThai == true)
+                                        {
+                                            <tr id="row_@item.MaGiaoVien">
+                                                <td>@item.MaGiaoVien</td>
+                                                <td>@item.TenGiaoVien</td>
+                                                <td>
+                                                    <img src="~/Img/GiaoVien/@item.HinhAnh" width="80" height="100" />
+                                                </td>
+                                                <td>@item.GioiTinh</td>
+                                                <td>@item.Email</td>
+                                                <td>@item.SDT</td>
+                                                <td>@(item.TrangThai.GetValueOrDefault(false)? "Hoạt động" : "Khóa")</td>
+                                                <td class="text-center">
+                                                    <a href="/GiaoVien/GetCourseByTeacher/@item.MaGiaoVien"
+                                                       class="btn btn-success">Xem</a>
+                                                </td>
+                                                <td>
+                                                    <a class="text-center btn btn-primary" href="/GiaoVien/Edit/@item.MaGiaoVien"
+                                                       data-toggle="modal" data-target="#modal-capNhat-@item.MaGiaoVien"
+                                                       data-backdrop="static" data-keyboard="false">Sửa &nbsp;</a>
+                                                    <div class="modal fade" id="modal-capNhat-@item.MaGiaoVien">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <a href="/GiaoVien/Details/@item.MaGiaoVien">Chi tiết &nbsp;</a>
-                                                @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaGiaoVien }, new AjaxOptions
-                                                {
-                                                    Confirm = "Xóa bản ghi giáo viên",
-                                                    OnComplete = "$('#row_" + item.MaGiaoVien + "').remove()",
-                                                    HttpMethod = "Delete"
-                                                })
-                                            </td>
-                                        </tr>
+                                                    <a href="/GiaoVien/Details/@item.MaGiaoVien">Chi tiết &nbsp;</a>
+                                                    @Ajax.ActionLink("Xóa", "Delete", new { @id = item.MaGiaoVien }, new AjaxOptions
+                                                    {
+                                                        Confirm = "Xóa bản ghi giáo viên",
+                                                        OnComplete = "$('#row_" + item.MaGiaoVien + "').remove()",
+                                                        HttpMethod = "Delete"
+                                                    })
+                                                </td>
+                                            </tr>
+                                        }
                                     }
                                 </tbody>
                             </table>

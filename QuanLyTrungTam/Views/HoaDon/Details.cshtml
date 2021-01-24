@@ -2,66 +2,41 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
-
-<h2>Details</h2>
-
-<div>
-    <h4>HoaDon</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TongTien)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TongTien)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NgayLap)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NgayLap)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TinhTrang)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TinhTrang)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MaKhoaHoc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MaKhoaHoc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MaLopHoc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MaLopHoc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MaHocVien)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MaHocVien)
-        </dd>
-
-    </dl>
+<div class="modal-header bg-olive">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" style="font-size:25px; color:black">Chi tiết hóa đơn</h4>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaHoaDon }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="modal-body form-horizontal">
+    <div class="container" margin-top: 20px">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <h4>Mã hóa đơn : @Model.MaHoaDon</h4>
+                    <h4>Tên khóa học : @ViewBag.TenKhoaHoc</h4>
+                    <h4>Lớp học: @ViewBag.TenLopHoc</h4>
+                    <h4>Tên học viên: @ViewBag.TenHocVien</h4>
+                    <h4>Tổng tiền: @Model.TongTien VNĐ</h4>
+
+                </div>
+                <div class="col-md-6">
+                    @if(Model.TinhTrang == true)
+                    {
+                        <h4>Tình trạng : <span class="text-success">Đã thanh toán</span></h4>
+                    }
+                    else
+                    {
+                        <h4>Tình trạng : <span class="text-danger">Chưa thanh toán</span></h4>
+                    }
+                    <h4>Ghi chú: @Model.GhiChu</h4>
+
+                </div>  
+            </div>
+        </div>
+    </div>
+</div>
+

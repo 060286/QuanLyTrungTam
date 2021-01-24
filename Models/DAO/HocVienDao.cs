@@ -68,6 +68,14 @@ namespace Models.DAO
             return model.OrderBy(x => x.MaHocVien).ToPagedList(page, pageSize);
         }
 
+        public string GetEmail(int id)
+        {
+            var model = context.HocViens.FirstOrDefault(x => x.MaHocVien == id);
+
+            string emailReturn = model.Email;
+            return emailReturn;
+        }
+
         public IEnumerable<HocVien> testSearchByEmail(string searchStringByEmail, int page, int pageSize)
         {
 
@@ -134,8 +142,6 @@ namespace Models.DAO
             return entity.MaHocVien;
         }
 
-        
-
         public HocVien ViewDetails(int id)
         {
             return context.HocViens.Find(id);
@@ -165,19 +171,55 @@ namespace Models.DAO
             }
         }
 
-        public bool Delete(int maGiaoVien)
+        public bool Delete(int maHocVien)
         {
             try
             {
-                var _hocVien = context.HocViens.Find(maGiaoVien);
-                context.HocViens.Remove(_hocVien);
+                var _hocVien = context.HocViens.Find(maHocVien);
+                //var list = context.BangDiems.Where(x => x.MaHocVien == maHocVien).ToList();
+                //if (list.Count() > 0)
+                //{
+                //    for (int i = 0; i < list.Count(); i++)
+                //    {
+                //        context.BangDiems.Remove(list[i]);
+                //    }
+                //    context.HocViens.Remove(_hocVien);
+                //    context.SaveChanges();
+                //}
+                //else
+                //{
+                //    context.HocViens.Remove(_hocVien);
+                //    context.SaveChanges();
+                //}   
+
+                _hocVien.TrangThai = false;
                 context.SaveChanges();
+                
                 return true;
             }
             catch (Exception ex)
             {
                 return false;
             }
+        }
+
+        //public int getFristCourse(int maHocVien)
+        //{
+        //    var model = context.HocViens.Find(maHocVien);
+
+            
+        //    return
+        //}
+
+        public IEnumerable<HoaDon> getListBillByStudent(int id)
+        {
+            return context.HoaDons.Where(x => x.MaHocVien == id).ToList();
+        }
+
+        public decimal TotalMoney(int id)
+        {
+            decimal? model = context.HoaDons.Where(x => x.MaHocVien == id).Select(i => i.TongTien).Sum();
+            return model.GetValueOrDefault(0);
         }
     }
 }

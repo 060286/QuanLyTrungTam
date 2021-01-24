@@ -28,6 +28,21 @@ namespace Models.DAO
             _context.SaveChanges();
             return entity.MaKhoaHoc;
         }
+
+        public decimal GiaTienKhoaHoc(int id)
+        {
+            var giaTien = _context.KhoaHocs.Where(x => x.MaKhoaHoc == 1).Sum(x => x.GiaTien);
+
+            return giaTien;
+        }    
+
+        public void DangKyKhoaHoc(int id)
+        {
+            var khoaHoc = _context.KhoaHocs.FirstOrDefault(x => x.MaKhoaHoc == id);
+            khoaHoc.SoLuong--;
+            _context.SaveChanges();
+        }
+
         // THêm danh mục khóa học
         public int Insert(DanhMucKhoaHoc entity)
         {
@@ -148,7 +163,8 @@ namespace Models.DAO
             try
             {
                 var _khoaHoc = _context.KhoaHocs.Find(id);
-                _context.KhoaHocs.Remove(_khoaHoc);
+                //_context.KhoaHocs.Remove(_khoaHoc);
+                _khoaHoc.TinhTrang = false;
                 _context.SaveChanges();
                 return true;
             }
@@ -156,6 +172,13 @@ namespace Models.DAO
             {
                 return false;
             }
+        }
+
+        public int CountQuantityRemaining()
+        {
+            int? count = _context.KhoaHocs.Where(x => x.TinhTrang == true)
+                .Sum(i => i.SoLuong);
+            return count.GetValueOrDefault(0);
         }
     }
 }

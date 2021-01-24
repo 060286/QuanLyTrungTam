@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.Framework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -48,5 +49,7 @@ namespace QuanLyTrungTam.ViewModels
 
         [StringLength(100)]
         public string Nguon { get; set; }
+
+         
     }
 }

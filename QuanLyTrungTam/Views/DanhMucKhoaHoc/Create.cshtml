@@ -1,0 +1,51 @@
+﻿@model Models.Framework.DanhMucKhoaHoc
+
+
+@{
+    ViewBag.Title = "Create";
+    Layout = null;
+
+}
+@using (Html.BeginForm("Create", "DanhMucKhoaHoc", FormMethod.Post))
+{
+    <div class="modal-header bg-olive">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" style="font-size:25px; color:black">Thêm danh mục khóa học</h4>
+    </div>
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @*<h3 style="margin-left:250px">Vui lòng điền đầy đủ thông tin</h3>*@
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TenDanhMuc, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.TenDanhMuc, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TenDanhMuc, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TinhTrang, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.TinhTrang, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TinhTrang, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-1" style="margin-left:550px; margin-right:15px">
+                <input type="submit" value="Tạo mới" class="btn btn-success" />
+            </div>
+            <div class="col-md-1">
+                <a href="~/DanhMucKhoaHoc/Index" class="btn btn-danger">Hủy bỏ</a>
+            </div>
+        </div>
+    </div>
+}
+

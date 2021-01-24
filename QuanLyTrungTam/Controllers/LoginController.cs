@@ -22,6 +22,7 @@ namespace QuanLyTrungTam.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model)
         {
+            var userSession = new UserLogin();
             Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
             Match match = regex.Match(model.TaiKhoan);
 
@@ -41,7 +42,6 @@ namespace QuanLyTrungTam.Controllers
                     if (result == 1)
                     {
                         var user = dao.GetById(model.TaiKhoan);
-                        var userSession = new UserLogin();
                         userSession.UserId = user.MaTaiKhoan;
                         userSession.TaiKhoan = user.TaiKhoan;
                         userSession.MaVaiTro = user.MaVaiTro;

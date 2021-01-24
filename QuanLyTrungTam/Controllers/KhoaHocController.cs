@@ -2,6 +2,7 @@
 using Models.DAO;
 using Models.Framework;
 using QuanLyTrungTam.Models;
+using QuanLyTrungTam.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,8 @@ namespace QuanLyTrungTam.Controllers
 {
     public class KhoaHocController : BaseController
     {
-        
-
         // GET: KhoaHoc
-        public ActionResult Index(string searchString,int page = 1 ,int pageSize = 10)
+        public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
         {
             eCenterDbContext _context = new eCenterDbContext();
             ViewBag.TongKhoaHoc = _context.KhoaHocs.Count();
@@ -23,12 +22,16 @@ namespace QuanLyTrungTam.Controllers
             ViewBag.KhoaHocConCho = _context.KhoaHocs.Where(x => x.SoLuong > 0).Count();
             // Khóa học hết chỗ
             ViewBag.KhoaHocHetCho = _context.KhoaHocs.Where(x => x.SoLuong == 0).Count();
+
+           
             var _khoaHocDao = new KhoaHocDao();
             var _modelKhoaHoc = _khoaHocDao.ListAllPaging(searchString, page, pageSize);
+
+            ViewBag.SoLuongCon = _khoaHocDao.CountQuantityRemaining();
             ViewBag.SearchString = searchString;
 
-            
-            
+
+
             return View(_modelKhoaHoc);
         }
 
@@ -101,6 +104,10 @@ namespace QuanLyTrungTam.Controllers
         public ActionResult Details(int id)
         {
             var _khoaHoc = new KhoaHocDao().ViewDetail(id);
+
+            _khoaHoc.GiaTien.ToString("0.#");
+
+
             return View(_khoaHoc);
         }
 
@@ -112,8 +119,8 @@ namespace QuanLyTrungTam.Controllers
         [HttpGet]
         public ActionResult CreateDetails()
         {
-            SetViewBagDMKHDetails();
-            SetViewBagGVDetails();
+            SetViewBagKH();
+            SetViewBagGV();
 
             return View();
         }
@@ -123,7 +130,7 @@ namespace QuanLyTrungTam.Controllers
         {
             try
             {
-                if(ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
                     // Create Data Access Object
                     var _khoaHocDao = new KhoaHocDao();
@@ -142,24 +149,25 @@ namespace QuanLyTrungTam.Controllers
                     khoaHoc.GiaTien = khoaHocDetails.KhoaHoc.GiaTien;
                     khoaHoc.MoTa = khoaHocDetails.KhoaHoc.MoTa;
                     khoaHoc.LuaTuoiPhuHop = khoaHocDetails.KhoaHoc.LuaTuoiPhuHop;
-                    khoaHoc.MaDanhMuc = khoaHocDetails.KhoaHoc.MaDanhMuc;
-                    khoaHoc.MaGiaoVien = khoaHocDetails.KhoaHoc.MaGiaoVien;
+                    khoaHoc.MaDanhMuc = khoaHocDetails.MaDanhMuc;
+                    khoaHoc.MaGiaoVien = khoaHocDetails.MaGiaoVien;
 
                     int idKH = _khoaHocDao.Insert(khoaHoc);
 
-                    // Thêm Danh muc khóa học
-                    //danhMuc.TenDanhMuc = khoaHocDetails.DanhMucKhoaHoc.TenDanhMuc;
 
-                    //int idDM = _danhMucDao.Insert(danhMuc);
-
-                    // Thêm thời khóa biểu
-                    thoiKhoaBieu.TuanBatDau = khoaHocDetails.ThoiKhoaBieu.TuanBatDau;
-                    thoiKhoaBieu.TuanKetThuc = khoaHocDetails.ThoiKhoaBieu.TuanKetThuc;
-                    thoiKhoaBieu.ThoiGianHoc = khoaHocDetails.ThoiKhoaBieu.ThoiGianHoc;
-
+                    //// Thêm thời khóa biểu
+                    thoiKhoaBieu.ThoiGianHoc = khoaHocDetails.ThoiGianHoc.ToString();
+                    thoiKhoaBieu.ThuHai = khoaHocDetails.ThuHai;
+                    thoiKhoaBieu.ThuBa = khoaHocDetails.ThuBa;
+                    thoiKhoaBieu.ThuTu = khoaHocDetails.ThuTu;
+                    thoiKhoaBieu.ThuNam = khoaHocDetails.ThuNam;
+                    thoiKhoaBieu.ThuSau = khoaHocDetails.ThuSau;
+                    thoiKhoaBieu.ThuBay = khoaHocDetails.ThuBay;
+                    thoiKhoaBieu.ChuNhat = khoaHocDetails.ChuNhat;
+                    thoiKhoaBieu.MaKhoaHoc = idKH;
                     int idTKB = _tkbDao.Insert(thoiKhoaBieu);
 
-                    if(idKH > 0 && idTKB > 0)
+                    if (idKH > 0 && idTKB > 0)
                     {
                         return RedirectToAction("Index", "KhoaHoc");
                     }
@@ -167,14 +175,14 @@ namespace QuanLyTrungTam.Controllers
                     {
                         ModelState.AddModelError("", "Xảy ra lỗi khi thêm khóa học");
                     }
-
-                    //SetViewBagDMKHDetails();
-                    //SetViewBagGVDetails();
-                    //SetViewBagGV();
+                    SetViewBagKH();
+                    SetViewBagGV();
                     return View(khoaHoc);
                 }
+
                 return RedirectToAction("Index", "KhoaHoc");
             }
+
             catch
             {
                 return View();
@@ -225,7 +233,7 @@ namespace QuanLyTrungTam.Controllers
                     var _khoaHocDao = new KhoaHocDao();
 
                     int _maKhoaHoc = _khoaHocDao.Insert(khoaHoc);
-                    
+
                     if (_maKhoaHoc > 0)
                     {
                         return RedirectToAction("Index", "KhoaHoc");
@@ -242,6 +250,42 @@ namespace QuanLyTrungTam.Controllers
             catch
             {
                 return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult EditSchedule(int id)
+        {
+            var _tkb = new ThoiKhoaBieuDao().ViewDetailsByMaKhoaHoc(id);
+
+            return View(_tkb);
+        }
+
+        [HttpPost]
+        public ActionResult EditSchedule(ThoiKhoaBieu tkb)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    var _tkbDao = new ThoiKhoaBieuDao();
+
+                    var res = _tkbDao.Update(tkb);
+                    if (res)
+                    {
+                        return RedirectToAction("Index", "KhoaHoc");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Cập nhật lỗi");
+                    }
+                }
+                return View(tkb);
+            }
+            catch
+            {
+                return RedirectToAction("Index", "KhoaHoc");
             }
         }
 
@@ -284,6 +328,40 @@ namespace QuanLyTrungTam.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult CreateSchedule(int id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateSchedule(ThoiKhoaBieu tkb, int id)
+        {
+            // TODO: Add insert logic here
+            if (ModelState.IsValid)
+            {
+                tkb.MaKhoaHoc = id;
+
+                var thoiKhoaBieuDao = new ThoiKhoaBieuDao();
+
+                int maTKB = thoiKhoaBieuDao.Insert(tkb);
+
+                if (maTKB > 0)
+                {
+                    return RedirectToAction("Index", "KhoaHoc");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Thêm thất bại");
+                }
+            }
+            SetViewBagKH();
+            SetViewBagGV();
+            return View(tkb);
+
+
+        }
+
         // GET: KhoaHoc/Delete/5
         public ActionResult Delete()
         {
@@ -303,7 +381,6 @@ namespace QuanLyTrungTam.Controllers
             }
             catch
             {
-
                 return View();
             }
         }
@@ -340,5 +417,80 @@ namespace QuanLyTrungTam.Controllers
             return View(listDanhMucKhoaHoc);
         }
 
+        public ActionResult ChiTietKhoaHoc(int id)
+        {
+            var details = new KhoaHocDetailsViewModels();
+
+            var khoaHocDao = new KhoaHocDao().ViewDetail(id);
+            var tkbDao = new ThoiKhoaBieuDao().getScheduleByCourse(khoaHocDao.MaKhoaHoc);
+
+            details.MaKhoaHoc = khoaHocDao.MaKhoaHoc;
+            details.TenKhoaHoc = khoaHocDao.TenKhoaHoc;
+            details.GiaTien = khoaHocDao.GiaTien;
+            details.GiaTien.ToString("0.#");
+            details.SoLuong = khoaHocDao.SoLuong.GetValueOrDefault(0);
+            details.NgayBatDau = khoaHocDao.NgayBatDau.GetValueOrDefault(DateTime.Now);
+            details.NgayKetThuc = khoaHocDao.NgayKetThuc.GetValueOrDefault(DateTime.Now);
+            details.TinhTrang = khoaHocDao.TinhTrang;
+            details.Mota = khoaHocDao.MoTa;
+            details.SoTuan = khoaHocDao.SoTuan.GetValueOrDefault(8);
+            details.LuaTuoiPhuHop = khoaHocDao.LuaTuoiPhuHop.GetValueOrDefault(18);
+            details.MaDanhMuc = khoaHocDao.MaDanhMuc.GetValueOrDefault(1);
+
+
+            if(tkbDao == null)
+            {
+                // Fix bug chưa tạo tkb
+                details.MaTKB = tkbDao.MaTKB;
+                details.ThuBa = tkbDao.ThuBa;
+                details.ThuTu = tkbDao.ThuTu;
+                details.ThuNam = tkbDao.ThuNam;
+                details.ThuSau = tkbDao.ThuSau;
+                details.ThuHai = tkbDao.ThuHai;
+                details.ThuBay = tkbDao.ThuBay;
+                details.ChuNhat = tkbDao.ChuNhat;
+                details.ThoiGianHoc = tkbDao.ThoiGianHoc;
+            }    
+            else
+            {
+                details.MaTKB = tkbDao.MaTKB;
+                details.ThuBa = tkbDao.ThuBa;
+                details.ThuTu = tkbDao.ThuTu;
+                details.ThuNam = tkbDao.ThuNam;
+                details.ThuSau = tkbDao.ThuSau;
+                details.ThuHai = tkbDao.ThuHai;
+                details.ThuBay = tkbDao.ThuBay;
+                details.ChuNhat = tkbDao.ChuNhat;
+                details.ThoiGianHoc = tkbDao.ThoiGianHoc;
+            }    
+            
+            return View(details);
+        }
+
+        [HttpGet]
+        public ActionResult EditCategoryCourse(int id)
+        {
+            var model = new DanhMucKhoaHocDao().ViewDetails(id);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult EditCategoryCourse(DanhMucKhoaHoc _danhMuc)
+        {
+            var _dao = new DanhMucKhoaHocDao();
+
+            var res = _dao.Update(_danhMuc);
+            if (res)
+            {
+                return RedirectToAction("Index", "KhoaHoc");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Cập nhật lỗi");
+            }
+
+            return View(_danhMuc);
+        }
     }
 }

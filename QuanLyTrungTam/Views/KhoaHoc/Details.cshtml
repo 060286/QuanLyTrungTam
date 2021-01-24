@@ -2,90 +2,52 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>KhoaHoc</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DanhMucKhoaHoc.TenDanhMuc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DanhMucKhoaHoc.TenDanhMuc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TenKhoaHoc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenKhoaHoc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TinhTrang)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TinhTrang)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MoTa)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MoTa)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MaHocVien)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MaHocVien)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MaGiaoVien)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MaGiaoVien)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SoTuan)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SoTuan)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LuaTuoiPhuHop)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LuaTuoiPhuHop)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model=>model.SoLuong)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model=>model.SoLuong)
-        </dd>
-
-    </dl>
+<div class="modal-header bg-olive">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" style="font-size:25px">Chi tiết khóa học</h4>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaKhoaHoc }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="modal-body form-horizontal">
+    <div class="container" margin-top: 20px">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 style="color:dodgerblue">Thông tin khóa học</h3>
+                <div class="col-md-4">
+                    <h4>Khóa học : @Model.MaKhoaHoc</h4>
+                    <h4>Tên khóa học : @Model.TenKhoaHoc</h4>
+                    <h4>Giá tiền: @Model.GiaTien VNĐ</h4>
+                    <h4>Số lượng: @Model.SoLuong</h4>
+                    <h4>Ngày bắt đầu: @Model.NgayBatDau</h4>
+                    <h4>Ngày kết thúc: @Model.NgayKetThuc</h4>
+                </div>
+                <div class="col-md-6">
+                    @if (Model.TinhTrang == true)
+                    {
+                        <h4>Tình Trạng: <span class="text-success">Hoạt động</span></h4>
+                    }
+                    else
+                    {
+                        <h4>Tình Trạng: <span class="text-danger">Hết chỗ</span></h4>
+                    }
+
+                    <h4>Mô tả: @Model.MoTa</h4>
+                    <h4>Số tuần: @Model.SoTuan</h4>
+                    <h4>Lứa tuổi phù hợp: @Model.LuaTuoiPhuHop</h4>
+                    <h4>Mã danh mục: @Model.MaDanhMuc</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <p>
+            @*<a href="~/GiaoVien/Edit/@Model.MaGiaoVien" class="btn btn-success">Sửa thông tin</a>*@
+            <a href="~/KhoaHoc/Index" class="btn btn-default">Quay lại</a>
+        </p>
+    </div>
+</div>
+

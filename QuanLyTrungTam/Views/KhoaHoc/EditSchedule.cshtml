@@ -1,0 +1,126 @@
+﻿@model Models.Framework.ThoiKhoaBieu
+
+@{
+    ViewBag.Title = "EditSchedule";
+    Layout =null;
+}
+
+<div class="modal-header bg-olive">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" style="font-size:25px; color:black">Chi tiết giáo viên</h4>
+</div>
+
+
+<div class="modal-body form-horizontal">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>ThoiKhoaBieu</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.MaTKB)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ThoiGianHoc, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ThoiGianHoc, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ThoiGianHoc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ThuHai, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(model => model.ThuHai)
+                    @Html.ValidationMessageFor(model => model.ThuHai, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ThuBa, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(model => model.ThuBa)
+                    @Html.ValidationMessageFor(model => model.ThuBa, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ThuTu, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(model => model.ThuTu)
+                    @Html.ValidationMessageFor(model => model.ThuTu, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ThuNam, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(model => model.ThuNam)
+                    @Html.ValidationMessageFor(model => model.ThuNam, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ThuSau, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(model => model.ThuSau)
+                    @Html.ValidationMessageFor(model => model.ThuSau, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ThuBay, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(model => model.ThuBay)
+                    @Html.ValidationMessageFor(model => model.ThuBay, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ChuNhat, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(model => model.ChuNhat)
+                    @Html.ValidationMessageFor(model => model.ChuNhat, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.HiddenFor(model => model.MaKhoaHoc, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.HiddenFor(model => model.MaKhoaHoc)
+                    @Html.ValidationMessageFor(model => model.MaKhoaHoc, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-1" style="margin-left:500px;margin-right:15px">
+                <input type="submit" value="Cập nhật" class="btn btn-success" />
+            </div>
+            <div class="col-md-1">
+                <a href="/KhoaHoc/Index" class="btn btn-danger">Hủy bỏ</a>
+            </div>
+        </div>
+    </div>
+    }
+
+</div>

@@ -35,7 +35,49 @@ namespace QuanLyTrungTam.Controllers
         public ActionResult Details(int id)
         {
             var hocVienDao = new HocVienDao().ViewDetails(id);
+
             return View(hocVienDao);
+        }
+
+        //public ActionResult ChiTiet(int id)
+        //{
+        //    var ctHV = new ChiTietHocVienModel();
+
+        //    var dao = new HocVienDao().ViewDetails(id);
+
+        //    ctHV.TenHocVien = dao.TenHocVien;
+        //    ctHV.HocVien.TenHocVien = dao.TenHocVien;
+        //    ctHV.HocVien.HinhAnh = dao.HinhAnh;
+        //    ctHV.HocVien.MaHVDD = dao.MaHVDD;
+        //    ctHV.HocVien.Email = dao.Email;
+        //    ctHV.HocVien.GioiTinh = dao.GioiTinh;
+        //    ctHV.HocVien.DiaChi = dao.DiaChi;
+        //    ctHV.HocVien.NgayDangKy = dao.NgayDangKy;
+        //    ctHV.HocVien.NgaySinh = dao.NgaySinh;
+        //    ctHV.HocVien.GhiChu = dao.GhiChu;
+        //    ctHV.HocVien.Nguon = dao.Nguon;
+
+        //    var daoPH = new PhuHuynhDao().getTwoElementPH(id);
+
+        //    IEnumerable<PhuHuynh> listPH = daoPH;
+
+        //    foreach(var item in listPH)
+        //    {
+        //        ctHV.PhuHuynh.TenPhuHuynh = item.TenPhuHuynh;
+        //        ctHV.PhuHuynh.SDT = item.SDT;
+        //        ctHV.PhuHuynh.GioiTinh = item.GioiTinh;
+        //        ctHV.PhuHuynh.Email = item.Email;
+        //    }
+
+        //    return View(ctHV);
+        //}
+
+        [HttpGet] 
+        public ActionResult GetSchedule(int id)
+        {
+            var dao = new ThoiKhoaBieuDao().ViewDetail(id);
+
+            return View();
         }
 
         
@@ -44,8 +86,6 @@ namespace QuanLyTrungTam.Controllers
         {
             GetViewBagLopHoc();
             var hocVienDao = new BangDiemDao().ViewDetail(id);
-
-            getId = id;
 
             return View(hocVienDao);
         }
@@ -161,14 +201,18 @@ namespace QuanLyTrungTam.Controllers
             var hocVienDao = new HocVienDao().ViewDetails(id);
             GetViewBagIdHocVien(hocVienDao.MaHocVien);
 
+
             var hoaDonDao = new HoaDonDao();
             var ct_HoaDonDao = new CT_HoaDonDao();
+            var khoaHocDao = new KhoaHocDao();
 
             var hoaDon = new HoaDon();
             var ct_HD = new CT_HoaDon();
             var khoaHoc = new KhoaHoc();
 
-            hoaDon.TongTien = khoaHoc.GiaTien * entity.CT_HoaDon.SoLuong;
+            khoaHoc.GiaTien = khoaHocDao.GiaTienKhoaHoc(maKhoaHoc);
+          
+            hoaDon.TongTien = (khoaHoc.GiaTien * 1);
             hoaDon.TinhTrang = entity.HoaDon.TinhTrang;
             hoaDon.MaHocVien = hocVienDao.MaHocVien;
             hoaDon.NgayLap = DateTime.Now;
@@ -183,10 +227,33 @@ namespace QuanLyTrungTam.Controllers
 
             int checkCTHD = ct_HoaDonDao.Insert(ct_HD);
 
+            var khoaHocDaoEmail = new KhoaHocDao().ViewDetail(maKhoaHoc);
+            var hocVienDaoEmail = new HocVienDao().ViewDetails(id);
+
             if(checkHD > 0 && checkCTHD > 0)
             {
+                khoaHocDao.DangKyKhoaHoc(maKhoaHoc);
                 SetAlert("Thêm thành công", 1);
-                return RedirectToAction("Index", "HocVien");
+                
+                if (hocVienDao.Email == null)
+                {
+                    return RedirectToAction("Index", "HocVien");
+                }
+                else
+                {
+                    string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/Email/DangKyKhoaHoc.html"));
+
+                    content = content.Replace("{{TenKH}}", khoaHocDaoEmail.TenKhoaHoc.ToString());
+                    content = content.Replace("{{TenHV}}", hocVienDaoEmail.TenHocVien.ToString());
+                    content = content.Replace("{{NgaySinh}}", hocVienDaoEmail.NgaySinh.ToString());
+                    content = content.Replace("{{SDT}}", hocVienDaoEmail.SDT.ToString());
+                    content = content.Replace("{{DiaChi}}", hocVienDaoEmail.DiaChi.ToString());
+                    content = content.Replace("{{NgayDangKy}}", hocVienDaoEmail.NgayDangKy.ToString());
+
+                    new MailHelper().SendMail(hocVienDao.Email, "Chào mừng em đã tham gia vào đại gia đình Đan Thanh!", content);
+                    //SetAlert("")
+                    return RedirectToAction("Index", "HocVien");
+                }
             }
             else
             {
@@ -238,8 +305,6 @@ namespace QuanLyTrungTam.Controllers
 
                         // Thêm học viên
                         int _maHocVien = _daoHocVien.Insert(hocVien);
-
-                        List<PhuHuynh> listPH = new List<PhuHuynh>();
 
                         for (int i = 0; i < 2; i++)
                         {
@@ -321,7 +386,7 @@ namespace QuanLyTrungTam.Controllers
                     var res = _daoGiaoVien.Update(hocVien);
                     if (res)
                     {
-                        return RedirectToAction("Index", "GiaoVien");
+                        return RedirectToAction("Index", "HocVien");
                     }
                     else
                     {
@@ -438,6 +503,37 @@ namespace QuanLyTrungTam.Controllers
             Response.AddHeader("content-disposition", "attachment: filename" + "HocVienReport.xlsx");
             Response.BinaryWrite(pck.GetAsByteArray());
             Response.End();
+        }
+
+        public ActionResult ChiTietHocVien(int id)
+        {
+            var hocVienDao = new HocVienDao().ViewDetails(id);
+
+            var details = new HocVienDetailsViewModels();
+
+            details.MaHocVien = hocVienDao.MaHocVien;
+            details.TenHocVien = hocVienDao.TenHocVien;
+            details.NgayDangKy = hocVienDao.NgaySinh;
+            details.NgayDangKy = hocVienDao.NgayDangKy;
+            details.SDT = hocVienDao.SDT;
+            details.Nguon = hocVienDao.Nguon;
+            details.HinhAnh = hocVienDao.HinhAnh;
+            details.GioiTinh = hocVienDao.GioiTinh;
+            details.GhiChu = hocVienDao.GhiChu;
+
+            ViewBag.MaHocVien = details.MaHocVien;
+
+            return View(details);
+        }
+
+        public ActionResult GetBillByStudent(int id)
+        {
+            var list = new HocVienDao().getListBillByStudent(id);
+
+            ViewBag.TenHocVien = new HocVienDao().ViewDetails(id).TenHocVien;
+            ViewBag.TongTien = new HocVienDao().TotalMoney(id);
+
+            return View(list);
         }
     }
 }
