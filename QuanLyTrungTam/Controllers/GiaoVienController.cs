@@ -172,7 +172,13 @@ namespace QuanLyTrungTam.Controllers
                         giaoVien.HinhAnh = hinhAnh.FileName;
                         var _daoGiaoVien = new GiaoVienDao();
                         giaoVien.NgayDangKy = DateTime.Now;
-                        giaoVien.QuocTich = "Việt Nam";
+
+                        if(string.IsNullOrEmpty(giaoVien.QuocTich))
+                        {
+                            giaoVien.QuocTich = "Việt Nam";
+                        }
+                        //giaoVien.QuocTich ??= "Việt Nam";
+
 
                         var encryptMd5Password = Encryptor.MD5Hash(giaoVien.MatKhau);
                         giaoVien.MatKhau = encryptMd5Password;
