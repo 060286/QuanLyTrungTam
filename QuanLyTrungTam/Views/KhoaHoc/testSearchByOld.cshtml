@@ -52,7 +52,7 @@
     </div>
     <div class="container">
         <div class="container">
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-6 col-md-6">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <div class="row">
@@ -67,8 +67,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="panel panel-primary">
+            <div class="col-lg-6 col-md-6">
+                <div class="panel panel-yellow">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
@@ -82,8 +82,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="panel panel-primary">
+            <div class="col-lg-6 col-md-6">
+                <div class="panel panel-danger">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
@@ -92,6 +92,21 @@
                             <div class="col-xs-9 text-right">
                                 <div class="huge">@ViewBag.KhoaHocHetCho</div>
                                 <div>Khóa học hết chỗ</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-users fa-4x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">@ViewBag.SoLuongCon</div>
+                                <div>Số lượng còn</div>
                             </div>
                         </div>
                     </div>
@@ -257,32 +272,10 @@
                     </div>*@
 
 
-                <a class="btn btn-success" href="@Url.Action("TaoMoiVaSuaDanhMuc","KhoaHoc")" data-toggle="modal" data-target="#modal-themMoi" data-backdrop="static" data-keyboard="false">Thêm khóa học</a>
-                <div class="modal fade" id="modal-themMoi">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                        </div>
-                    </div>
-                </div>
+               
 
 
-                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                    <thead>
-                        <tr>
-                            <th class="h3">STT</th>
-                            <th class="h3">Danh mục khóa học cha</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in list)
-                        {
-                            <tr>
-                                <td> @item.MaDanhMuc</td>
-                                <td style="color: green">@item.TenDanhMuc</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                
                 <br />
             </div>
         </div>

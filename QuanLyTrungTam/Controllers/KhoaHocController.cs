@@ -22,8 +22,12 @@ namespace QuanLyTrungTam.Controllers
             ViewBag.KhoaHocConCho = _context.KhoaHocs.Where(x => x.SoLuong > 0).Count();
             // Khóa học hết chỗ
             ViewBag.KhoaHocHetCho = _context.KhoaHocs.Where(x => x.SoLuong == 0).Count();
+
+           
             var _khoaHocDao = new KhoaHocDao();
             var _modelKhoaHoc = _khoaHocDao.ListAllPaging(searchString, page, pageSize);
+
+            ViewBag.SoLuongCon = _khoaHocDao.CountQuantityRemaining();
             ViewBag.SearchString = searchString;
 
 

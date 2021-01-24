@@ -112,8 +112,8 @@
                                 <i class="fa fa-users fa-4x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">@ViewBag.KhoaHocHetCho</div>
-                                <div>Khóa học hết chỗ</div>
+                                <div class="huge">@ViewBag.SoLuongCon</div>
+                                <div>Số lượng còn</div>
                             </div>
                         </div>
                     </div>
@@ -321,35 +321,7 @@
                     </div>*@
 
 
-                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                    <thead>
-                        <tr>
-                            <th class="h3">STT</th>
-                            <th class="h3">Danh mục khóa học cha</th>
-                            <th class="h3">Chức năng</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in list)
-                        {
-                            <tr>
-                                <td> @item.MaDanhMuc</td>
-                                <td style="color: green">@item.TenDanhMuc</td>
-                                <td>
-                                    <a href="/KhoaHoc/EditCategoryCourse/@item.MaDanhMuc" class="btn btn-primary"
-                                       data-toggle="modal" data-target="#modal-capNhatDanhmuc-@item.MaDanhMuc"
-                                       data-backdrop="static" data-keyboard="false">Sửa</a>
-                                    <div class="modal fade" id="modal-capNhatDanhmuc-@item.MaDanhMuc">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                
                 <br />
             </div>
         </div>

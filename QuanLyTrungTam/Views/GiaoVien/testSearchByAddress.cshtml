@@ -105,7 +105,7 @@
 
     <div class="container">
         <div class="container">
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-6 col-md-6">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <div class="row">
@@ -120,7 +120,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-6 col-md-6">
                 <div class="panel panel-green">
                     <div class="panel-heading">
                         <div class="row">
@@ -135,7 +135,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-6 col-md-6">
                 <div class="panel panel-yellow">
                     <div class="panel-heading">
                         <div class="row">
@@ -151,24 +151,21 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="row">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-red">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-support fa-4x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">@ViewBag.TongTienLuong</div>
-                                        @*<div class="huge">@QuanLyTrungTam.Common.Format.FormatCurrencyVND(ViewBag.TongTienLuong)</div>*@
-                                        <div>Tổng tiền lương (VNĐ)</div>
-                                    </div>
-                                </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="panel panel-red">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-support fa-4x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">@ViewBag.TongTienLuong</div>
+                                @*<div class="huge">@QuanLyTrungTam.Common.Format.FormatCurrencyVND(ViewBag.TongTienLuong)</div>*@
+                                <div>Tổng tiền lương (VNĐ)</div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -291,7 +288,7 @@
                                                 </td>
                                                 <td class="text-center">@item.MucLuong</td>
                                                 <td class="text-center">@item.GioiTinh</td>
-                                               
+
                                                 <td class="text-center">@item.Email</td>
                                                 <td class="text-center">@item.SDT</td>
                                                 <td class="text-center" style="color:green">@(item.TrangThai.GetValueOrDefault(false)? "Hoạt động" : "Khóa")</td>
