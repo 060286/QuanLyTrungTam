@@ -173,5 +173,12 @@ namespace Models.DAO
                 return false;
             }
         }
+
+        public int CountQuantityRemaining()
+        {
+            int? count = _context.KhoaHocs.Where(x => x.TinhTrang == true)
+                .Sum(i => i.SoLuong);
+            return count.GetValueOrDefault(0);
+        }
     }
 }

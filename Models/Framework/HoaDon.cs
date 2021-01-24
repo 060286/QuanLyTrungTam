@@ -33,13 +33,13 @@
         [DisplayName("Trạng thái")]
         public bool TinhTrang { get; set; } = true;
 
-        [DisplayName("Mã khóa học")]
+        [DisplayName("Chọn khóa học")]
         public int? MaKhoaHoc { get; set; }
 
-        [DisplayName("Mã lớp học")]
+        [DisplayName("Chọn lớp học")]
         public int? MaLopHoc { get; set; }
 
-        [DisplayName("Mã học viên" )]
+        [DisplayName("Chọn học viên" )]
         public int? MaHocVien { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
